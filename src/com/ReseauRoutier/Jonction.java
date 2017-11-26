@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 public class Jonction extends ElementRoute {
 	
+	//test123
 	private static int j_id = 1;
 	private int id;
 	private ArrayList<Voisin> voisins = new ArrayList<Voisin>();
