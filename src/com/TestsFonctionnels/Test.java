@@ -21,7 +21,6 @@ public class Test {
 //		
 //		System.out.println("Element 0 = " + r.getElements().get(0));
 
-		//TEST change
 		
 	}
 
