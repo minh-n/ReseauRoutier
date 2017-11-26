@@ -74,7 +74,7 @@ public class SegmentDeRoute extends ElementRoute{
 
 	@Override
 	public String toString() {
-		return "SegmentDeRoute [longueur=" + this.longueur + ", troncons=" + this.troncons + "]";
+		return "Segment [longueur=" + this.longueur + ", troncons=" + this.troncons + "]";
 	}
 	
 	public void afficherSegment()

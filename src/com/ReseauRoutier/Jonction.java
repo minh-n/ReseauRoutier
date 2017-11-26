@@ -8,81 +8,61 @@ public class Jonction extends ElementRoute {
 	
 	private static int j_id = 1;
 	private int id;
-	private HashMap<Jonction, SegmentDeRoute> aiguillage;
+	private ArrayList<Voisin> voisins = new ArrayList<Voisin>();
+	//private HashMap<Jonction, SegmentDeRoute> aiguillage;
 	
 	public Jonction()
 	{
-		aiguillage = new HashMap<>();
+		//aiguillage = new HashMap<>();
 		setId(j_id);
 		j_id+= 1;
 	}
 
-	public Jonction(ArrayList<Jonction> voisins)
-	{
-		aiguillage = new HashMap<>();
-		setId(j_id);
-		j_id+= 1;
-		
-		//on cree un segment de route qui connecte cette jonction (this)
-		//et un des voisins (j)
-		for (Jonction j:voisins){
-			SegmentDeRoute nouvSegment = new SegmentDeRoute(1, 10);
-			aiguillage.put(j, nouvSegment);
-			j.getAiguillage().put(this, nouvSegment);
-		}
-	}
+//	public Jonction(ArrayList<Jonction> jonctions)
+//	{
+//		setId(j_id);
+//		j_id+= 1;
+//		
+//		//on cree un segment de route qui connecte cette jonction (this)
+//		//et un des voisins (j)
+//		for (Jonction j:jonctions){
+//			SegmentDeRoute nouvSegment = new SegmentDeRoute(1, 10);
+//			Voisin v = new Voisin(j, nouvSegment, 1, 2);
+//			j.getVoisins().add(new Voisin(this, nouvSegment, 2, 1));
+//		}
+//	}
 	
-	
-	public void addVoisin(Jonction voisin)
+	/**
+	 * ajout d'un voisin
+	 * @param j
+	 */
+	public void addVoisin(Jonction j)
 	{
 		SegmentDeRoute nouvSegment = new SegmentDeRoute(1, 10);
-		
-
-		
-		aiguillage.put(voisin, nouvSegment);
-		System.out.println("segment créé ! ");
-
-		SegmentDeRoute a = aiguillage.get(voisin);
-		System.out.println("a = ");
-		a.afficherSegment();
-		
-
-		//on cree un segment de route qui connecte cette jonction (this)
-		//et le voisin voisin
-		voisin.getAiguillage().put(this, nouvSegment);
+		Voisin v = new Voisin(j, nouvSegment, 1, 2);
+		this.voisins.add(v);
+		j.getVoisins().add(new Voisin(this, nouvSegment, 2, 1));
 	}
-
-
-	public HashMap<Jonction, SegmentDeRoute> getAiguillage() {
-		return aiguillage;
-	}
-
-	public void setAiguillage(HashMap<Jonction, SegmentDeRoute> aiguillage) {
-		this.aiguillage = aiguillage;
-	}
-
-	/**-
-	 * STACK OVERFLOW pour certaines raisons.
+	
+	/**
+	 * ajout de plusieurs voisins
+	 * @param jonctions
 	 */
-	@Override
-	public String toString() {
-		return aiguillage.toString();
+	public void addVoisin(ArrayList<Jonction> jonctions)
+	{
+		for (Jonction j:jonctions){
+			SegmentDeRoute nouvSegment = new SegmentDeRoute(1, 10);
+			Voisin v = new Voisin(j, nouvSegment, 1, 2);
+			voisins.add(v);
+			j.getVoisins().add(new Voisin(this, nouvSegment, 2, 1));
+		}
 	}
-	
 
-	// NE MARCHE PAS !!!!!!!!!!! on ne peut pas afficher entry ou stack overflow 
-	
 	public void afficherJonction() {
-		System.out.println("Jonction n°" + id +"\n"
-				+ "Voisin 1 : " );
-		
-		Iterator<HashMap.Entry<Jonction, SegmentDeRoute>> it = aiguillage.entrySet().iterator();
-		while (it.hasNext()) {
-			  HashMap.Entry<Jonction, SegmentDeRoute> entry = it.next();
-
-			
-			}
-		
+		System.out.println("Jonction n" + id);
+		for (Voisin v : this.voisins){
+			System.out.println(v.toString());
+		}
 	}
 
 	public int getId() {
@@ -91,6 +71,14 @@ public class Jonction extends ElementRoute {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public ArrayList<Voisin> getVoisins() {
+		return voisins;
+	}
+
+	public void setVoisins(ArrayList<Voisin> voisins) {
+		this.voisins = voisins;
 	}
 	
 	
