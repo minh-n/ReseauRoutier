@@ -45,9 +45,7 @@ public class SegmentDeRoute extends ElementRoute{
 		}
 		
 	}
-	
-	
-	
+		
 	public int getLongueur() {
 		return longueur;
 	}

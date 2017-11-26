@@ -10,20 +10,7 @@ public class Voiture {
 		inc++;
 		this.id = inc;
 	}
-
 	
-//	public static void main(String[] args) {
-//		// TODO Auto-generated method stub
-//		Voiture v = new Voiture();
-//		System.out.println(v.toString());
-//		
-//		Voiture v1 = new Voiture();
-//
-//		System.out.println(v1.toString());
-//		System.out.println(v.toString());
-//
-//	}
-
 	@Override
 	public String toString() {
 		return "Voiture [id=" + id + ", vMax=" + vMax + ", longeur=" + longeur + "]";
@@ -49,11 +36,9 @@ public class Voiture {
 		this.vMax = vMax;
 	}
 
-
 	public int getLongeur() {
 		return longeur;
 	}
-
 
 	public void setLongeur(int longeur) {
 		this.longeur = longeur;

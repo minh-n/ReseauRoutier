@@ -18,20 +18,6 @@ public class Jonction extends ElementRoute {
 		j_id+= 1;
 	}
 
-//	public Jonction(ArrayList<Jonction> jonctions)
-//	{
-//		setId(j_id);
-//		j_id+= 1;
-//		
-//		//on cree un segment de route qui connecte cette jonction (this)
-//		//et un des voisins (j)
-//		for (Jonction j:jonctions){
-//			SegmentDeRoute nouvSegment = new SegmentDeRoute(1, 10);
-//			Voisin v = new Voisin(j, nouvSegment, 1, 2);
-//			j.getVoisins().add(new Voisin(this, nouvSegment, 2, 1));
-//		}
-//	}
-	
 	/**
 	 * ajout d'un voisin
 	 * @param j
@@ -45,7 +31,7 @@ public class Jonction extends ElementRoute {
 	}
 	
 	/**
-	 * ajout de plusieurs voisins
+	 * ajout de plusieurs voisins contenus dans une liste
 	 * @param jonctions
 	 */
 	public void addVoisin(ArrayList<Jonction> jonctions)
