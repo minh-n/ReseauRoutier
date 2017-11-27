@@ -75,6 +75,9 @@ public class SegmentDeRoute extends ElementRoute{
 		return "Segment [longueur=" + this.longueur + ", troncons=" + this.troncons + "]";
 	}
 	
+	/**
+	 * Afficher le contenu d'un segment.
+	 */
 	public void afficherSegment()
 	{
 		System.out.println("[longueur = " + this.longueur 
