@@ -4,7 +4,9 @@ public class Voiture {
 	private static int inc = 0;
 	private int id;
 	private int vMax;
-	private int longeur;
+	private int longeur; //permet de faire de plus longues voitures (camions)
+	
+	private Troncon tronconActuel;
 	
 	public Voiture(){
 		inc++;
@@ -42,6 +44,14 @@ public class Voiture {
 
 	public void setLongeur(int longeur) {
 		this.longeur = longeur;
+	}
+
+	public Troncon getTronconActuel() {
+		return tronconActuel;
+	}
+
+	public void setTronconActuel(Troncon tronconActuel) {
+		this.tronconActuel = tronconActuel;
 	}
 
 	

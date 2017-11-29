@@ -33,4 +33,20 @@ public class Troncon {
 	{
 		return "Troncon id = " + id;
 	}
+
+	public Capteur getCapteur() {
+		return capteur;
+	}
+
+	public void setCapteur(Capteur capteur) {
+		this.capteur = capteur;
+	}
+
+	public Semaphore getSemaphore() {
+		return semaphore;
+	}
+
+	public void setSemaphore(Semaphore semaphore) {
+		this.semaphore = semaphore;
+	}
 }

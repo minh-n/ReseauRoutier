@@ -11,6 +11,8 @@ public class SegmentDeRoute extends ElementRoute{
 	private ArrayList<Troncon> troncons;
 	private ArrayList<Jonction> jonctions;
 	
+	private ArrayList<Voiture> mesVoitures;
+		
 	public SegmentDeRoute()
 	{
 		this.troncons = new ArrayList<Troncon>();
@@ -98,6 +100,24 @@ public class SegmentDeRoute extends ElementRoute{
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public ArrayList<Voiture> getMesVoitures() {
+		return mesVoitures;
+	}
+
+	public void setMesVoitures(ArrayList<Voiture> mesVoitures) {
+		this.mesVoitures = mesVoitures;
+	}
+	
+	public void addVoiture(Voiture v)
+	{
+		mesVoitures.add(v);
+	}
+	
+	public void removeVoiture(Voiture v)
+	{
+		mesVoitures.remove(v);
 	}
 	
 }
