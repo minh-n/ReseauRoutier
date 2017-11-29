@@ -1,8 +1,6 @@
 package com.ReseauRoutier;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 
 public class Jonction extends ElementRoute {
 	
