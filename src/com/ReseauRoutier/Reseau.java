@@ -6,25 +6,14 @@ public class Reseau {
 	
 	
 	
-	private ArrayList<SegmentDeRoute> segments;
 	private ArrayList<Jonction> jonctions;
 	
 	
 
 	public Reseau()
 	{
-		segments = new ArrayList<SegmentDeRoute>();
 		jonctions = new ArrayList<Jonction>();
 
-	}
-	
-	
-	public ArrayList<SegmentDeRoute> getSegments() {
-		return segments;
-	}
-	
-	public void setSegments(ArrayList<SegmentDeRoute> segments) {
-		this.segments = segments;
 	}
 	
 	public ArrayList<Jonction> getJonctions() {
@@ -48,7 +37,16 @@ public class Reseau {
 		Jonction j6 = new Jonction(); //embranchement carrefour
 		
 		Jonction j7 = new Jonction(); //voisin de J6
+		
+		jonctions.add(j1);
+		jonctions.add(j2);
+		jonctions.add(j3);
+		jonctions.add(j4);
+		jonctions.add(j5);
+		jonctions.add(j6);
+		jonctions.add(j7);
 
+		
 		//ArrayList des elem du carrefour
 		ArrayList<Jonction> jonctionsRoute = new ArrayList<Jonction>();
 		jonctionsRoute.add(j4);
@@ -57,8 +55,6 @@ public class Reseau {
 
 		/*CREATION RESEAU*/
 		
-		
-
 		j2.addVoisin(j1); //creation lien entre j1 et j2
 		j2.addVoisin(j3); //creation lien entre j2 et j3
 		

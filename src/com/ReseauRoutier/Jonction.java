@@ -21,7 +21,7 @@ public class Jonction extends ElementRoute {
 	 */
 	public void addVoisin(Jonction j)
 	{
-		SegmentDeRoute nouvSegment = new SegmentDeRoute(1, 10);
+		SegmentDeRoute nouvSegment = new SegmentDeRoute(5, 20);
 		Voisin v = new Voisin(j, nouvSegment, 1, 2);
 		this.voisins.add(v);
 		j.getVoisins().add(new Voisin(this, nouvSegment, 2, 1));

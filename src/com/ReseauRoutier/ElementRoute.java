@@ -1,6 +1,8 @@
 package com.ReseauRoutier;
 
-public abstract class ElementRoute {
+import java.util.Observable;
+
+public abstract class ElementRoute extends Observable {
 
 	
 	
