@@ -8,8 +8,8 @@ public class SegmentDeRoute extends ElementRoute{
 	private static int s_id = 1;
 	private int id;
 	private int longueur;
-	private Jonction jonction1;
-	private Jonction jonction2;
+	private int sens1;
+	private int sens2;
 	
 	private ArrayList<Troncon> troncons;
 	private ArrayList<Voiture> mesVoitures;
@@ -60,46 +60,10 @@ public class SegmentDeRoute extends ElementRoute{
 	 * @param n
 	 * @return
 	 */
-	public Troncon avancerDeNTroncons(int depart, int n)
-	{
-		
-		
-		//TODO
-		
-		/*
-		 * 
-		 * d = depart+n
-		 * if d > max(troncontailleMax)
-		 * 
-		 * on prend la distance entre depart et tronconTailleMax, et on l'enleve
-		 * de d.
-		 * 
-		 * le reste on enleve 1 (jonction) et on le met sur la route suivante.
-		 * ne pas oublier de update la voiture avec la nouvelle route 
-		 * et les nouvelles jonctions (how? jsp)
-		 * 
-		 * 
-		 * 
-		 */
-		
-		
-		/**
-		 * TODO : conditions de jonction.
-		 * 
-		 * si jonction.getVoisins().size() == 1 c'est une barriere. Demi tour
-		 * 
-		 * si jonction.getVoisin().size() > 2 c'est un carrouf
-		 * dans ce cas, on get un voisin random entre 0 et voisin.size();
-
-		 * 
-		 */
-		
-		
-		return troncons.get(depart + n); 
-		
-		
-	}
-	
+//	public Troncon avancerDeNTroncons(int depart, int n)
+//	{		
+//		return troncons.get(depart + n); 
+//	}	
 	
 	public int getLongueur() {
 		return longueur;
@@ -166,6 +130,7 @@ public class SegmentDeRoute extends ElementRoute{
 		/**
 		 * TODO faire les sens
 		 */
+		v.setSens(sens1);
 		
 		v.setRouteActuelle(this);
 		boolean occupe = true;
@@ -200,25 +165,26 @@ public class SegmentDeRoute extends ElementRoute{
 	
 	public void suppressionVoiture(Voiture v)
 	{
-		v.setRouteActuelle(null);
-		v.setTronconActuel(null);
+		v.setRouteActuelle(null); //??
+		v.setTronconActuel(null); //TODO tout
 		mesVoitures.remove(v);
 	}
 
-	public Jonction getJonction1() {
-		return jonction1;
+	public int getSens1() {
+		return sens1;
 	}
 
-	public void setJonction1(Jonction jonction1) {
-		this.jonction1 = jonction1;
+	public void setSens1(int sens1) {
+		this.sens1 = sens1;
 	}
 
-	public Jonction getJonction2() {
-		return jonction2;
+	public int getSens2() {
+		return sens2;
 	}
 
-	public void setJonction2(Jonction jonction2) {
-		this.jonction2 = jonction2;
+	public void setSens2(int sens2) {
+		this.sens2 = sens2;
 	}
-	
+
+
 }

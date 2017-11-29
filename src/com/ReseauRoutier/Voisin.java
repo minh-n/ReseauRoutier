@@ -4,8 +4,7 @@ public class Voisin {
 	
 	private Jonction jonction;
 	private SegmentDeRoute segment;
-	private int sensDep;
-	private int sensArr;
+
 	
 	
 	public Voisin()
@@ -17,8 +16,8 @@ public class Voisin {
 	{
 		this.jonction = j;
 		this.segment = s;
-		this.setSensDep(dep);
-		this.setSensArr(arr);
+		this.segment.setSens1(dep);
+		this.segment.setSens2(arr);
 	}
 	
 	public Jonction getJonction() {
@@ -36,23 +35,7 @@ public class Voisin {
 	
 	@Override
 	public String toString() {
-		return "Voisin [jonction=" + jonction.getId() + ", segment=" + segment.toString() + ", dep=" + sensDep + "]";
-	}
-
-	public int getSensDep() {
-		return sensDep;
-	}
-
-	public void setSensDep(int sensDep) {
-		this.sensDep = sensDep;
-	}
-
-	public int getSensArr() {
-		return sensArr;
-	}
-
-	public void setSensArr(int sensArr) {
-		this.sensArr = sensArr;
+		return "Voisin [jonction=" + jonction.getId() + ", segment=" + segment.toString() + "]";
 	}
 
 }

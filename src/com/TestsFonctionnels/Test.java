@@ -51,18 +51,18 @@ public class Test {
 		
 		//TODO gerer les collisions
 		
-		System.out.println("*****************************\nBOUGER (non fonctionnel)");
-		System.out.println("\nOn avance de vitesse = 2");
-		v.avancer();
-		
-		System.out.println("Position de la voiture :");
-		System.out.println("Troncon no : " + v.getTronconActuel().getId());
-		
-		System.out.println("\nOn avance de vitesse = 2");
-		v.avancer();
-		
-		System.out.println("Position de la voiture :");
-		System.out.println("Troncon no : " + v.getTronconActuel().getId());
+//		System.out.println("*****************************\nBOUGER (non fonctionnel)");
+//		System.out.println("\nOn avance de vitesse = 2");
+//		v.avancer();
+//		
+//		System.out.println("Position de la voiture :");
+//		System.out.println("Troncon no : " + v.getTronconActuel().getId());
+//		
+//		System.out.println("\nOn avance de vitesse = 2");
+//		v.avancer();
+//		
+//		System.out.println("Position de la voiture :");
+//		System.out.println("Troncon no : " + v.getTronconActuel().getId());
 		
 		
 	}
