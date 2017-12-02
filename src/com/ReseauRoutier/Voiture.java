@@ -17,17 +17,6 @@ public class Voiture {
 		this.setVitesse(v);
 	}
 	
-//	public int avancer()
-//	{
-//		
-//		Troncon newTroncon = routeActuelle.avancerDeNTroncons(tronconActuel.getId(), this.vitesse);
-//		this.setTronconActuel(newTroncon);
-//		return 0;
-//	}
-	
-	
-	
-	
 	@Override
 	public String toString() {
 		return "Voiture [id=" + id + ", vMax=" + vMax + ", longeur=" + longeur + "]";

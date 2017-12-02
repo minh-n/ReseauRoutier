@@ -102,30 +102,6 @@ public class SegmentDeRoute extends ElementRoute{
 		v.setTronconActuel(null); //TODO tout
 		mesVoitures.remove(v);
 	}
-
-	
-	
-	
-	/**
-	 * Retourne un troncon. Permet de trouver le troncon d'arrivee
-	 * a partir d'un troncon de depart et d'un decalage de n.
-	 * @param depart
-	 * @param n
-	 * @return
-	 */
-//	public Troncon avancerDeNTroncons(int depart, int n)
-//	{		
-//		return troncons.get(depart + n); 
-//	}	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public int getLongueur() {
 		return longueur;
