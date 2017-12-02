@@ -140,11 +140,12 @@ public class SegmentDeRoute extends ElementRoute{
 			occupe = verifOccupe(i);
 			if (occupe == false)
 			{
-				//TODO bizarre de devoir faire un break
+				//TODO bizarre de devoir faire un break ?
+
 				break;
 			}
 			
-				i++;
+			i++;
 		}while(occupe);
 		v.setTronconActuel(troncons.get(i));
 		mesVoitures.add(v);

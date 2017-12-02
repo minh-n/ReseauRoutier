@@ -18,9 +18,9 @@ public class Test {
 		System.out.println("*******____\\\\\\\\\\FIN DE LA CREATION DU RESEAU////////_______*************\n\n\n\n\n\n"
 				+ "\n\n\n\nAJOUT VOITURES --------------------- \n");
 		
-		Voiture v = new Voiture(2);
-		Voiture v2 = new Voiture(3);
-		Voiture v3 = new Voiture(1);
+		Voiture v = new Voiture(2, 1);
+		Voiture v2 = new Voiture(3, 1);
+		Voiture v3 = new Voiture(1, 1);
 		
 		r.getJonctions().get(0).getVoisins().get(0).getSegment().ajoutVoiture(v);	
 		r.getJonctions().get(0).getVoisins().get(0).getSegment().ajoutVoiture(v2);	

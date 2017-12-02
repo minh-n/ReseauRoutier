@@ -80,14 +80,13 @@ public class Jonction extends ElementRoute {
 	
 	public void decrementerTroncon(SegmentDeRoute s, Voiture v)
 	{
-		//qqc comme setTronconActuel(s.getTroncons.get(depart - vitesse)); 
+		v.setTronconActuel(s.getTroncons().get(v.getTronconActuel().getId() - v.getVitesse())); 
 	}
 	
 	
 	public void incrementerTroncon(SegmentDeRoute s, Voiture v)
 	{
-		//qqc comme setTronconActuel(s.getTroncons.get(depart + vitesse)); 
-
+		v.setTronconActuel(s.getTroncons().get(v.getTronconActuel().getId() + v.getVitesse())); 
 	}
 	
 	//TODO

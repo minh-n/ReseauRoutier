@@ -15,12 +15,6 @@ public class Troncon {
 		setId(t_id);
 		t_id +=1;
 	}
-	
-	public Troncon(int id)
-	{
-		setId(id);
-	}
-
 
 	public int getId() {
 		return id;
