@@ -53,6 +53,62 @@ public class SegmentDeRoute extends ElementRoute{
 		
 	}
 	
+	
+	/**
+	 * Ajoute une voiture a ce segment de route. 
+	 * Prend en compte l'occupation d'un segment.
+	 * @param v
+	 */
+	public void ajoutVoiture(Voiture v)
+	{
+		
+		/**
+		 * TODO faire les sens
+		 */
+		v.setSens(sens1);
+		
+		v.setRouteActuelle(this);
+		boolean occupe = true;
+		int i = 0;
+		do
+		{
+			occupe = verifOccupe(i);
+			if (occupe == false)
+			{
+				//TODO bizarre de devoir faire un break ?
+
+				break;
+			}
+			
+			i++;
+		}while(occupe);
+		v.setTronconActuel(troncons.get(i));
+		mesVoitures.add(v);
+	}
+	
+	public boolean verifOccupe(int n)
+	{
+		for(Voiture voit : mesVoitures)
+		{
+			if (n == voit.getTronconActuel().getId()) //si le troncon numero n correspond a un troncon occupe par une voiture
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public void suppressionVoiture(Voiture v)
+	{
+		v.setRouteActuelle(null); //??
+		v.setTronconActuel(null); //TODO tout
+		mesVoitures.remove(v);
+	}
+
+	
+	
+	
 	/**
 	 * Retourne un troncon. Permet de trouver le troncon d'arrivee
 	 * a partir d'un troncon de depart et d'un decalage de n.
@@ -64,6 +120,15 @@ public class SegmentDeRoute extends ElementRoute{
 //	{		
 //		return troncons.get(depart + n); 
 //	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public int getLongueur() {
 		return longueur;
@@ -119,58 +184,6 @@ public class SegmentDeRoute extends ElementRoute{
 		this.mesVoitures = mesVoitures; //TODO manque setRouteActuelle?
 	}
 	
-	/**
-	 * Ajoute une voiture a ce segment de route. 
-	 * Prend en compte l'occupation d'un segment.
-	 * @param v
-	 */
-	public void ajoutVoiture(Voiture v)
-	{
-		
-		/**
-		 * TODO faire les sens
-		 */
-		v.setSens(sens1);
-		
-		v.setRouteActuelle(this);
-		boolean occupe = true;
-		int i = 0;
-		do
-		{
-			occupe = verifOccupe(i);
-			if (occupe == false)
-			{
-				//TODO bizarre de devoir faire un break ?
-
-				break;
-			}
-			
-			i++;
-		}while(occupe);
-		v.setTronconActuel(troncons.get(i));
-		mesVoitures.add(v);
-	}
-	
-	public boolean verifOccupe(int n)
-	{
-		for(Voiture voit : mesVoitures)
-		{
-			if (n == voit.getTronconActuel().getId()) //si le troncon numero n correspond a un troncon occupe par une voiture
-			{
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
-	public void suppressionVoiture(Voiture v)
-	{
-		v.setRouteActuelle(null); //??
-		v.setTronconActuel(null); //TODO tout
-		mesVoitures.remove(v);
-	}
-
 	public int getSens1() {
 		return sens1;
 	}

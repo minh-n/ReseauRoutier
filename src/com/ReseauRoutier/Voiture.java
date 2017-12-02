@@ -11,11 +11,10 @@ public class Voiture {
 	private Troncon tronconActuel;
 	private SegmentDeRoute routeActuelle;
 	
-	public Voiture(int v, int s){
+	public Voiture(int v){
 		v_id++;
 		this.id = v_id;
 		this.setVitesse(v);
-		this.setSens(s);
 	}
 	
 //	public int avancer()

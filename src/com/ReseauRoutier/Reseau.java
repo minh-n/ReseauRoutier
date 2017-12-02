@@ -46,7 +46,6 @@ public class Reseau {
 		jonctions.add(j6);
 		jonctions.add(j7);
 
-		
 		//ArrayList des elem du carrefour
 		ArrayList<Jonction> jonctionsRoute = new ArrayList<Jonction>();
 		jonctionsRoute.add(j4);
