@@ -2,8 +2,14 @@ package com.ReseauRoutier;
 
 import java.util.ArrayList;
 
+import com.ReseauRoutier.Jonction.Voisin;
+
 public class Jonction extends ElementRoute {
 	
+	public class Voisin {
+
+	}
+
 	private static int j_id = 1;
 	private int id;
 	private ArrayList<Voisin> voisins = new ArrayList<Voisin>();
