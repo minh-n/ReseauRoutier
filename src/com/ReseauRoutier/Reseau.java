@@ -56,7 +56,11 @@ public class Reseau {
 		
 		j2.addVoisin(j1); //creation lien entre j1 et j2
 		j2.addVoisin(j3); //creation lien entre j2 et j3
-		
+		j4.addVoisin(j3); //creation lien entre j6 et j7
+		j5.addVoisin(j4); //creation lien entre j6 et j7
+		j6.addVoisin(j5); //creation lien entre j6 et j7
+		j7.addVoisin(j6); //creation lien entre j6 et j7
+		j7.addVoisin(j1); //creation lien entre j6 et j7
 		
 		System.out.println("Voisins de J1 ! \n --------------------------");
 
@@ -72,13 +76,22 @@ public class Reseau {
 				
 		System.out.println("Voisins de J3, un carrefour ! \n --------------------------");
 
-		j3.addVoisin(jonctionsRoute); //creation lien entre j3 et j4, j5, j6
+	//	j3.addVoisin(jonctionsRoute); //creation lien entre j3 et j4, j5, j6
 		j3.afficherJonction();
 		System.out.println("\nVoisins de J3 fini ! \n-----------------------------");
 
+		j4.afficherJonction();
+
+		System.out.println("\nVoisins de J4 fini ! \n-----------------------------");
 		
-		j6.addVoisin(j7); //creation lien entre j6 et j7
 		
+		System.out.println("Voisins de J5 ! \n --------------------------");
+
+		j5.afficherJonction();
+		
+		System.out.println("\nVoisins de J5 fini ! \n-----------------------------");
+		
+	
 		System.out.println("Voisins de J6 ! \n --------------------------");
 
 		j6.afficherJonction();
@@ -90,6 +103,8 @@ public class Reseau {
 		j7.afficherJonction();
 		
 		System.out.println("\nVoisins de J7 fini ! \n-----------------------------");
+		
+
 		
 		
 		return true;

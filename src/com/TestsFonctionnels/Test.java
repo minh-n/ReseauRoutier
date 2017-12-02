@@ -19,8 +19,8 @@ public class Test {
 				+ "\n\n\n\nAJOUT VOITURES --------------------- \n");
 		
 		Voiture v = new Voiture(2);
-		Voiture v2 = new Voiture(4);
-		Voiture v3 = new Voiture(5);
+		Voiture v2 = new Voiture(6);
+		Voiture v3 = new Voiture(10);
 		
 		r.getJonctions().get(0).getVoisins().get(0).getSegment().ajoutVoiture(v,1);	
 		r.getJonctions().get(0).getVoisins().get(0).getSegment().ajoutVoiture(v2,1);	
@@ -101,8 +101,8 @@ public class Test {
 		System.out.println("++++++++++++++++QUATRIEME ITERATION++++++++++++++++\n");
 
 		r.getJonctions().get(0).deplacerVoiture();
-		r.getJonctions().get(1).deplacerVoiture();
-		r.getJonctions().get(2).deplacerVoiture();
+		//r.getJonctions().get(1).deplacerVoiture();
+		//r.getJonctions().get(2).deplacerVoiture();
 
 		//r.getJonctions().get(2).deplacerVoiture(); pour certaines raisons ca fait un indexoutofbound exception
 
@@ -122,6 +122,20 @@ public class Test {
 		affichagePosition(v2);
 		affichagePosition(v3);
 		
+		System.out.println("\n");
+		
+		
+		System.out.println("++++++++++++++++CINQIUEME ITERATION++++++++++++++++\n");
+
+		r.getJonctions().get(0).deplacerVoiture();
+		voituresPresentes(r.getJonctions().get(0));
+		voituresPresentes(r.getJonctions().get(1));
+		voituresPresentes(r.getJonctions().get(2));
+
+		affichagePosition(v);
+		affichagePosition(v2);
+		affichagePosition(v3);
+
 		System.out.println("\n");
 		
 	}

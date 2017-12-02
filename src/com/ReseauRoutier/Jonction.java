@@ -61,13 +61,16 @@ public class Jonction extends ElementRoute {
 		
 		ArrayList<Voiture> voitureSegmentSuivant = new ArrayList<Voiture>();
 
+		int distanceRestante = 0;
 		System.out.println("Iteration des voitures partant de la jonction " + this.getId());
+		
 		for (Voisin voisinActuel : voisins)
 		{
 			for (Voiture voit : voisinActuel.getSegment().getMesVoitures())
 			{
 
-				if ((segmentSuffisant(voit, voisinActuel.getSegment())))
+				distanceRestante = segmentSuffisant(voit, voisinActuel.getSegment());
+				if ( distanceRestante < 1)
 				{
 					//on incremente seulement si la distance restante est suffisante
 					System.out.println("On bouge la voiture " + voit.getId());
@@ -86,7 +89,8 @@ public class Jonction extends ElementRoute {
 				{
 					System.out.println("On passe au segment suivant !");
 					voitureSegmentSuivant.add(voit);
-				
+					System.out.println("Cette voiture a actuellement la position : " + voit.getTronconActuel().getId());
+
 					//get(0) est la route qui revient au voisinActuel. On prend donc get(1)
 					
 					//get(1) temporaire, on prendra un random entre 1 et getVoisins().size
@@ -101,10 +105,8 @@ public class Jonction extends ElementRoute {
 			{		
 				for (Voisin voisinActuel : voisins)
 				{
-
 					if(voisinActuel.getSegment().getMesVoitures().contains(voit))
 					{
-						
 						voisinActuel.getSegment().suppressionVoiture(voit);
 						if (voisinActuel.getJonction().getVoisins().size() <= 1)
 						{
@@ -113,15 +115,12 @@ public class Jonction extends ElementRoute {
 						else
 						{
 							segmentSuivant(voit, voisinActuel.getJonction().getVoisins().get(1)); 
-							System.out.println("On met la voiture dans le segment " + voisinActuel.getJonction().getVoisins().get(1).getSegment().getId());
+							System.out.println("On met la voiture " + voit.getId() + " dans le segment " + voisinActuel.getJonction().getVoisins().get(1).getSegment().getId());
 						}
-
 					}
 				}
-				
 			}
 		}
-
 	}
 	
 	
@@ -129,18 +128,18 @@ public class Jonction extends ElementRoute {
 	/**
 	 * Indique s'il reste assez de place sur ce segment pour deplacer la voiture.
 	 * @param v
-	 * @return
+	 * @return distanteRestante si elle n'est pas suffisante, -1 sinon.
 	 */
-	public boolean segmentSuffisant(Voiture v, SegmentDeRoute s)
+	public int segmentSuffisant(Voiture v, SegmentDeRoute s)
 	{
 		int distanceRestante = s.getLongueur() - v.getTronconActuel().getId();
 		
 		if(v.getVitesse() >= distanceRestante)
 		{
 			System.out.println("\n--Pour la voiture " + v.getId() + " => Segment trop court !\n");
-			return false;
+			return distanceRestante;
 		}
-		return true;
+		return -1;
 	}
 	
 	/**
@@ -154,6 +153,7 @@ public class Jonction extends ElementRoute {
 		//voisinActuel.getSegment().suppressionVoiture(v);
 
 		suivant.getSegment().ajoutVoiture(v, suivant.getSens1());
+		
 		return false;
 	}
 	
