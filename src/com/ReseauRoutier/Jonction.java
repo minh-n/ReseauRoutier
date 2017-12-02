@@ -60,7 +60,6 @@ public class Jonction extends ElementRoute {
 	{
 		
 		ArrayList<Voiture> voitureSegmentSuivant = new ArrayList<Voiture>();
-		ArrayList<Voisin> voisinSuivant = new ArrayList<Voisin>();
 
 		System.out.println("Iteration des voitures partant de la jonction " + this.getId());
 		for (Voisin voisinActuel : voisins)
@@ -68,18 +67,18 @@ public class Jonction extends ElementRoute {
 			for (Voiture voit : voisinActuel.getSegment().getMesVoitures())
 			{
 
-				if (segmentSuffisant(voit, voisinActuel.getSegment()))
+				if ((segmentSuffisant(voit, voisinActuel.getSegment())))
 				{
+					//on incremente seulement si la distance restante est suffisante
 					System.out.println("On bouge la voiture " + voit.getId());
 
 					if (voit.getSens() == 1)
 					{
-						decrementerTroncon(voisinActuel.getSegment(),voit);
+						incrementerTroncon(voisinActuel.getSegment(),voit);
 					}
-					
 					else
 					{
-						incrementerTroncon(voisinActuel.getSegment(),voit);
+						decrementerTroncon(voisinActuel.getSegment(),voit);
 					}
 				}
 				
@@ -87,15 +86,7 @@ public class Jonction extends ElementRoute {
 				{
 					System.out.println("On passe au segment suivant !");
 					voitureSegmentSuivant.add(voit);
-					if(voisinActuel.getJonction().getVoisins().size() > 0) //on exclut le cas de la barriere
-					{
-						voisinSuivant.add(voisinActuel.getJonction().getVoisins().get(1));
-					}
-					else
-					{
-						voisinSuivant.add(voisinActuel.getJonction().getVoisins().get(0));
-
-					}
+				
 					//get(0) est la route qui revient au voisinActuel. On prend donc get(1)
 					
 					//get(1) temporaire, on prendra un random entre 1 et getVoisins().size
@@ -104,16 +95,30 @@ public class Jonction extends ElementRoute {
 
 			}
 		}
-		if (!voitureSegmentSuivant.isEmpty() && !voisinSuivant.isEmpty())
+		if ((voitureSegmentSuivant.isEmpty() == false))
 		{
 			for (Voiture voit : voitureSegmentSuivant)
 			{		
 				for (Voisin voisinActuel : voisins)
 				{
-					voisinActuel.getSegment().suppressionVoiture(voit);
+
+					if(voisinActuel.getSegment().getMesVoitures().contains(voit))
+					{
+						
+						voisinActuel.getSegment().suppressionVoiture(voit);
+						if (voisinActuel.getJonction().getVoisins().size() <= 1)
+						{
+							System.out.println("FIN DE LA ROUTE!");
+						}
+						else
+						{
+							segmentSuivant(voit, voisinActuel.getJonction().getVoisins().get(1)); 
+							System.out.println("On met la voiture dans le segment " + voisinActuel.getJonction().getVoisins().get(1).getSegment().getId());
+						}
+
+					}
 				}
 				
-			segmentSuivant(voit, voisinSuivant.get(0)); 
 			}
 		}
 
@@ -148,7 +153,7 @@ public class Jonction extends ElementRoute {
 	{
 		//voisinActuel.getSegment().suppressionVoiture(v);
 
-		suivant.getSegment().ajoutVoiture(v);
+		suivant.getSegment().ajoutVoiture(v, suivant.getSens1());
 		return false;
 	}
 	

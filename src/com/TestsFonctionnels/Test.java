@@ -22,9 +22,9 @@ public class Test {
 		Voiture v2 = new Voiture(4);
 		Voiture v3 = new Voiture(5);
 		
-		r.getJonctions().get(0).getVoisins().get(0).getSegment().ajoutVoiture(v);	
-		r.getJonctions().get(0).getVoisins().get(0).getSegment().ajoutVoiture(v2);	
-		r.getJonctions().get(0).getVoisins().get(0).getSegment().ajoutVoiture(v3);	
+		r.getJonctions().get(0).getVoisins().get(0).getSegment().ajoutVoiture(v,1);	
+		r.getJonctions().get(0).getVoisins().get(0).getSegment().ajoutVoiture(v2,1);	
+		r.getJonctions().get(0).getVoisins().get(0).getSegment().ajoutVoiture(v3,1);	
 
 		System.out.println("Voiture 1 ajoutee sur la route :");
 		System.out.println(v.getRouteActuelle().toString());
@@ -38,63 +38,65 @@ public class Test {
 		System.out.println(v3.getRouteActuelle().toString());
 		
 		System.out.println("\n\n***********************************\n----------------------\nPosition de la voiture 1 :");
-		System.out.println("Segment no : " + v.getRouteActuelle() + "; Troncon no : " + v.getTronconActuel().getId());
 		
-		System.out.println("----------------------\nPosition de la voiture 2 :");
-		System.out.println("Segment no : " + v2.getRouteActuelle() + "; Troncon no : " + v2.getTronconActuel().getId());
+		affichagePosition(v);
+		affichagePosition(v2);
+		affichagePosition(v3);
 		
-		System.out.println("----------------------\nPosition de la voiture 3 :");
-		System.out.println("Segment no : " + v3.getRouteActuelle() + "; Troncon no : " + v3.getTronconActuel().getId());
+		voituresPresentes(r.getJonctions().get(0));
+		voituresPresentes(r.getJonctions().get(1));
+		voituresPresentes(r.getJonctions().get(2));
+
 		
 		
+		/**
+		 * DEPLACMENTS
+		 * 
+		 * 
+	
+		 */
 		
 		//TODO gerer les collisions
 		
 		System.out.println("*****************************\nBOUGER (non fonctionnel, faites pas gaffe au sens)");
-	
-		
 		System.out.println("++++++++++++++++PREMIERE ITERATION++++++++++++++++\n");
 
 		r.getJonctions().get(0).deplacerVoiture();
+		voituresPresentes(r.getJonctions().get(0));
+		voituresPresentes(r.getJonctions().get(1));
+		voituresPresentes(r.getJonctions().get(2));
 
-	
 		affichagePosition(v);
 		affichagePosition(v2);
 		affichagePosition(v3);
 
 		System.out.println("\n");
-
-		
 		
 		System.out.println("++++++++++++++++DEUXIEME ITERATION++++++++++++++++\n");
 
 		r.getJonctions().get(0).deplacerVoiture();
-		
+		voituresPresentes(r.getJonctions().get(0));
+		voituresPresentes(r.getJonctions().get(1));
+		voituresPresentes(r.getJonctions().get(2));
 		
 		affichagePosition(v);
 		affichagePosition(v2);
 		affichagePosition(v3);
 
 		System.out.println("\n");
-
-		
-		
 		
 		System.out.println("++++++++++++++++TROISIEME ITERATION++++++++++++++++\n");
 
 		r.getJonctions().get(0).deplacerVoiture();
-		r.getJonctions().get(1).deplacerVoiture();
-		
-		
+		voituresPresentes(r.getJonctions().get(0));
+		voituresPresentes(r.getJonctions().get(1));
+		voituresPresentes(r.getJonctions().get(2));
+
 		affichagePosition(v);
 		affichagePosition(v2);
 		affichagePosition(v3);
 
 		System.out.println("\n");
-
-		
-		
-		
 		
 		System.out.println("++++++++++++++++QUATRIEME ITERATION++++++++++++++++\n");
 
@@ -102,13 +104,25 @@ public class Test {
 		r.getJonctions().get(1).deplacerVoiture();
 		r.getJonctions().get(2).deplacerVoiture();
 
+		//r.getJonctions().get(2).deplacerVoiture(); pour certaines raisons ca fait un indexoutofbound exception
+
+		voituresPresentes(r.getJonctions().get(0));
+		voituresPresentes(r.getJonctions().get(1));
+		voituresPresentes(r.getJonctions().get(2));
+
+		//....
+		
+		/**TODO
+		 * BUG : pour certaines raisons,
+		 * quand on deplace les voitures de la jonction 1, celles de la jonction 0 le sont aussi
+		 * possiblement : la suppression se fait pas  
+		 */
+
+		affichagePosition(v);
+		affichagePosition(v2);
+		affichagePosition(v3);
+		
 		System.out.println("\n");
-
-
-		
-		
-		
-		
 		
 	}
 	
@@ -120,6 +134,18 @@ public class Test {
 
 		System.out.println("Segment no : " + v.getRouteActuelle().getId() + "; Troncon no : " + v.getTronconActuel().getId());
 		
+	}
+	
+	public static void voituresPresentes(Jonction j)
+	{
+		System.out.println("Voici les voitures provenant ou allant vers j" + j.getId() + ".");
+		for (Voisin v : j.getVoisins())
+		{
+			for (Voiture voit : v.getSegment().getMesVoitures())
+			{
+				System.out.println("Voiture " + voit.getId());
+			}
+		}
 	}
 
 }

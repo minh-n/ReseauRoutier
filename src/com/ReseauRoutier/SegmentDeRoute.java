@@ -8,9 +8,6 @@ public class SegmentDeRoute extends ElementRoute{
 	private static int s_id = 1;
 	private int id;
 	private int longueur;
-	private int sens1;
-	private int sens2;
-	
 	private ArrayList<Troncon> troncons;
 	private ArrayList<Voiture> mesVoitures;
 		
@@ -59,13 +56,13 @@ public class SegmentDeRoute extends ElementRoute{
 	 * Prend en compte l'occupation d'un segment.
 	 * @param v
 	 */
-	public void ajoutVoiture(Voiture v)
+	public void ajoutVoiture(Voiture v, int s)
 	{
 		
 		/**
 		 * TODO faire les sens
 		 */
-		v.setSens(sens1);
+		v.setSens(s);
 		
 		v.setRouteActuelle(this);
 		boolean occupe = true;
@@ -182,22 +179,6 @@ public class SegmentDeRoute extends ElementRoute{
 
 	public void setMesVoitures(ArrayList<Voiture> mesVoitures) {
 		this.mesVoitures = mesVoitures; //TODO manque setRouteActuelle?
-	}
-	
-	public int getSens1() {
-		return sens1;
-	}
-
-	public void setSens1(int sens1) {
-		this.sens1 = sens1;
-	}
-
-	public int getSens2() {
-		return sens2;
-	}
-
-	public void setSens2(int sens2) {
-		this.sens2 = sens2;
 	}
 
 

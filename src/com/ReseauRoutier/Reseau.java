@@ -64,8 +64,6 @@ public class Reseau {
 		
 		System.out.println("\nVoisins de J1 fini ! \n-----------------------------");
 		
-		
-
 		System.out.println("Voisins de J2 ! \n --------------------------");
 
 		j2.afficherJonction();
