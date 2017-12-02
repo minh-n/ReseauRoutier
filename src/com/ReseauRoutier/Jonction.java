@@ -69,8 +69,8 @@ public class Jonction extends ElementRoute {
 			for (Voiture voit : voisinActuel.getSegment().getMesVoitures())
 			{
 
-				distanceRestante = segmentSuffisant(voit, voisinActuel.getSegment());
-				if ( distanceRestante < 1)
+				
+				if (segmentSuffisant(voit, voisinActuel.getSegment()))
 				{
 					//on incremente seulement si la distance restante est suffisante
 					System.out.println("On bouge la voiture " + voit.getId());
@@ -110,11 +110,23 @@ public class Jonction extends ElementRoute {
 						voisinActuel.getSegment().suppressionVoiture(voit);
 						if (voisinActuel.getJonction().getVoisins().size() <= 1)
 						{
-							System.out.println("FIN DE LA ROUTE!");
+							System.out.println("FIN DE LA ROUTE!"); //cas de la barriere
 						}
 						else
 						{
 							segmentSuivant(voit, voisinActuel.getJonction().getVoisins().get(1)); 
+							distanceRestante = distanceRestante(voit, voisinActuel.getSegment());
+							
+							System.out.println("Il restait " + distanceRestante + " troncons dans la route precedente.");
+							
+							int nouveauTroncon = voit.getVitesse() - distanceRestante -1; //-1 car il y au ne jonction
+							
+							System.out.println("La voiture deplacee parcourt " + nouveauTroncon + " troncons dans le nouveau segment.");
+							
+							voit.setTronconActuel(voisinActuel.getJonction().
+									getVoisins().get(1).getSegment().
+									getTroncons().get(nouveauTroncon));
+							
 							System.out.println("On met la voiture " + voit.getId() + " dans le segment " + voisinActuel.getJonction().getVoisins().get(1).getSegment().getId());
 						}
 					}
@@ -124,22 +136,33 @@ public class Jonction extends ElementRoute {
 	}
 	
 	
+	/**
+	 * 
+	 */
+	public int distanceRestante(Voiture v, SegmentDeRoute s)
+	{
+		int distanceRestante = s.getLongueur() - v.getTronconActuel().getId();
+		int bail =  v.getTronconActuel().getId() + v.getVitesse() - distanceRestante;
+		System.out.println("Ce segment mesure " + s.getLongueur() + ", et la voiture aurait depasse de " + bail);
+		
+		return distanceRestante;
+	}
+	
 	
 	/**
 	 * Indique s'il reste assez de place sur ce segment pour deplacer la voiture.
 	 * @param v
-	 * @return distanteRestante si elle n'est pas suffisante, -1 sinon.
+	 * @return false si elle n'est pas suffisante
 	 */
-	public int segmentSuffisant(Voiture v, SegmentDeRoute s)
+	public boolean segmentSuffisant(Voiture v, SegmentDeRoute s)
 	{
-		int distanceRestante = s.getLongueur() - v.getTronconActuel().getId();
 		
-		if(v.getVitesse() >= distanceRestante)
+		if(v.getVitesse() >= distanceRestante(v, s))
 		{
 			System.out.println("\n--Pour la voiture " + v.getId() + " => Segment trop court !\n");
-			return distanceRestante;
+			return false;
 		}
-		return -1;
+		return true;
 	}
 	
 	/**
