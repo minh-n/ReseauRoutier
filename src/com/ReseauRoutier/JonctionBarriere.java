@@ -1,5 +1,5 @@
 package com.ReseauRoutier;
 
-public class JonctionBarriere {
+public class JonctionBarriere extends Jonction{
 
 }

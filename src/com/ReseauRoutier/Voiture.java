@@ -1,15 +1,20 @@
 package com.ReseauRoutier;
 
 public class Voiture {
+	
 	private static int v_id = 0; //incrementeur ID de la voiture
 	private int id;
+	
 	private int vMax;
 	private int longeur; //permet de faire de plus longues voitures (camions)
 	private int sens;
 	private int vitesse;
 	
 	private Troncon tronconActuel;
-	private SegmentDeRoute routeActuelle;
+	
+	private ElementRoute routeActuelle;
+	private ElementRoute routePrec;
+	private ElementRoute routeSuiv;
 	
 	public Voiture(int v){
 		v_id++;
@@ -19,7 +24,7 @@ public class Voiture {
 	
 	@Override
 	public String toString() {
-		return "Voiture [id=" + id + ", vMax=" + vMax + ", longeur=" + longeur + "]";
+		return "Voiture [id=" + id + ", vMax=" + vMax + "]";
 	}
 
 	public int getId() {
@@ -54,7 +59,7 @@ public class Voiture {
 		this.tronconActuel = tronconActuel;
 	}
 
-	public SegmentDeRoute getRouteActuelle() {
+	public ElementRoute getRouteActuelle() {
 		return routeActuelle;
 	}
 
