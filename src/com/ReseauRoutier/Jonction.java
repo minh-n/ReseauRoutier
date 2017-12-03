@@ -3,9 +3,10 @@ package com.ReseauRoutier;
 import java.util.ArrayList;
 
 
-public class Jonction extends ElementRoute {
+public abstract class Jonction extends ElementRoute {
 
 	private static int j_id = 1;
+	private static int longueur = 1;
 	private int id;
 	private ArrayList<SegmentDeRoute> segments;
 
@@ -13,6 +14,7 @@ public class Jonction extends ElementRoute {
 	
 	public Jonction()
 	{
+		super(longueur);
 		setId(j_id);
 		j_id+= 1;
 	}

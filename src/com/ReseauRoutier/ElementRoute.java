@@ -11,7 +11,12 @@ public abstract class ElementRoute extends Observable {
 	
 	public ElementRoute()
 	{
-		
+	
+	}
+	
+	public ElementRoute(int lon)
+	{
+		this.longueur = lon;
 	}
 	
 	public int getLongueur() {

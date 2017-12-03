@@ -7,7 +7,6 @@ public class SegmentDeRoute extends ElementRoute{
 
 	private static int s_id = 1;
 	private int id;
-	private int longueur;
 	private ArrayList<Troncon> troncons;
 	private ArrayList<Voiture> mesVoitures;
 		
@@ -22,15 +21,17 @@ public class SegmentDeRoute extends ElementRoute{
 	
 	public SegmentDeRoute(int min, int max)
 	{
+		Random rand = new Random();
+		super.setLongueur(rand.nextInt((max - min) + 1) + min);
+
+		
 		this.troncons = new ArrayList<Troncon>();
 		this.mesVoitures = new ArrayList<Voiture>();
 
-		Random rand = new Random();
-		longueur = rand.nextInt((max - min) + 1) + min;
 		setId(s_id);
 		s_id+= 1;
 		
-		for(int i = 0 ; i < longueur ; i++)
+		for(int i = 0 ; i < super.getLongueur() ; i++)
 		{
 			troncons.add(new Troncon());
 		}
@@ -38,16 +39,15 @@ public class SegmentDeRoute extends ElementRoute{
 	
 	public SegmentDeRoute(int lon)
 	{
-		this.longueur = lon;
+		super(lon);
 		this.troncons = new ArrayList<Troncon>();
 		setId(s_id);
 		s_id+= 1;
 		
-		for(int i = 0 ; i < this.longueur ; i++)
+		for(int i = 0 ; i < super.getLongueur() ; i++)
 		{
 			troncons.add(new Troncon());
 		}
-		
 	}
 	
 	
@@ -103,13 +103,7 @@ public class SegmentDeRoute extends ElementRoute{
 		mesVoitures.remove(v);
 	}
 	
-	public int getLongueur() {
-		return longueur;
-	}
 	
-	public void setLongueur(int longueur) {
-		this.longueur = longueur;
-	}
 	
 	public ArrayList<Troncon> getTroncons() {
 		return troncons;
@@ -121,7 +115,7 @@ public class SegmentDeRoute extends ElementRoute{
 	
 	@Override
 	public String toString() {
-		return "Segment id = " + id + " [longueur=" + this.longueur + ", troncons=" + this.troncons + "]";
+		return "Segment id = " + id + " [longueur=" + super.getLongueur() + ", troncons=" + this.troncons + "]";
 	}
 	
 	/**
@@ -129,7 +123,7 @@ public class SegmentDeRoute extends ElementRoute{
 	 */
 	public void afficherSegment()
 	{
-		System.out.println("[longueur = " + this.longueur 
+		System.out.println("[longueur = " + super.getLongueur() 
 				+ "\ntroncons = ");
 		int i = 0;
 		for(Troncon t : this.troncons)
