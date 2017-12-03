@@ -5,10 +5,11 @@ import java.util.ArrayList;
 
 public class Jonction extends ElementRoute {
 
-
 	private static int j_id = 1;
 	private int id;
-	private ArrayList<Voisin> voisins = new ArrayList<Voisin>();
+	private ArrayList<SegmentDeRoute> segments;
+
+	//private ArrayList<Voisin> voisins = new ArrayList<Voisin>();
 	
 	public Jonction()
 	{
@@ -33,23 +34,9 @@ public class Jonction extends ElementRoute {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public void afficherJonction() {
 		System.out.println("Jonction n" + id);
-		for (Voisin v : this.voisins){
+		for (SegmentDeRoute v : this.segments){
 			System.out.println(v.toString());
 		}
 	}
@@ -62,12 +49,14 @@ public class Jonction extends ElementRoute {
 		this.id = id;
 	}
 
-	public ArrayList<Voisin> getVoisins() {
-		return voisins;
+
+	public ArrayList<SegmentDeRoute> getSegments() {
+		return segments;
 	}
 
-	public void setVoisins(ArrayList<Voisin> voisins) {
-		this.voisins = voisins;
+
+	public void setSegments(ArrayList<SegmentDeRoute> segments) {
+		this.segments = segments;
 	}
 	
 	

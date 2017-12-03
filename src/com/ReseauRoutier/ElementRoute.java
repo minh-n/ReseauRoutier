@@ -7,17 +7,13 @@ public abstract class ElementRoute extends Observable {
 	private int longueur;
 	private int id;
 	
-	//liste voiture ou pas
+	//liste voiture ou pas ?
 	
 	public ElementRoute()
 	{
 		
 	}
 	
-	
-	
-	
-
 	public int getLongueur() {
 		return longueur;
 	}

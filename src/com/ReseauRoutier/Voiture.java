@@ -82,6 +82,22 @@ public class Voiture {
 	public void setSens(int sens) {
 		this.sens = sens;
 	}
+
+	public ElementRoute getRoutePrec() {
+		return routePrec;
+	}
+
+	public void setRoutePrec(ElementRoute routePrec) {
+		this.routePrec = routePrec;
+	}
+
+	public ElementRoute getRouteSuiv() {
+		return routeSuiv;
+	}
+
+	public void setRouteSuiv(ElementRoute routeSuiv) {
+		this.routeSuiv = routeSuiv;
+	}
 	
 	
 	
