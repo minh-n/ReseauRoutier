@@ -7,7 +7,6 @@ public class Voisin {
 	private int sens1;
 	private int sens2;
 	
-	
 	public Voisin()
 	{
 		

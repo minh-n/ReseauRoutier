@@ -22,8 +22,6 @@ public class Test {
 		Voiture v2 = new Voiture(6);
 		Voiture v3 = new Voiture(10);
 		
-
-		
 	}
 	
 	

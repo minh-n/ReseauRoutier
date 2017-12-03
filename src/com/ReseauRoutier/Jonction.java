@@ -16,6 +16,37 @@ public class Jonction extends ElementRoute {
 		j_id+= 1;
 	}
 	
+	
+	/*
+
+	
+	public Segment segSuivant(Vehicule v) 
+	{
+		for(Segment s : sesAcces)
+		{
+			if(s != v.getSaRoute())
+			{
+				return s;
+			}
+		}
+	}*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public void afficherJonction() {
 		System.out.println("Jonction n" + id);
 		for (Voisin v : this.voisins){

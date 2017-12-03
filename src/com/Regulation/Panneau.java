@@ -1,5 +1,12 @@
 package com.Regulation;
 
-public class Panneau extends Semaphore{
+import java.util.Observable;
 
+public class Panneau extends Regulation{
+
+	@Override
+	public void update(Observable o, Object arg)
+	{
+		
+	}
 }

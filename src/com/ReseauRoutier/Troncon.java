@@ -7,8 +7,6 @@ public class Troncon {
 	private static int t_id = 0;
 	private int id;
 	private Capteur capteur;
-	private Semaphore semaphore;
-	
 
 	public Troncon()
 	{
@@ -19,7 +17,6 @@ public class Troncon {
 	public int getId() {
 		return id;
 	}
-
 
 	public void setId(int id) {
 		this.id = id;
@@ -39,13 +36,6 @@ public class Troncon {
 		this.capteur = capteur;
 	}
 
-	public Semaphore getSemaphore() {
-		return semaphore;
-	}
-
-	public void setSemaphore(Semaphore semaphore) {
-		this.semaphore = semaphore;
-	}
 
 	public static int getT_id() {
 		return t_id;

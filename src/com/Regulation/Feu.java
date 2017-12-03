@@ -1,5 +1,5 @@
 package com.Regulation;
 
-public abstract class Feu extends Semaphore{
+public abstract class Feu{
 
 }
