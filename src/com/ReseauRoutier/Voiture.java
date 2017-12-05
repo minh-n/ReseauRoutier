@@ -22,6 +22,21 @@ public class Voiture {
 		this.setVitesse(v);
 	}
 	
+	/* Cette fonction part du principe que sa vitesse ne lui permet pas de dépasser le segment sur lequel elle est */
+	public void avancer(){
+		if (sens == 0){
+			setPositionDansRoute(getPositionDansRoute() + getVitesse());
+		}
+		else{
+			setPositionDansRoute(getPositionDansRoute() - getVitesse());
+		}
+	}
+	
+	public void determinerProchains(){
+		/* Objectif = changer les attributs routeActuelle, Prec et Suiv à chaque changement d'ElementRoute de la voiture*/
+		// TODO oums
+	}
+	
 	@Override
 	public String toString() {
 		return "Voiture [id=" + id + ", vMax=" + vMax + "]";

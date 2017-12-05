@@ -106,17 +106,39 @@ public class SegmentDeRoute extends ElementRoute{
 	public void deplacerVoiture() {
 
 		
-		ArrayList<Voiture> voitureSegmentSuivant = new ArrayList<Voiture>();
-		
-
-		int distanceRestante = 0;
+		/*ArrayList<Voiture> voitureSegmentSuivant = new ArrayList<Voiture>();
+		int distanceRestante = 0; */
+	
 		System.out.println("Iteration des voitures contenu dans le segment : " + this.getId());
 
 		for(Voiture voit : this.getMesVoitures())
 		{
-			if(pasdObstacle(voit) || segmentSuffisant(voit))
+			voit.setVitesse(voit.getvMax());
+			
+			/* Verifications si c'est physiquement possible d'avancer 
+			 * autrement, on décrémente la vitesse jusqu'à ce que ce soit possible */
+			while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse()) && voit.getVitesse() > 0){
+				voit.setvMax(voit.getVitesse()-1);
+			}
+			
+			if (voit.getVitesse() == 0) continue; // si sa vitesse est 0, passer à la suite
+			
+			/* On regarde si le fait d'avancer la voiture la fait sortir d'un segment ou pas */
+			if(!segmentSuffisant(voit))
 			{
-				//on fait avancer ou reculer (?)
+				if (voit.getRouteSuiv().getLongueur() == 1){ // cas Jonction (ou Section de longueur 1)
+					
+				}
+				// TODO on fait avancer ou reculer (?)
+				// TODO oummar
+				// TODO oumma
+				// TODO oumm
+				// TODO oum
+				// TODO ou
+				// TODO o
+			}
+			else{
+				voit.avancer();
 			}
 		}
 		
@@ -130,7 +152,7 @@ public class SegmentDeRoute extends ElementRoute{
 	/**
 	 * 
 	 */
-	public int distanceRestanteSuffisante(Voiture v)
+	public int distanceRestante(Voiture v)
 	{
 		int distanceRestante = this.getLongueur() - v.getPositionDansRoute();
 		//System.out.println("Ce segment mesure " + s.getLongueur() + ", et la voiture aurait depasse de ");
@@ -147,27 +169,37 @@ public class SegmentDeRoute extends ElementRoute{
 	public boolean segmentSuffisant(Voiture v)
 	{
 		
-		if(v.getVitesse() >= distanceRestanteSuffisante(v))
+		if(v.getVitesse() >= distanceRestante(v))
 		{
 			System.out.println("\n--Pour la voiture " + v.getId() + " => Segment trop court !\n");
 			return false;
 		}
 		return true;
 	}
+	
+	public int depassementSegment(Voiture v){
+		if (!segmentSuffisant(v)){
+			return v.getVitesse() - distanceRestante(v);
+		}
+		return -1;
+	}
 
 	
 	
 	
-	public boolean pasdObstacle(Voiture v)
+	public boolean estOccupe(int indice)
 	{
-		
-		if (!voitureDevant(v))
+		for (Voiture v:this.getMesVoitures()){
+			if (v.getPositionDansRoute() == indice) return true;
+		}
+		/*if (!voitureDevant(v))
 		{
 			if(!panneauSensInterditDevant(v))
 			{
 				return true;
 			}
-		}
+		}*/
+		
 				
 		return false;
 	}
@@ -179,6 +211,11 @@ public class SegmentDeRoute extends ElementRoute{
 	 */
 	public boolean voitureDevant(Voiture v)
 	{
+		/*for (Voiture v : getMesVoitures()){
+			if (v != voit){
+				if (voit.getPosition() + voit.getVitesse() <)
+			}
+		}*/
 		
 		//s'il y a une voiture dans v.position + v.vitesse, on retourne true 
 		// true = collision. La voiture v s'arrete avant la voiture suivante et sa vitesse est reduite a zero.
@@ -201,19 +238,6 @@ public class SegmentDeRoute extends ElementRoute{
 		//sinon false
 		return false;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	/*
