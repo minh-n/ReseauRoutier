@@ -187,6 +187,8 @@ public class SegmentDeRoute extends ElementRoute{
 	
 	
 	
+	
+	
 	public boolean estOccupe(int indice)
 	{
 		for (Voiture v:this.getMesVoitures()){
