@@ -10,7 +10,7 @@ public class Voiture {
 	private int sens;
 	private int vitesse;
 	
-	private Troncon tronconActuel;
+	private int positionDansRoute;
 	
 	private ElementRoute routeActuelle;
 	private ElementRoute routePrec;
@@ -49,14 +49,6 @@ public class Voiture {
 
 	public void setLongeur(int longeur) {
 		this.longeur = longeur;
-	}
-
-	public Troncon getTronconActuel() {
-		return tronconActuel;
-	}
-
-	public void setTronconActuel(Troncon tronconActuel) {
-		this.tronconActuel = tronconActuel;
 	}
 
 	public ElementRoute getRouteActuelle() {
@@ -98,9 +90,12 @@ public class Voiture {
 	public void setRouteSuiv(ElementRoute routeSuiv) {
 		this.routeSuiv = routeSuiv;
 	}
-	
-	
-	
 
-	
+	public int getPositionDansRoute() {
+		return positionDansRoute;
+	}
+
+	public void setPositionDansRoute(int positionDansRoute) {
+		this.positionDansRoute = positionDansRoute;
+	}	
 }

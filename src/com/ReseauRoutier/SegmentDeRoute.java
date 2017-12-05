@@ -7,12 +7,9 @@ public class SegmentDeRoute extends ElementRoute{
 
 	private static int s_id = 1;
 	private int id;
-	private ArrayList<Troncon> troncons;
-		
+
 	public SegmentDeRoute()
 	{
-		this.troncons = new ArrayList<Troncon>();
-
 		setId(s_id);
 		s_id+= 1;
 	}
@@ -26,28 +23,19 @@ public class SegmentDeRoute extends ElementRoute{
 		super.setLongueur(rand.nextInt((max - min) + 1) + min);
 
 		
-		this.troncons = new ArrayList<Troncon>();
 
 		setId(s_id);
 		s_id+= 1;
 		
-		for(int i = 0 ; i < super.getLongueur() ; i++)
-		{
-			troncons.add(new Troncon());
-		}
+
 	}
 	
 	public SegmentDeRoute(int lon)
 	{
 		super(lon);
-		this.troncons = new ArrayList<Troncon>();
 		setId(s_id);
 		s_id+= 1;
-		
-		for(int i = 0 ; i < super.getLongueur() ; i++)
-		{
-			troncons.add(new Troncon());
-		}
+
 	}
 	
 	
@@ -79,7 +67,7 @@ public class SegmentDeRoute extends ElementRoute{
 			
 			i++;
 		}while(occupe);
-		v.setTronconActuel(troncons.get(i));
+		//v.setTronconActuel(troncons.get(i)); ca serait un setPosition
 		getMesVoitures().add(v);
 	}
 	
@@ -87,10 +75,10 @@ public class SegmentDeRoute extends ElementRoute{
 	{
 		for(Voiture voit : getMesVoitures())
 		{
-			if (n == voit.getTronconActuel().getId()) //si le troncon numero n correspond a un troncon occupe par une voiture
+			/*if (n == voit.getTronconActuel().getId()) //si le troncon numero n correspond a un troncon occupe par une voiture
 			{
 				return true;
-			}
+			}*/
 		}
 		
 		return false;
@@ -99,7 +87,6 @@ public class SegmentDeRoute extends ElementRoute{
 	public void suppressionVoiture(Voiture v)
 	{
 		v.setRouteActuelle(null); //??
-		v.setTronconActuel(null); //TODO tout
 		getMesVoitures().remove(v);
 	}
 	
@@ -114,7 +101,7 @@ public class SegmentDeRoute extends ElementRoute{
 	
 	@Override
 	public String toString() {
-		return "Segment id = " + id + " [longueur=" + super.getLongueur() + ", troncons=" + this.troncons + "]";
+		return "Segment id = " + id + " [longueur=" + super.getLongueur() +"]";
 	}
 	
 	/**
@@ -122,15 +109,7 @@ public class SegmentDeRoute extends ElementRoute{
 	 */
 	public void afficherSegment()
 	{
-		System.out.println("[longueur = " + super.getLongueur() 
-				+ "\ntroncons = ");
-		int i = 0;
-		for(Troncon t : this.troncons)
-		{
-			t.setId(i);
-			i++;
-			System.out.println(t.toString());
-		}
+		System.out.println("[longueur = " + super.getLongueur());
 		System.out.println("]");
 	}
 	
@@ -139,16 +118,6 @@ public class SegmentDeRoute extends ElementRoute{
 	 * GETTERS et SETTERS
 	 * 
 	 */
-	
-	
-	public ArrayList<Troncon> getTroncons() {
-		return troncons;
-	}
-	
-	public void setTroncons(ArrayList<Troncon> troncons) {
-		this.troncons = troncons;
-	}
-
 	public int getId() {
 		return id;
 	}
