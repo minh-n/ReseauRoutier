@@ -21,12 +21,9 @@ public class SegmentDeRoute extends ElementRoute{
 		
 		Random rand = new Random();
 		super.setLongueur(rand.nextInt((max - min) + 1) + min);
-
 		
-
 		setId(s_id);
 		s_id+= 1;
-		
 
 	}
 	
@@ -92,6 +89,36 @@ public class SegmentDeRoute extends ElementRoute{
 	
 	
 	
+	/**
+	 * Deplacement de voitures
+	 */
+	@Override
+	public void deplacerVoiture() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -125,5 +152,6 @@ public class SegmentDeRoute extends ElementRoute{
 	public void setId(int id) {
 		this.id = id;
 	}
+
 
 }

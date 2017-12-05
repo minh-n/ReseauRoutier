@@ -33,7 +33,6 @@ public class JonctionCarrefour extends Jonction{
 			//for(Voisin v : voisins) .... 
 			
 			return "";
-		}
-	
+		}	
 	
 }

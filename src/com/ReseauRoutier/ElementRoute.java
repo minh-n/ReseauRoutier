@@ -18,14 +18,7 @@ public abstract class ElementRoute extends Observable {
 	}
 	
 	
-	
-	
-	//deplacerVoiture();
-	
-	
-	
-	
-	
+	public abstract void deplacerVoiture();
 	
 	
 	public ElementRoute(int lon)

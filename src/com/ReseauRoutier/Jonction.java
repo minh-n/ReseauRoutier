@@ -34,7 +34,11 @@ public abstract class Jonction extends ElementRoute {
 		}
 	}*/
 	
-	
+	@Override
+	public void deplacerVoiture() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	public void afficherJonction() {
 		System.out.println("Jonction n" + id);
