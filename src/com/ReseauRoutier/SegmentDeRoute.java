@@ -89,24 +89,118 @@ public class SegmentDeRoute extends ElementRoute{
 	
 	
 	
+	
+	
+	
+	/*****************************************DEPLACEMENT****************************************/
+	
+	/****																					*****/
+
+	/****											a implementer							*****/
+
+	
 	/**
 	 * Deplacement de voitures
 	 */
 	@Override
 	public void deplacerVoiture() {
-		// TODO Auto-generated method stub
+
+		
+		ArrayList<Voiture> voitureSegmentSuivant = new ArrayList<Voiture>();
+		
+
+		int distanceRestante = 0;
+		System.out.println("Iteration des voitures contenu dans le segment : " + this.getId());
+
+		for(Voiture voit : this.getMesVoitures())
+		{
+			if(pasdObstacle(voit) || segmentSuffisant(voit))
+			{
+				//on fait avancer ou reculer (?)
+			}
+		}
+		
+		
+		//on deplace les voitures vers le segment suivant. Il faut faire les verif
 		
 	}
 	
 	
+
+	/**
+	 * 
+	 */
+	public int distanceRestanteSuffisante(Voiture v)
+	{
+		int distanceRestante = this.getLongueur() - v.getPositionDansRoute();
+		//System.out.println("Ce segment mesure " + s.getLongueur() + ", et la voiture aurait depasse de ");
+		
+		return distanceRestante;
+	}
+	
+	
+	/**
+	 * Indique s'il reste assez de place sur ce segment pour deplacer la voiture.
+	 * @param v
+	 * @return false si elle n'est pas suffisante
+	 */
+	public boolean segmentSuffisant(Voiture v)
+	{
+		
+		if(v.getVitesse() >= distanceRestanteSuffisante(v))
+		{
+			System.out.println("\n--Pour la voiture " + v.getId() + " => Segment trop court !\n");
+			return false;
+		}
+		return true;
+	}
+
 	
 	
 	
+	public boolean pasdObstacle(Voiture v)
+	{
+		
+		if (!voitureDevant(v))
+		{
+			if(!panneauSensInterditDevant(v))
+			{
+				return true;
+			}
+		}
+				
+		return false;
+	}
+	
+	/**
+	 * On regarde s'il y a une voiture devant la voiture v dans la limite de la vitesse
+	 * @param v
+	 * @return
+	 */
+	public boolean voitureDevant(Voiture v)
+	{
+		
+		//s'il y a une voiture dans v.position + v.vitesse, on retourne true 
+		// true = collision. La voiture v s'arrete avant la voiture suivante et sa vitesse est reduite a zero.
+		
+		//est-ce qu'on diminue la vitesse directement dans cette fonction ? ou plutot dans la fonction deplacer.
+		return false;
+	}
 	
 	
-	
-	
-	
+	/**
+	 * Renvoie true s'il y a un panneau sens interdit dans la distance que la voiture va parcourir
+	 * @param v
+	 * @return
+	 */
+	public boolean panneauSensInterditDevant(Voiture v)
+	{
+		
+		//pareil, on verifie la position de la voiture + sa vitesse. S'il y a qqc dans cet intervalle, on renvoie true
+		
+		//sinon false
+		return false;
+	}
 	
 	
 	
