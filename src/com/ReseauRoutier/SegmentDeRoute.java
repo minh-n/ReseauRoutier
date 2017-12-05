@@ -61,7 +61,7 @@ public class SegmentDeRoute extends ElementRoute{
 
 				break;
 			}
-			
+			//
 			i++;
 		}while(occupe);
 		//v.setTronconActuel(troncons.get(i)); ca serait un setPosition
