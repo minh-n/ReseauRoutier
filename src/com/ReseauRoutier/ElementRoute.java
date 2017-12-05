@@ -1,5 +1,6 @@
 package com.ReseauRoutier;
 
+import java.util.ArrayList;
 import java.util.Observable;
 
 public abstract class ElementRoute extends Observable {
@@ -7,12 +8,24 @@ public abstract class ElementRoute extends Observable {
 	private int longueur;
 	private int id;
 	
+	private ArrayList<Voiture> mesVoitures;
+	
 	//liste voiture ou pas ?
 	
 	public ElementRoute()
 	{
-	
+		mesVoitures = new ArrayList<Voiture>();
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public ElementRoute(int lon)
 	{
@@ -33,5 +46,13 @@ public abstract class ElementRoute extends Observable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public ArrayList<Voiture> getMesVoitures() {
+		return mesVoitures;
+	}
+
+	public void setMesVoitures(ArrayList<Voiture> mesVoitures) {
+		this.mesVoitures = mesVoitures;
 	}
 }

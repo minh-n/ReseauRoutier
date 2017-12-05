@@ -8,12 +8,10 @@ public class SegmentDeRoute extends ElementRoute{
 	private static int s_id = 1;
 	private int id;
 	private ArrayList<Troncon> troncons;
-	private ArrayList<Voiture> mesVoitures;
 		
 	public SegmentDeRoute()
 	{
 		this.troncons = new ArrayList<Troncon>();
-		this.mesVoitures = new ArrayList<Voiture>();
 
 		setId(s_id);
 		s_id+= 1;
@@ -21,12 +19,14 @@ public class SegmentDeRoute extends ElementRoute{
 	
 	public SegmentDeRoute(int min, int max)
 	{
+		
+		super();
+		
 		Random rand = new Random();
 		super.setLongueur(rand.nextInt((max - min) + 1) + min);
 
 		
 		this.troncons = new ArrayList<Troncon>();
-		this.mesVoitures = new ArrayList<Voiture>();
 
 		setId(s_id);
 		s_id+= 1;
@@ -80,12 +80,12 @@ public class SegmentDeRoute extends ElementRoute{
 			i++;
 		}while(occupe);
 		v.setTronconActuel(troncons.get(i));
-		mesVoitures.add(v);
+		getMesVoitures().add(v);
 	}
 	
 	public boolean verifOccupe(int n)
 	{
-		for(Voiture voit : mesVoitures)
+		for(Voiture voit : getMesVoitures())
 		{
 			if (n == voit.getTronconActuel().getId()) //si le troncon numero n correspond a un troncon occupe par une voiture
 			{
@@ -100,18 +100,17 @@ public class SegmentDeRoute extends ElementRoute{
 	{
 		v.setRouteActuelle(null); //??
 		v.setTronconActuel(null); //TODO tout
-		mesVoitures.remove(v);
+		getMesVoitures().remove(v);
 	}
 	
 	
 	
-	public ArrayList<Troncon> getTroncons() {
-		return troncons;
-	}
 	
-	public void setTroncons(ArrayList<Troncon> troncons) {
-		this.troncons = troncons;
-	}
+	
+	
+	/*
+	 * AFFICHAGE
+	 */
 	
 	@Override
 	public String toString() {
@@ -134,6 +133,21 @@ public class SegmentDeRoute extends ElementRoute{
 		}
 		System.out.println("]");
 	}
+	
+	
+	/*
+	 * GETTERS et SETTERS
+	 * 
+	 */
+	
+	
+	public ArrayList<Troncon> getTroncons() {
+		return troncons;
+	}
+	
+	public void setTroncons(ArrayList<Troncon> troncons) {
+		this.troncons = troncons;
+	}
 
 	public int getId() {
 		return id;
@@ -142,14 +156,5 @@ public class SegmentDeRoute extends ElementRoute{
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public ArrayList<Voiture> getMesVoitures() {
-		return mesVoitures;
-	}
-
-	public void setMesVoitures(ArrayList<Voiture> mesVoitures) {
-		this.mesVoitures = mesVoitures; //TODO manque setRouteActuelle?
-	}
-
 
 }
