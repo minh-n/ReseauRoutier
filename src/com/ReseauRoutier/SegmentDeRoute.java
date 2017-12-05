@@ -1,6 +1,5 @@
 package com.ReseauRoutier;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class SegmentDeRoute extends ElementRoute{
@@ -41,50 +40,32 @@ public class SegmentDeRoute extends ElementRoute{
 	 * Prend en compte l'occupation d'un segment.
 	 * @param v
 	 */
-	public void ajoutVoiture(Voiture v, int s)
+	public void ajoutVoiture(Voiture v)
 	{
 		
 		/**
 		 * TODO faire les sens
 		 */
-		v.setSens(s);
+		//v.setSens(s);
 		
 		v.setRouteActuelle(this);
 		boolean occupe = true;
 		int i = 0;
 		do
 		{
-			occupe = verifOccupe(i);
-			if (occupe == false)
-			{
-				//TODO bizarre de devoir faire un break ?
-
-				break;
-			}
-			//
+			occupe = estOccupe(i, v.getSens());
+	
 			i++;
 		}while(occupe);
 		//v.setTronconActuel(troncons.get(i)); ca serait un setPosition
-		getMesVoitures().add(v);
-	}
-	
-	public boolean verifOccupe(int n)
-	{
-		for(Voiture voit : getMesVoitures())
-		{
-			/*if (n == voit.getTronconActuel().getId()) //si le troncon numero n correspond a un troncon occupe par une voiture
-			{
-				return true;
-			}*/
-		}
-		
-		return false;
+		if (v.getSens() == 0) getVoituresSens0().add(v);
+		else getVoituresSens0().add(v);
 	}
 	
 	public void suppressionVoiture(Voiture v)
 	{
 		v.setRouteActuelle(null); //??
-		getMesVoitures().remove(v);
+		getVoituresSens0().remove(v);
 	}
 	
 	
@@ -111,23 +92,31 @@ public class SegmentDeRoute extends ElementRoute{
 	
 		System.out.println("Iteration des voitures contenu dans le segment : " + this.getId());
 
-		for(Voiture voit : this.getMesVoitures())
+		/*TODO faire pareil pour SENS1 */
+		for(Voiture voit : this.getVoituresSens0())
 		{
 			voit.setVitesse(voit.getvMax());
 			
 			/* Verifications si c'est physiquement possible d'avancer 
 			 * autrement, on décrémente la vitesse jusqu'à ce que ce soit possible */
-			while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse()) && voit.getVitesse() > 0){
+			while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), voit.getSens()) && voit.getVitesse() > 0){
 				voit.setvMax(voit.getVitesse()-1);
 			}
 			
 			if (voit.getVitesse() == 0) continue; // si sa vitesse est 0, passer à la suite
 			
+			
+			voit.embranchement(voit.getVitesse());
 			/* On regarde si le fait d'avancer la voiture la fait sortir d'un segment ou pas */
-			if(!segmentSuffisant(voit))
+			/*if(!segmentSuffisant(voit))
 			{
 				if (voit.getRouteSuiv().getLongueur() == 1){ // cas Jonction (ou Section de longueur 1)
-					
+					if (depassementSegment(voit) == 1){
+						voit.embranchement();
+					}
+					else{
+						
+					}
 				}
 				// TODO on fait avancer ou reculer (?)
 				// TODO oummar
@@ -136,10 +125,12 @@ public class SegmentDeRoute extends ElementRoute{
 				// TODO oum
 				// TODO ou
 				// TODO o
-			}
-			else{
-				voit.avancer();
-			}
+				}
+				else{
+					voit.avancer();
+				}
+				
+			}*/
 		}
 		
 		
@@ -189,20 +180,18 @@ public class SegmentDeRoute extends ElementRoute{
 	
 	
 	
-	public boolean estOccupe(int indice)
+	public boolean estOccupe(int indice, int sens)
 	{
-		for (Voiture v:this.getMesVoitures()){
-			if (v.getPositionDansRoute() == indice) return true;
-		}
-		/*if (!voitureDevant(v))
-		{
-			if(!panneauSensInterditDevant(v))
-			{
-				return true;
+		if (sens == 0){
+			for (Voiture v:this.getVoituresSens0()){
+				if (v.getPositionDansRoute() == indice) return true;
 			}
-		}*/
-		
-				
+		}
+		else{
+			for (Voiture v:this.getVoituresSens1()){
+				if (v.getPositionDansRoute() == indice) return true;
+			}
+		}
 		return false;
 	}
 	

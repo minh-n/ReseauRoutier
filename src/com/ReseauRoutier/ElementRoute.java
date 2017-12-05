@@ -8,13 +8,13 @@ public abstract class ElementRoute extends Observable {
 	private int longueur;
 	private int id;
 	
-	private ArrayList<Voiture> mesVoitures;
-	
-	//liste voiture ou pas ?
-	
+	private ArrayList<Voiture> voituresSens0;
+	private ArrayList<Voiture> voituresSens1;
+
+
 	public ElementRoute()
 	{
-		mesVoitures = new ArrayList<Voiture>();
+		voituresSens0 = new ArrayList<Voiture>();
 	}
 	
 	
@@ -42,11 +42,20 @@ public abstract class ElementRoute extends Observable {
 		this.id = id;
 	}
 
-	public ArrayList<Voiture> getMesVoitures() {
-		return mesVoitures;
+	public ArrayList<Voiture> getVoituresSens0() {
+		return voituresSens0;
 	}
 
-	public void setMesVoitures(ArrayList<Voiture> mesVoitures) {
-		this.mesVoitures = mesVoitures;
+	public void setVoituresSens0(ArrayList<Voiture> mesVoitures) {
+		this.voituresSens0 = mesVoitures;
+	}
+	
+	public ArrayList<Voiture> getVoituresSens1() {
+		return voituresSens1;
+	}
+
+
+	public void setVoituresSens1(ArrayList<Voiture> voituresSens1) {
+		this.voituresSens1 = voituresSens1;
 	}
 }

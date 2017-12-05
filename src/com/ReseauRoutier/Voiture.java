@@ -32,9 +32,63 @@ public class Voiture {
 		}
 	}
 	
-	public void determinerProchains(){
-		/* Objectif = changer les attributs routeActuelle, Prec et Suiv à chaque changement d'ElementRoute de la voiture*/
-		// TODO oums
+	public void avancer(int avancement){
+		if (sens == 0){
+			setPositionDansRoute(getPositionDansRoute() + avancement);
+		}
+		else{
+			setPositionDansRoute(getPositionDansRoute() - avancement);
+		}
+	}
+	
+	/*/!\ fonction récursive */
+	public void embranchement(int reste){
+		
+		
+		
+		routePrec = routeActuelle;
+		routeActuelle = routeSuiv;
+		routeSuiv = determinerProchain();
+		
+		if (this.sens == 0){
+			routePrec.getVoituresSens0().remove(this);
+			this.routeActuelle.getVoituresSens0().add(this);
+		}
+		else{
+			routePrec.getVoituresSens0().remove(this);
+			this.routeActuelle.getVoituresSens0().add(this);
+		}
+		
+		
+		if (reste >= routeActuelle.getLongueur()){
+			embranchement(reste - routeActuelle.getLongueur());
+		}
+		else{
+			avancer(reste);
+		}
+	}
+	
+	public ElementRoute determinerProchain(){
+		if (this.routeActuelle instanceof Jonction){
+			Jonction joncActuelle = (Jonction) this.routeActuelle;
+			if (joncActuelle.getSegments().size() == 1){ // dans le cas d'une barrière 
+				if (this.sens == 0) this.sens = 1;
+				else this.sens = 0;
+				return this.routePrec; 
+			}
+			else if (joncActuelle.getSegments().size() == 2){ // cas d'une jonction simple
+				if (joncActuelle.getSegments().get(0) == routePrec) return joncActuelle.getSegments().get(1); // pas trouvé d'autre moyen qu'on retourne pas celle sur laquelle on était pas précedemment y-y
+				else return joncActuelle.getSegments().get(0);
+			}
+			else{ // cas d'un carrefour 
+				int choixSegment = (int)(Math.random() * joncActuelle.getSegments().size() + 1);
+				return joncActuelle.getSegments().get(choixSegment);
+			}
+		}
+		else{
+			// TODO depuis un SegmentDeRoute, comment on accède aux Jonctions qu'il lie? pas de moyen encore
+			return null; // pour que ça compile, rip y-y
+		}
 	}
 	
 	@Override
