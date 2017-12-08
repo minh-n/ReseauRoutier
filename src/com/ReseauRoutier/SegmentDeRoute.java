@@ -1,16 +1,22 @@
 package com.ReseauRoutier;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class SegmentDeRoute extends ElementRoute{
 
 	private static int s_id = 1;
 	private int id;
+	private boolean traite; // indique si les voitures de l'élément de route ont été traitées dans un intervalle de temps
+
+	
+	private ArrayList<Jonction> sesJonctions;
 
 	public SegmentDeRoute()
 	{
 		setId(s_id);
 		s_id+= 1;
+		traite = false;
 	}
 	
 	public SegmentDeRoute(int min, int max)
@@ -26,13 +32,16 @@ public class SegmentDeRoute extends ElementRoute{
 
 	}
 	
-	public SegmentDeRoute(int lon)
+	public SegmentDeRoute(int lon, Jonction prec, Jonction suiv)
 	{
 		super(lon);
+		
+		
 		setId(s_id);
 		s_id+= 1;
 
 	}
+	
 	
 	
 	/**
@@ -95,47 +104,41 @@ public class SegmentDeRoute extends ElementRoute{
 		/*TODO faire pareil pour SENS1 */
 		for(Voiture voit : this.getVoituresSens0())
 		{
-			voit.setVitesse(voit.getvMax());
-			
-			/* Verifications si c'est physiquement possible d'avancer 
-			 * autrement, on décrémente la vitesse jusqu'à ce que ce soit possible */
-			while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), voit.getSens()) && voit.getVitesse() > 0){
-				voit.setvMax(voit.getVitesse()-1);
-			}
-			
-			if (voit.getVitesse() == 0) continue; // si sa vitesse est 0, passer à la suite
-			
-			
-			voit.embranchement(voit.getVitesse());
-			/* On regarde si le fait d'avancer la voiture la fait sortir d'un segment ou pas */
-			/*if(!segmentSuffisant(voit))
-			{
-				if (voit.getRouteSuiv().getLongueur() == 1){ // cas Jonction (ou Section de longueur 1)
-					if (depassementSegment(voit) == 1){
-						voit.embranchement();
-					}
-					else{
-						
-					}
-				}
-				// TODO on fait avancer ou reculer (?)
-				// TODO oummar
-				// TODO oumma
-				// TODO oumm
-				// TODO oum
-				// TODO ou
-				// TODO o
-				}
-				else{
-					voit.avancer();
+			if (!voit.isTraite()){
+				voit.setVitesse(voit.getvMax());
+				
+				/* Verifications si c'est physiquement possible d'avancer 
+				 * autrement, on décrémente la vitesse jusqu'à ce que ce soit possible */
+				while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), voit.getSens()) && voit.getVitesse() > 0){
+					voit.setvMax(voit.getVitesse()-1);
 				}
 				
-			}*/
+				/* Si la vitesse est à 0, lavoiture n'avance pas donc on passe à la voiture suivante */
+	 			if (voit.getVitesse() == 0) continue; 
+	 			
+	 			
+				voit.embranchement(voit.getVitesse());
+				voit.setTraite(true);
+			}
 		}
 		
-		
-		//on deplace les voitures vers le segment suivant. Il faut faire les verif
-		
+		for(Voiture voit : this.getVoituresSens1())
+		{
+			if (!voit.isTraite()){
+				voit.setVitesse(voit.getvMax());
+				
+				while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), voit.getSens()) && voit.getVitesse() > 0){
+					voit.setvMax(voit.getVitesse()-1);
+				}
+				
+				/* Si la vitesse est à 0, lavoiture n'avance pas donc on passe à la voiture suivante */
+	 			if (voit.getVitesse() == 0) continue; 
+	 			
+	 			
+				voit.embranchement(voit.getVitesse());
+				voit.setTraite(true);
+			}
+		}
 	}
 	
 	
@@ -168,18 +171,26 @@ public class SegmentDeRoute extends ElementRoute{
 		return true;
 	}
 	
+	/**
+	 * Retourne le nombre de tronçons de dépassement d'une voiture 
+	 * dont le déplacement la fait sortir du segment
+	 * @param v
+	 * @return
+	 */
 	public int depassementSegment(Voiture v){
 		if (!segmentSuffisant(v)){
 			return v.getVitesse() - distanceRestante(v);
 		}
 		return -1;
 	}
-
 	
-	
-	
-	
-	
+	/**
+	 * Indique, pour un sens donné, si le tronçon n°indice est déjà
+	 * occupé par une voiture ou non.
+	 * @param indice
+	 * @param sens
+	 * @return
+	 */
 	public boolean estOccupe(int indice, int sens)
 	{
 		if (sens == 0){
@@ -195,71 +206,36 @@ public class SegmentDeRoute extends ElementRoute{
 		return false;
 	}
 	
-	/**
-	 * On regarde s'il y a une voiture devant la voiture v dans la limite de la vitesse
-	 * @param v
-	 * @return
-	 */
-	public boolean voitureDevant(Voiture v)
-	{
-		/*for (Voiture v : getMesVoitures()){
-			if (v != voit){
-				if (voit.getPosition() + voit.getVitesse() <)
-			}
-		}*/
-		
-		//s'il y a une voiture dans v.position + v.vitesse, on retourne true 
-		// true = collision. La voiture v s'arrete avant la voiture suivante et sa vitesse est reduite a zero.
-		
-		//est-ce qu'on diminue la vitesse directement dans cette fonction ? ou plutot dans la fonction deplacer.
-		return false;
-	}
-	
-	
-	/**
-	 * Renvoie true s'il y a un panneau sens interdit dans la distance que la voiture va parcourir
-	 * @param v
-	 * @return
-	 */
-	public boolean panneauSensInterditDevant(Voiture v)
-	{
-		
-		//pareil, on verifie la position de la voiture + sa vitesse. S'il y a qqc dans cet intervalle, on renvoie true
-		
-		//sinon false
-		return false;
-	}
-	
-	
-	/*
-	 * AFFICHAGE
-	 */
-	
+	// TODO redéfinir ce truc ou aloes redéfinir l'arrrayList des jonctions en 2 jonctions "suivante" et "précédente"
 	@Override
 	public String toString() {
-		return "Segment id = " + id + " [longueur=" + super.getLongueur() +"]";
-	}
-	
-	/**
-	 * Afficher le contenu d'un segment.
-	 */
-	public void afficherSegment()
-	{
-		System.out.println("[longueur = " + super.getLongueur());
-		System.out.println("]");
+		String affichage = "SegmentDeRoute [id=" + id + ", sesJonctions=" + sesJonctions + "]";
+		return affichage;
 	}
 	
 	
-	/*
-	 * GETTERS et SETTERS
-	 * 
-	 */
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public boolean isTraite() {
+		return traite;
+	}
+
+	public void setTraite(boolean traite) {
+		this.traite = traite;
+	}
+
+	public ArrayList<Jonction> getSesJonctions() {
+		return sesJonctions;
+	}
+
+	public void setSesJonctions(ArrayList<Jonction> sesJonctions) {
+		this.sesJonctions = sesJonctions;
 	}
 
 

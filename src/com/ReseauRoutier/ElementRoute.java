@@ -6,7 +6,6 @@ import java.util.Observable;
 public abstract class ElementRoute extends Observable {
 
 	private int longueur;
-	private int id;
 	
 	private ArrayList<Voiture> voituresSens0;
 	private ArrayList<Voiture> voituresSens1;
@@ -15,6 +14,7 @@ public abstract class ElementRoute extends Observable {
 	public ElementRoute()
 	{
 		voituresSens0 = new ArrayList<Voiture>();
+		voituresSens1 = new ArrayList<Voiture>();
 	}
 	
 	
@@ -32,14 +32,6 @@ public abstract class ElementRoute extends Observable {
 
 	public void setLongueur(int longueur) {
 		this.longueur = longueur;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public ArrayList<Voiture> getVoituresSens0() {

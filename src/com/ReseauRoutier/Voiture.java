@@ -9,8 +9,8 @@ public class Voiture {
 	private int longeur; //permet de faire de plus longues voitures (camions)
 	private int sens;
 	private int vitesse;
-	
 	private int positionDansRoute;
+	private boolean traite; // indique si la voiture a été traitée dans un intervalle de temps
 	
 	private ElementRoute routeActuelle;
 	private ElementRoute routePrec;
@@ -20,6 +20,7 @@ public class Voiture {
 		v_id++;
 		this.id = v_id;
 		this.setVitesse(v);
+		traite = false;
 	}
 	
 	/* Cette fonction part du principe que sa vitesse ne lui permet pas de dépasser le segment sur lequel elle est */
@@ -69,25 +70,44 @@ public class Voiture {
 	}
 	
 	public ElementRoute determinerProchain(){
+		
+		/* Si la voiture est sur une jonction */
 		if (this.routeActuelle instanceof Jonction){
 			Jonction joncActuelle = (Jonction) this.routeActuelle;
-			if (joncActuelle.getSegments().size() == 1){ // dans le cas d'une barrière 
+			
+			/* Si la voiture est sur une barrière on lui fait juste changer de sens*/
+			if (joncActuelle.getSegments().size() == 1){ 
 				if (this.sens == 0) this.sens = 1;
 				else this.sens = 0;
 				return this.routePrec; 
 			}
-			else if (joncActuelle.getSegments().size() == 2){ // cas d'une jonction simple
-				if (joncActuelle.getSegments().get(0) == routePrec) return joncActuelle.getSegments().get(1); // pas trouvé d'autre moyen qu'on retourne pas celle sur laquelle on était pas précedemment y-y
+			
+			/* Si la voiture est sur une jonction simple on la fait aller sur le prochain segment de route*/
+			else if (joncActuelle.getSegments().size() == 2){ 
+				if (joncActuelle.getSegments().get(0) == this.routePrec) return joncActuelle.getSegments().get(1); // pas trouvé d'autre moyen qu'on retourne pas celle sur laquelle on était pas précedemment y-y
 				else return joncActuelle.getSegments().get(0);
 			}
-			else{ // cas d'un carrefour 
+			
+			/* Si la voiture est sur un carrefour on choisit le segment au hasard*/
+			else{ 
 				int choixSegment = (int)(Math.random() * joncActuelle.getSegments().size() + 1);
-				return joncActuelle.getSegments().get(choixSegment);
+				SegmentDeRoute segmentChoisi = joncActuelle.getSegments().get(choixSegment);
+				
+				/* Si le random nous fait tomber sur le meme segment que précédemment, on change de sens */
+				if (segmentChoisi == this.routePrec){
+					if (this.sens == 0) this.sens = 1;
+					else this.sens = 0;
+				}
+				
+				return segmentChoisi;
 			}
 		}
+		
+		/* Sinon elle est sur un segment de route : on la fait passer sur la jonction suivante. */
 		else{
-			// TODO depuis un SegmentDeRoute, comment on accède aux Jonctions qu'il lie? pas de moyen encore
-			return null; // pour que ça compile, rip y-y
+			SegmentDeRoute segmentActuel = (SegmentDeRoute) this.routeActuelle;
+			if (segmentActuel.getSesJonctions().get(0) == this.routePrec) return segmentActuel.getSesJonctions().get(0);
+			else return segmentActuel.getSesJonctions().get(0);
 		}
 	}
 	
@@ -166,5 +186,17 @@ public class Voiture {
 
 	public void setPositionDansRoute(int positionDansRoute) {
 		this.positionDansRoute = positionDansRoute;
+	}
+
+	public boolean isTraite() {
+		return traite;
+	}
+
+	public void setTraite(boolean traite) {
+		this.traite = traite;
+	}
+
+	public void setRouteActuelle(ElementRoute routeActuelle) {
+		this.routeActuelle = routeActuelle;
 	}	
 }
