@@ -1,13 +1,14 @@
 package com.ReseauRoutier;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 public class SegmentDeRoute extends ElementRoute{
 
 	private static int s_id = 1;
 	private int id;
-	private boolean traite; // indique si les voitures de l'élément de route ont été traitées dans un intervalle de temps
+	private boolean traite; // indique si les voitures de l'ﾃｩlﾃｩment de route ont ﾃｩtﾃｩ traitﾃｩes dans un intervalle de temps
 
 	
 	private ArrayList<Jonction> sesJonctions;
@@ -16,6 +17,7 @@ public class SegmentDeRoute extends ElementRoute{
 	{
 		setId(s_id);
 		s_id+= 1;
+		sesJonctions = new ArrayList<>();
 		traite = false;
 	}
 	
@@ -23,7 +25,7 @@ public class SegmentDeRoute extends ElementRoute{
 	{
 		
 		super();
-		
+		sesJonctions = new ArrayList<>();
 		Random rand = new Random();
 		super.setLongueur(rand.nextInt((max - min) + 1) + min);
 		
@@ -32,11 +34,10 @@ public class SegmentDeRoute extends ElementRoute{
 
 	}
 	
-	public SegmentDeRoute(int lon, Jonction prec, Jonction suiv)
+	public SegmentDeRoute(int lon)
 	{
 		super(lon);
-		
-		
+		sesJonctions = new ArrayList<>();
 		setId(s_id);
 		s_id+= 1;
 
@@ -71,86 +72,83 @@ public class SegmentDeRoute extends ElementRoute{
 		else getVoituresSens0().add(v);
 	}
 	
-	public void suppressionVoiture(Voiture v)
+	/*public void suppressionVoiture(Voiture v)
 	{
 		v.setRouteActuelle(null); //??
 		getVoituresSens0().remove(v);
-	}
-	
-	
-	
-	
-	
-	
-	/*****************************************DEPLACEMENT****************************************/
-	
-	/****																					*****/
-
-	/****											a implementer							*****/
-
+	}*/
 	
 	/**
-	 * Deplacement de voitures
+	 * Deplacement de voitures sur le segment
 	 */
 	@Override
 	public void deplacerVoiture() {
-
 		
-		/*ArrayList<Voiture> voitureSegmentSuivant = new ArrayList<Voiture>();
-		int distanceRestante = 0; */
-	
 		System.out.println("Iteration des voitures contenu dans le segment : " + this.getId());
-
-		/*TODO faire pareil pour SENS1 */
-		for(Voiture voit : this.getVoituresSens0())
-		{
+		
+		for (Iterator<Voiture> ite = voituresSens0.iterator(); ite.hasNext(); ){
+			Voiture voit = ite.next();
+			System.out.println(voit.toString());
+			
 			if (!voit.isTraite()){
 				voit.setVitesse(voit.getvMax());
 				
-				/* Verifications si c'est physiquement possible d'avancer 
-				 * autrement, on décrémente la vitesse jusqu'à ce que ce soit possible */
-				while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), voit.getSens()) && voit.getVitesse() > 0){
-					voit.setvMax(voit.getVitesse()-1);
+				if (segmentSuffisant(voit)){
+					//Verifications si c'est physiquement possible d'avancer 
+					//autrement, on dﾃｩcrﾃｩmente la vitesse jusqu'ﾃ� ce que ce soit possible 
+					// TODO immplémenter ce truc directement dans voiture.avancer()
+					while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), voit.getSens()) && voit.getVitesse() > 0){
+						voit.setvMax(voit.getVitesse()-1);
+					}
+					
+					// TODO
+					// D'autres éléments pourront diminuer la vitesse d'une voiture genre les feux tricolores 
+					
+					// Si la vitesse est ﾃ� 0, lavoiture n'avance pas donc on passe ﾃ� la voiture suivante 
+		 			if (voit.getVitesse() == 0) continue; 
+		 			else voit.avancer();
+				}
+				else{
+					ite.remove();
+					voit.embranchement(voit.getVitesse());
 				}
 				
-				/* Si la vitesse est à 0, lavoiture n'avance pas donc on passe à la voiture suivante */
-	 			if (voit.getVitesse() == 0) continue; 
-	 			
-	 			
-				voit.embranchement(voit.getVitesse());
 				voit.setTraite(true);
 			}
 		}
 		
-		for(Voiture voit : this.getVoituresSens1())
-		{
+		for (Iterator<Voiture> ite = voituresSens1.iterator(); ite.hasNext(); ){
+			Voiture voit = ite.next();
+			
 			if (!voit.isTraite()){
 				voit.setVitesse(voit.getvMax());
 				
-				while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), voit.getSens()) && voit.getVitesse() > 0){
-					voit.setvMax(voit.getVitesse()-1);
+				if (segmentSuffisant(voit)){
+				
+					while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), voit.getSens()) && voit.getVitesse() > 0){
+						voit.setvMax(voit.getVitesse()-1);
+					}
+					
+					// TODO
+					// D'autres éléments pourront diminuer la vitesse d'une voiture genre les feux tricolores 
+					
+					// Si la vitesse est ﾃ� 0, lavoiture n'avance pas donc on passe ﾃ� la voiture suivante 
+		 			if (voit.getVitesse() == 0) continue; 
+		 			else voit.avancer();
+				}
+				else{
+					ite.remove(); // necessaire pour ne pas avoir de CurrentMosificationException
+					voit.embranchement(voit.getVitesse());
 				}
 				
-				/* Si la vitesse est à 0, lavoiture n'avance pas donc on passe à la voiture suivante */
-	 			if (voit.getVitesse() == 0) continue; 
-	 			
-	 			
-				voit.embranchement(voit.getVitesse());
 				voit.setTraite(true);
 			}
 		}
 	}
 	
-	
-
-	/**
-	 * 
-	 */
 	public int distanceRestante(Voiture v)
 	{
 		int distanceRestante = this.getLongueur() - v.getPositionDansRoute();
-		//System.out.println("Ce segment mesure " + s.getLongueur() + ", et la voiture aurait depasse de ");
-		
 		return distanceRestante;
 	}
 	
@@ -162,7 +160,6 @@ public class SegmentDeRoute extends ElementRoute{
 	 */
 	public boolean segmentSuffisant(Voiture v)
 	{
-		
 		if(v.getVitesse() >= distanceRestante(v))
 		{
 			System.out.println("\n--Pour la voiture " + v.getId() + " => Segment trop court !\n");
@@ -172,8 +169,8 @@ public class SegmentDeRoute extends ElementRoute{
 	}
 	
 	/**
-	 * Retourne le nombre de tronçons de dépassement d'une voiture 
-	 * dont le déplacement la fait sortir du segment
+	 * Retourne le nombre de tronﾃｧons de dﾃｩpassement d'une voiture 
+	 * dont le dﾃｩplacement la fait sortir du segment
 	 * @param v
 	 * @return
 	 */
@@ -185,8 +182,8 @@ public class SegmentDeRoute extends ElementRoute{
 	}
 	
 	/**
-	 * Indique, pour un sens donné, si le tronçon n°indice est déjà
-	 * occupé par une voiture ou non.
+	 * Indique, pour un sens donnﾃｩ, si le tronﾃｧon nﾂｰindice est dﾃｩjﾃ�
+	 * occupﾃｩ par une voiture ou non.
 	 * @param indice
 	 * @param sens
 	 * @return
@@ -206,13 +203,29 @@ public class SegmentDeRoute extends ElementRoute{
 		return false;
 	}
 	
-	// TODO redéfinir ce truc ou aloes redéfinir l'arrrayList des jonctions en 2 jonctions "suivante" et "précédente"
 	@Override
 	public String toString() {
-		String affichage = "SegmentDeRoute [id=" + id + ", sesJonctions=" + sesJonctions + "]";
+		String affichage = "SegmentDeRoute [id=" + id + ", sesJonctions=";
+		for (Jonction j:sesJonctions){
+			affichage += " " + j.getId();
+		}
+		affichage += "]";
 		return affichage;
 	}
 	
+	public void affichageVoitures(){
+		System.out.println("_________Segment n°" + this.id + " ("+this.longueur+")\n-- Sens 0 :\n");
+		for (Voiture v:voituresSens0){
+			System.out.println("\t-Voiture n°" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()+", sens? = "+v.getSens()+", traite? = "+this.traite);
+		}
+		
+		System.out.println("\n-- Sens 1 :\n");
+		for (Voiture v:voituresSens1){
+			System.out.println("\t-Voiture n°" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()+", sens? = "+v.getSens()+", traite? = "+this.traite);
+		}
+		
+		System.out.println("\n");
+	}
 	
 	public int getId() {
 		return id;
