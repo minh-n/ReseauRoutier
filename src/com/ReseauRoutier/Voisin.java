@@ -1,11 +1,13 @@
 package com.ReseauRoutier;
 
-public class Voisin {
+public class Voisin{
 	
 	private Jonction jonction;
 	private SegmentDeRoute segment;
 	private int sens1;
 	private int sens2;
+	
+	
 	
 	public Voisin()
 	{

@@ -25,7 +25,9 @@ public class JonctionCarrefour extends Jonction{
 	        return sesAcces.get(indice);
 	    }
 */
-	
+	public void notifier(){
+		
+	}
 	
 		@Override
 		public String toString() 

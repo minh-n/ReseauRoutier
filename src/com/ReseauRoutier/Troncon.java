@@ -2,7 +2,7 @@ package com.ReseauRoutier;
 
 import com.Regulation.*;
 
-public class Troncon {
+public class Troncon extends ElementRoute{
 
 	private static int t_id = 0;
 	private int id;

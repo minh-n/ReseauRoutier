@@ -1,6 +1,8 @@
 package com.ReseauRoutier;
 
-public class Voiture {
+import java.util.Observable;
+
+public class Voiture extends Observable{
 	
 	private static int v_id = 0; //incrementeur ID de la voiture
 	private int id;
@@ -22,6 +24,11 @@ public class Voiture {
 		this.setVitesse(v);
 	}
 	
+	public void notifier()
+	{
+		System.out.println("Changement sur la voiture!");
+	}
+	
 	@Override
 	public String toString() {
 		return "Voiture [id=" + id + ", vMax=" + vMax + "]";
@@ -41,6 +48,8 @@ public class Voiture {
 
 	public void setvMax(int vMax) {
 		this.vMax = vMax;
+		setChanged();
+		notifyObservers(this.vMax);
 	}
 
 	public int getLongeur() {

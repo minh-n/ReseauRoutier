@@ -9,6 +9,11 @@ public class SegmentDeRoute extends ElementRoute{
 	private int id;
 	private ArrayList<Troncon> troncons;
 	private ArrayList<Voiture> mesVoitures;
+	
+	public void notifier()
+	{
+		System.out.println("Changement sur le Segment de route!");
+	}
 		
 	public SegmentDeRoute()
 	{
@@ -41,6 +46,7 @@ public class SegmentDeRoute extends ElementRoute{
 	{
 		super(lon);
 		this.troncons = new ArrayList<Troncon>();
+		this.mesVoitures = new ArrayList<Voiture>();
 		setId(s_id);
 		s_id+= 1;
 		
