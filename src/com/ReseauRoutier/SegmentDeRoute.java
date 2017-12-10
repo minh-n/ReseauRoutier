@@ -1,54 +1,48 @@
 package com.ReseauRoutier;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 public class SegmentDeRoute extends ElementRoute{
 
 	private static int s_id = 1;
 	private int id;
-	private ArrayList<Troncon> troncons;
-		
+	private boolean traite; // indique si les voitures de l'ﾃｩlﾃｩment de route ont ﾃｩtﾃｩ traitﾃｩes dans un intervalle de temps
+
+	
+	private ArrayList<Jonction> sesJonctions;
+
 	public SegmentDeRoute()
 	{
-		this.troncons = new ArrayList<Troncon>();
-
 		setId(s_id);
 		s_id+= 1;
+		sesJonctions = new ArrayList<>();
+		traite = false;
 	}
 	
 	public SegmentDeRoute(int min, int max)
 	{
 		
 		super();
-		
+		sesJonctions = new ArrayList<>();
 		Random rand = new Random();
 		super.setLongueur(rand.nextInt((max - min) + 1) + min);
-
 		
-		this.troncons = new ArrayList<Troncon>();
-
 		setId(s_id);
 		s_id+= 1;
-		
-		for(int i = 0 ; i < super.getLongueur() ; i++)
-		{
-			troncons.add(new Troncon());
-		}
+
 	}
 	
 	public SegmentDeRoute(int lon)
 	{
 		super(lon);
-		this.troncons = new ArrayList<Troncon>();
+		sesJonctions = new ArrayList<>();
 		setId(s_id);
 		s_id+= 1;
-		
-		for(int i = 0 ; i < super.getLongueur() ; i++)
-		{
-			troncons.add(new Troncon());
-		}
+
 	}
+	
 	
 	
 	/**
@@ -56,99 +50,182 @@ public class SegmentDeRoute extends ElementRoute{
 	 * Prend en compte l'occupation d'un segment.
 	 * @param v
 	 */
-	public void ajoutVoiture(Voiture v, int s)
+	public void ajoutVoiture(Voiture v)
 	{
 		
 		/**
 		 * TODO faire les sens
 		 */
-		v.setSens(s);
+		//v.setSens(s);
 		
 		v.setRouteActuelle(this);
 		boolean occupe = true;
 		int i = 0;
 		do
 		{
-			occupe = verifOccupe(i);
-			if (occupe == false)
-			{
-				//TODO bizarre de devoir faire un break ?
-
-				break;
-			}
-			
+			occupe = estOccupe(i, v.getSens());
+	
 			i++;
 		}while(occupe);
-		v.setTronconActuel(troncons.get(i));
-		getMesVoitures().add(v);
+		//v.setTronconActuel(troncons.get(i)); ca serait un setPosition
+		if (v.getSens() == 0) getVoituresSens0().add(v);
+		else getVoituresSens0().add(v);
 	}
 	
-	public boolean verifOccupe(int n)
+	/*public void suppressionVoiture(Voiture v)
 	{
-		for(Voiture voit : getMesVoitures())
-		{
-			if (n == voit.getTronconActuel().getId()) //si le troncon numero n correspond a un troncon occupe par une voiture
-			{
-				return true;
+		v.setRouteActuelle(null); //??
+		getVoituresSens0().remove(v);
+	}*/
+	
+	/**
+	 * Deplacement de voitures sur le segment
+	 */
+	@Override
+	public void deplacerVoiture() {
+		
+		System.out.println("Iteration des voitures contenu dans le segment : " + this.getId());
+		
+		for (Iterator<Voiture> ite = voituresSens0.iterator(); ite.hasNext(); ){
+			Voiture voit = ite.next();			
+			if (!voit.isTraite()){
+				voit.setVitesse(voit.getvMax());
+				if (segmentSuffisant(voit)){
+					//Verifications si c'est physiquement possible d'avancer 
+					//autrement, on dﾃｩcrﾃｩmente la vitesse jusqu'ﾃ� ce que ce soit possible 
+					// TODO immplémenter ce truc directement dans voiture.avancer()
+					while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), voit.getSens()) && voit.getVitesse() > 0){
+						voit.setVitesse(voit.getVitesse()-1);
+					}
+
+					// TODO
+					// D'autres éléments pourront diminuer la vitesse d'une voiture genre les feux tricolores 
+					
+					// Si la vitesse est ﾃ� 0, lavoiture n'avance pas donc on passe ﾃ� la voiture suivante 
+		 			if (voit.getVitesse() == 0) continue; 
+		 			else{
+		 				voit.avancer();
+		 			}
+				}
+				else{
+					ite.remove();
+					voit.embranchement(voit.getVitesse());
+				}
+				voit.setTraite(true);
 			}
 		}
 		
-		return false;
+		
+		for (Iterator<Voiture> ite = voituresSens1.iterator(); ite.hasNext(); ){
+			Voiture voit = ite.next();
+			
+			if (!voit.isTraite()){
+				voit.setVitesse(voit.getvMax());
+				if (segmentSuffisant(voit)){
+				
+					while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), voit.getSens()) && voit.getVitesse() > 0){
+						voit.setVitesse(voit.getVitesse()-1);
+					}
+					
+					// TODO
+					// D'autres éléments pourront diminuer la vitesse d'une voiture genre les feux tricolores 
+					
+					// Si la vitesse est ﾃ� 0, lavoiture n'avance pas donc on passe ﾃ� la voiture suivante 
+		 			if (voit.getVitesse() == 0) continue; 
+		 			else{
+		 				voit.avancer();
+		 			}
+				}
+				else{
+					ite.remove(); // necessaire pour ne pas avoir de CurrentMosificationException
+					voit.embranchement(voit.getVitesse());
+				}
+				voit.setTraite(true);
+			}
+		}
 	}
 	
-	public void suppressionVoiture(Voiture v)
+	public int distanceRestante(Voiture v)
 	{
-		v.setRouteActuelle(null); //??
-		v.setTronconActuel(null); //TODO tout
-		getMesVoitures().remove(v);
+		int distanceRestante = this.getLongueur() - v.getPositionDansRoute();
+		return distanceRestante;
 	}
 	
 	
-	
-	
-	
-	
-	/*
-	 * AFFICHAGE
+	/**
+	 * Indique s'il reste assez de place sur ce segment pour deplacer la voiture.
+	 * @param v
+	 * @return false si elle n'est pas suffisante
 	 */
-	
-	@Override
-	public String toString() {
-		return "Segment id = " + id + " [longueur=" + super.getLongueur() + ", troncons=" + this.troncons + "]";
+	public boolean segmentSuffisant(Voiture v)
+	{
+		if(v.getVitesse() >= distanceRestante(v))
+		{
+			System.out.println("\n--Pour la voiture " + v.getId() + " => Segment trop court !\n");
+			return false;
+		}
+		return true;
 	}
 	
 	/**
-	 * Afficher le contenu d'un segment.
+	 * Retourne le nombre de tronﾃｧons de dﾃｩpassement d'une voiture 
+	 * dont le dﾃｩplacement la fait sortir du segment
+	 * @param v
+	 * @return
 	 */
-	public void afficherSegment()
-	{
-		System.out.println("[longueur = " + super.getLongueur() 
-				+ "\ntroncons = ");
-		int i = 0;
-		for(Troncon t : this.troncons)
-		{
-			t.setId(i);
-			i++;
-			System.out.println(t.toString());
+	public int depassementSegment(Voiture v){
+		if (!segmentSuffisant(v)){
+			return v.getVitesse() - distanceRestante(v);
 		}
-		System.out.println("]");
+		return -1;
 	}
 	
-	
-	/*
-	 * GETTERS et SETTERS
-	 * 
+	/**
+	 * Indique, pour un sens donnﾃｩ, si le tronﾃｧon nﾂｰindice est dﾃｩjﾃ�
+	 * occupﾃｩ par une voiture ou non.
+	 * @param indice
+	 * @param sens
+	 * @return
 	 */
-	
-	
-	public ArrayList<Troncon> getTroncons() {
-		return troncons;
+	public boolean estOccupe(int indice, int sens)
+	{
+		if (sens == 0){
+			for (Voiture v:this.getVoituresSens0()){
+				if (v.getPositionDansRoute() == indice) return true;
+			}
+		}
+		else{
+			for (Voiture v:this.getVoituresSens1()){
+				if (v.getPositionDansRoute() == indice) return true;
+			}
+		}
+		return false;
 	}
 	
-	public void setTroncons(ArrayList<Troncon> troncons) {
-		this.troncons = troncons;
+	@Override
+	public String toString() {
+		String affichage = "SegmentDeRoute [id=" + id + ", sesJonctions=";
+		for (Jonction j:sesJonctions){
+			affichage += " " + j.getId();
+		}
+		affichage += "]";
+		return affichage;
 	}
-
+	
+	public void affichageVoitures(){
+		System.out.println("_________Segment n°" + this.id + " ("+this.longueur+")\n-- Sens 0 :\n");
+		for (Voiture v:voituresSens0){
+			System.out.println("\t-Voiture n°" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()/*+", sens? = "+v.getSens()+"\n"*/);
+		}
+		
+		System.out.println("\n-- Sens 1 :\n");
+		for (Voiture v:voituresSens1){
+			System.out.println("\t-Voiture n°" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()/*+", sens? = "+v.getSens()+"\n"*/);
+		}
+		
+		System.out.println("\n");
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -156,5 +233,22 @@ public class SegmentDeRoute extends ElementRoute{
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public boolean isTraite() {
+		return traite;
+	}
+
+	public void setTraite(boolean traite) {
+		this.traite = traite;
+	}
+
+	public ArrayList<Jonction> getSesJonctions() {
+		return sesJonctions;
+	}
+
+	public void setSesJonctions(ArrayList<Jonction> sesJonctions) {
+		this.sesJonctions = sesJonctions;
+	}
+
 
 }

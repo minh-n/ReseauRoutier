@@ -5,31 +5,36 @@ import java.util.Observable;
 
 public abstract class ElementRoute extends Observable {
 
-	private int longueur;
-	private int id;
+	protected int longueur;
 	
-	private ArrayList<Voiture> mesVoitures;
-	
-	//liste voiture ou pas ?
-	
+	protected ArrayList<Voiture> voituresSens0;
+	protected ArrayList<Voiture> voituresSens1;
+
+
 	public ElementRoute()
 	{
-		mesVoitures = new ArrayList<Voiture>();
+		voituresSens0 = new ArrayList<Voiture>();
+		voituresSens1 = new ArrayList<Voiture>();
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+	public abstract void deplacerVoiture();
 	
 	
 	public ElementRoute(int lon)
 	{
+		voituresSens0 = new ArrayList<Voiture>();
+		voituresSens1 = new ArrayList<Voiture>();
 		this.longueur = lon;
+	}
+	
+	public void resetTraite(){
+		for (Voiture v:voituresSens0){
+			v.setTraite(false);
+		}
+		for (Voiture v:voituresSens1){
+			v.setTraite(false);
+		}
 	}
 	
 	public int getLongueur() {
@@ -40,19 +45,21 @@ public abstract class ElementRoute extends Observable {
 		this.longueur = longueur;
 	}
 
-	public int getId() {
-		return id;
+	public ArrayList<Voiture> getVoituresSens0() {
+		return voituresSens0;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setVoituresSens0(ArrayList<Voiture> mesVoitures) {
+		this.voituresSens0 = mesVoitures;
+	}
+	
+	public ArrayList<Voiture> getVoituresSens1() {
+		return voituresSens1;
 	}
 
-	public ArrayList<Voiture> getMesVoitures() {
-		return mesVoitures;
-	}
 
-	public void setMesVoitures(ArrayList<Voiture> mesVoitures) {
-		this.mesVoitures = mesVoitures;
+	public void setVoituresSens1(ArrayList<Voiture> voituresSens1) {
+		this.voituresSens1 = voituresSens1;
 	}
+	
 }
