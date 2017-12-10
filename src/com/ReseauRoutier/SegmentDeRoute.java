@@ -87,46 +87,44 @@ public class SegmentDeRoute extends ElementRoute{
 		System.out.println("Iteration des voitures contenu dans le segment : " + this.getId());
 		
 		for (Iterator<Voiture> ite = voituresSens0.iterator(); ite.hasNext(); ){
-			Voiture voit = ite.next();
-			System.out.println(voit.toString());
-			
+			Voiture voit = ite.next();			
 			if (!voit.isTraite()){
 				voit.setVitesse(voit.getvMax());
-				
 				if (segmentSuffisant(voit)){
 					//Verifications si c'est physiquement possible d'avancer 
 					//autrement, on dﾃｩcrﾃｩmente la vitesse jusqu'ﾃ� ce que ce soit possible 
 					// TODO immplémenter ce truc directement dans voiture.avancer()
 					while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), voit.getSens()) && voit.getVitesse() > 0){
-						voit.setvMax(voit.getVitesse()-1);
+						voit.setVitesse(voit.getVitesse()-1);
 					}
-					
+
 					// TODO
 					// D'autres éléments pourront diminuer la vitesse d'une voiture genre les feux tricolores 
 					
 					// Si la vitesse est ﾃ� 0, lavoiture n'avance pas donc on passe ﾃ� la voiture suivante 
 		 			if (voit.getVitesse() == 0) continue; 
-		 			else voit.avancer();
+		 			else{
+		 				voit.avancer();
+		 			}
 				}
 				else{
 					ite.remove();
 					voit.embranchement(voit.getVitesse());
 				}
-				
 				voit.setTraite(true);
 			}
 		}
+		
 		
 		for (Iterator<Voiture> ite = voituresSens1.iterator(); ite.hasNext(); ){
 			Voiture voit = ite.next();
 			
 			if (!voit.isTraite()){
 				voit.setVitesse(voit.getvMax());
-				
 				if (segmentSuffisant(voit)){
 				
 					while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), voit.getSens()) && voit.getVitesse() > 0){
-						voit.setvMax(voit.getVitesse()-1);
+						voit.setVitesse(voit.getVitesse()-1);
 					}
 					
 					// TODO
@@ -134,13 +132,14 @@ public class SegmentDeRoute extends ElementRoute{
 					
 					// Si la vitesse est ﾃ� 0, lavoiture n'avance pas donc on passe ﾃ� la voiture suivante 
 		 			if (voit.getVitesse() == 0) continue; 
-		 			else voit.avancer();
+		 			else{
+		 				voit.avancer();
+		 			}
 				}
 				else{
 					ite.remove(); // necessaire pour ne pas avoir de CurrentMosificationException
 					voit.embranchement(voit.getVitesse());
 				}
-				
 				voit.setTraite(true);
 			}
 		}
@@ -216,12 +215,12 @@ public class SegmentDeRoute extends ElementRoute{
 	public void affichageVoitures(){
 		System.out.println("_________Segment n°" + this.id + " ("+this.longueur+")\n-- Sens 0 :\n");
 		for (Voiture v:voituresSens0){
-			System.out.println("\t-Voiture n°" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()+", sens? = "+v.getSens()+", traite? = "+this.traite);
+			System.out.println("\t-Voiture n°" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()/*+", sens? = "+v.getSens()+"\n"*/);
 		}
 		
 		System.out.println("\n-- Sens 1 :\n");
 		for (Voiture v:voituresSens1){
-			System.out.println("\t-Voiture n°" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()+", sens? = "+v.getSens()+", traite? = "+this.traite);
+			System.out.println("\t-Voiture n°" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()/*+", sens? = "+v.getSens()+"\n"*/);
 		}
 		
 		System.out.println("\n");

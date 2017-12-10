@@ -34,12 +34,12 @@ public class Voiture {
 	
 	/* Cette fonction part du principe que sa vitesse ne lui permet pas de dﾃｩpasser le segment sur lequel elle est */
 	public void avancer(){
-		System.out.println("a = "+this.getPositionDansRoute()+" -> "+this.getVitesse());
+		//System.out.println("v"+id+" = "+this.getPositionDansRoute()+" -> "+(this.getPositionDansRoute()+this.getVitesse()));
 		setPositionDansRoute(getPositionDansRoute() + getVitesse());
 	}
 	
 	public void avancer(int avancement){
-		System.out.println("a = "+this.getPositionDansRoute()+" -> "+avancement);
+		//System.out.println("v"+id+" = "+this.getPositionDansRoute()+" -> "+(this.getPositionDansRoute()+avancement));
 		setPositionDansRoute(getPositionDansRoute() + avancement);
 	}
 
@@ -48,14 +48,13 @@ public class Voiture {
 	public void embranchement(int reste){
 		
 		/* Telle qu'elle est la fonction autorise deux voitures à être sur un moeme tronçon ! => modifier avancer */
-		
-		reste-= routeActuelle.getLongueur();
+		reste-= (routeActuelle.getLongueur() - this.getPositionDansRoute());
 		routePrec = routeActuelle;
 		routeActuelle = routeSuiv;
 		routeSuiv = determinerProchain();
 		
 		
-		System.out.println(nomRoute(routePrec)+" -> "+nomRoute(routeActuelle)+", reste = "+reste);
+		//System.out.println(nomRoute(routePrec)+" -> "+nomRoute(routeActuelle)+", reste = "+reste);
 		
 		if (this.sens == 0){
 			if(routePrec.getVoituresSens0().contains(this))  routePrec.getVoituresSens0().remove(this);
@@ -67,11 +66,11 @@ public class Voiture {
 		}
 		
 		
+		this.setPositionDansRoute(0);
 		if (reste >= routeActuelle.getLongueur()){
 			embranchement(reste);
 		}
 		else{
-			this.setPositionDansRoute(0);
 			avancer(reste);
 		}
 	}
