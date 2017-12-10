@@ -21,9 +21,9 @@ public class Test {
 		Voiture v2 = new Voiture(5, 0);
 		Voiture v3 = new Voiture(4, 1);
 		
-		resal.insérerVoiture(v, 1);
-		resal.insérerVoiture(v2, 2);
-		resal.insérerVoiture(v3, 2);
+		resal.insererVoiture(v, 1);
+		resal.insererVoiture(v2, 2);
+		resal.insererVoiture(v3, 2);
 		resal.iteration();
 		resal.iteration();
 		resal.iteration();

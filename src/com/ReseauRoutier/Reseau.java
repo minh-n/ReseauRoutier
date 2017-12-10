@@ -75,7 +75,7 @@ public class Reseau {
 	 * @param voit
 	 * @param idJonction
 	 */
-	public void insérerVoiture(Voiture voit, int idJonction){
+	public void insererVoiture(Voiture voit, int idJonction){
 		Jonction joncActuelle = jonctions.get(idJonction);
 		voit.setRouteActuelle(joncActuelle.getSegments().get(0));
 		voit.setPositionDansRoute(0);
