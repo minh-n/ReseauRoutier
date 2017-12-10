@@ -2,6 +2,7 @@ package com.ReseauRoutier;
 
 import java.util.ArrayList;
 import java.util.Observable;
+import com.Regulation.*;
 
 public abstract class ElementRoute extends Observable {
 
@@ -9,25 +10,44 @@ public abstract class ElementRoute extends Observable {
 	
 	protected ArrayList<Voiture> voituresSens0;
 	protected ArrayList<Voiture> voituresSens1;
-
-
+	protected ArrayList<Capteur> capteurSens0;
+	protected ArrayList<Capteur> capteurSens1;
+	
 	public ElementRoute()
 	{
 		voituresSens0 = new ArrayList<Voiture>();
 		voituresSens1 = new ArrayList<Voiture>();
+		capteurSens0 = new ArrayList<Capteur>();
+		capteurSens1 = new ArrayList<Capteur>();
 	}
 	
-	
 	public abstract void deplacerVoiture();
-	
 	
 	public ElementRoute(int lon)
 	{
 		voituresSens0 = new ArrayList<Voiture>();
 		voituresSens1 = new ArrayList<Voiture>();
+		capteurSens0 = new ArrayList<Capteur>();
+		capteurSens1 = new ArrayList<Capteur>();
 		this.longueur = lon;
 	}
 	
+	public ArrayList<Capteur> getCapteurSens0() {
+		return capteurSens0;
+	}
+
+	public void setCapteurSens0(ArrayList<Capteur> capteurSens0) {
+		this.capteurSens0 = capteurSens0;
+	}
+
+	public ArrayList<Capteur> getCapteurSens1() {
+		return capteurSens1;
+	}
+
+	public void setCapteurSens1(ArrayList<Capteur> capteurSens1) {
+		this.capteurSens1 = capteurSens1;
+	}
+
 	public void resetTraite(){
 		for (Voiture v:voituresSens0){
 			v.setTraite(false);

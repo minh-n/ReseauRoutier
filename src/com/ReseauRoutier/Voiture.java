@@ -1,6 +1,8 @@
 package com.ReseauRoutier;
 
-public class Voiture {
+import java.util.Observable;
+
+public class Voiture extends Observable{
 	
 	private static int v_id = 0; //incrementeur ID de la voiture
 	private int id;
@@ -32,7 +34,7 @@ public class Voiture {
 		this.traite = false;
 	}
 	
-	/* Cette fonction part du principe que sa vitesse ne lui permet pas de dﾃｩpasser le segment sur lequel elle est */
+	/* Cette fonction part du principe que sa vitesse ne lui permet pas de depasser le segment sur lequel elle est */
 	public void avancer(){
 		//System.out.println("v"+id+" = "+this.getPositionDansRoute()+" -> "+(this.getPositionDansRoute()+this.getVitesse()));
 		setPositionDansRoute(getPositionDansRoute() + getVitesse());
@@ -150,6 +152,8 @@ public class Voiture {
 
 	public void setvMax(int vMax) {
 		this.vMax = vMax;
+		setChanged();
+		notifyObservers(vMax);
 	}
 
 	public int getLongeur() {
@@ -174,6 +178,8 @@ public class Voiture {
 
 	public void setVitesse(int vitesse) {
 		this.vitesse = vitesse;
+		setChanged();
+		notifyObservers(vitesse);
 	}
 
 	public int getSens() {
@@ -206,6 +212,8 @@ public class Voiture {
 
 	public void setPositionDansRoute(int positionDansRoute) {
 		this.positionDansRoute = positionDansRoute;
+		setChanged();
+		notifyObservers(positionDansRoute);
 	}
 
 	public boolean isTraite() {

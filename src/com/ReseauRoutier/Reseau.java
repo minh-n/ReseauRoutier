@@ -2,6 +2,8 @@ package com.ReseauRoutier;
 
 import java.util.ArrayList;
 
+import com.Regulation.Capteur;
+
 public class Reseau {
 	
 	
@@ -88,6 +90,19 @@ public class Reseau {
 			voit.getRouteActuelle().getVoituresSens1().add(voit); 
 		}
 	}
+	
+	public void insererCapteur(Capteur capt, int idJonction){
+		Jonction joncActuelle = jonctions.get(idJonction);
+		capt.setRoute(joncActuelle.getSegments().get(0));
+		capt.setPositionDansRoute(capt.getPositionDansRoute());
+		if (capt.getSens() == 0){
+			capt.getRoute().getCapteurSens0().add(capt); 
+		}
+		else{
+			capt.getRoute().getCapteurSens1().add(capt); 
+		}
+	}
+	
 	
 	private void resetTraite(){
 		for (Jonction j:jonctions){
