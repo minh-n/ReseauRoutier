@@ -26,11 +26,6 @@ public class Test {
 		Voiture v2 = new Voiture(5, 0);
 		Voiture v3 = new Voiture(4, 1);
 		
-		v.addObserver(c);
-		v.addObserver(c2);
-		v.addObserver(c3);
-		v.addObserver(c4);
-		
 		resal.insererVoiture(v, 1);
 		resal.insererVoiture(v2, 2);
 		resal.insererVoiture(v3, 2);

@@ -84,10 +84,12 @@ public class Reseau {
 		if (voit.getSens() == 0){
 			voit.setRouteSuiv(joncActuelle.getSegments().get(0).getSesJonctions().get(0)); // la jonction qui suit le 1er segment, dans le sens 0
 			voit.getRouteActuelle().getVoituresSens0().add(voit); 
+			voit.addObs();
 		}
 		else{
 			voit.setRouteSuiv(joncActuelle); // la jonction qui suit le 1er segment, dans le sens 1 (i.e. elle même)
 			voit.getRouteActuelle().getVoituresSens1().add(voit); 
+			voit.addObs();
 		}
 	}
 	
@@ -97,9 +99,11 @@ public class Reseau {
 		capt.setPositionDansRoute(capt.getPositionDansRoute());
 		if (capt.getSens() == 0){
 			capt.getRoute().getCapteurSens0().add(capt); 
+			capt.addObs();
 		}
 		else{
 			capt.getRoute().getCapteurSens1().add(capt); 
+			capt.addObs();
 		}
 	}
 	

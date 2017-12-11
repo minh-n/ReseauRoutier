@@ -4,6 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import com.ReseauRoutier.ElementRoute;
+import com.ReseauRoutier.Voiture;
 
 public abstract class Capteur implements Observer{
 	
@@ -23,6 +24,24 @@ public abstract class Capteur implements Observer{
 	
 	@Override
 	public abstract void update(Observable o, Object arg);
+	
+	public void addObs()
+	{
+		if(getSens() == 0)
+		{
+			for(Voiture v:getRoute().getVoituresSens0())
+			{
+				v.addObserver(this);
+			}
+		}
+		else
+		{
+			for(Voiture v:getRoute().getVoituresSens1())
+			{
+				v.addObserver(this);
+			}
+		}
+	}
 
 	public int getPositionDansRoute() {
 		return positionDansRoute;

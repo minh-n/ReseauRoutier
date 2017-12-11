@@ -17,9 +17,12 @@ public class CapteurVitesse extends Capteur{
 		
 		if(o instanceof Voiture)
 		{
-			if(((Voiture) o).getSens() == this.getSens() && ((Voiture) o).getPositionDansRoute() > this.getPositionDansRoute()) //pas au point
+			if(((Voiture) o).getSens() == this.getSens() && ((Voiture) o).getPositionDansRoute() >= this.getPositionDansRoute()
+					&& ((Voiture) o).getPositionPrecedente() <= this.getPositionDansRoute() && ((Voiture) o).getRouteActuelle() == this.getRoute())
 			{
-				System.out.println("Changement dans voiture " + ((Voiture) o).getId() + " par capteur " + this.getId());
+				System.out.println("Capteur de vitesse " + this.getId()); 
+				System.out.println("Position : " + this.getPositionDansRoute());
+				System.out.println("La vitesse de la voiture "+ ((Voiture) o).getId() + " est "+ ((Voiture) o).getVitesse());
 				System.out.println(o.toString() + "\n");
 			}
 		}

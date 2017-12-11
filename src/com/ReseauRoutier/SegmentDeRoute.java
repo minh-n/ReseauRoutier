@@ -45,32 +45,33 @@ public class SegmentDeRoute extends ElementRoute{
 	
 	
 	
-	/**
-	 * Ajoute une voiture a ce segment de route. 
-	 * Prend en compte l'occupation d'un segment.
-	 * @param v
-	 */
-	public void ajoutVoiture(Voiture v)
-	{
-		
-		/**
-		 * TODO faire les sens
-		 */
-		//v.setSens(s);
-		
-		v.setRouteActuelle(this);
-		boolean occupe = true;
-		int i = 0;
-		do
-		{
-			occupe = estOccupe(i, v.getSens());
-	
-			i++;
-		}while(occupe);
-		//v.setTronconActuel(troncons.get(i)); ca serait un setPosition
-		if (v.getSens() == 0) getVoituresSens0().add(v);
-		else getVoituresSens0().add(v);
-	}
+//	/**
+//	 * Ajoute une voiture a ce segment de route. 
+//	 * Prend en compte l'occupation d'un segment.
+//	 * @param v
+//	 */
+//	public void ajoutVoiture(Voiture v)
+//	{
+//		
+//		/**
+//		 * TODO faire les sens
+//		 */
+//		//v.setSens(s);
+//		
+//		v.setRouteActuelle(this);
+//		boolean occupe = true;
+//		int i = 0;
+//		do
+//		{
+//			occupe = estOccupe(i, v.getSens());
+//	
+//			i++;
+//		}while(occupe);
+//		//v.setTronconActuel(troncons.get(i)); ca serait un setPosition
+//		if (v.getSens() == 0) getVoituresSens0().add(v);
+//		else getVoituresSens0().add(v);
+//		v.addObs();
+//	}
 	
 	/*public void suppressionVoiture(Voiture v)
 	{

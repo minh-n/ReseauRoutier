@@ -2,6 +2,8 @@ package com.ReseauRoutier;
 
 import java.util.Observable;
 
+import com.Regulation.Capteur;
+
 public class Voiture extends Observable{
 	
 	private static int v_id = 0; //incrementeur ID de la voiture
@@ -11,6 +13,7 @@ public class Voiture extends Observable{
 	private int longeur; //permet de faire de plus longues voitures (camions)
 	private int sens;
 	private int vitesse;
+	private int positionPrecedente;
 	private int positionDansRoute;
 	private boolean traite; // indique si la voiture a ﾃｩtﾃｩ traitﾃｩe dans un intervalle de temps
 	
@@ -37,11 +40,13 @@ public class Voiture extends Observable{
 	/* Cette fonction part du principe que sa vitesse ne lui permet pas de depasser le segment sur lequel elle est */
 	public void avancer(){
 		//System.out.println("v"+id+" = "+this.getPositionDansRoute()+" -> "+(this.getPositionDansRoute()+this.getVitesse()));
+		setPositionPrecedente(getPositionDansRoute());
 		setPositionDansRoute(getPositionDansRoute() + getVitesse());
 	}
 	
 	public void avancer(int avancement){
 		//System.out.println("v"+id+" = "+this.getPositionDansRoute()+" -> "+(this.getPositionDansRoute()+avancement));
+		setPositionPrecedente(getPositionDansRoute());
 		setPositionDansRoute(getPositionDansRoute() + avancement);
 	}
 
@@ -51,6 +56,8 @@ public class Voiture extends Observable{
 		
 		/* Telle qu'elle est la fonction autorise deux voitures à être sur un moeme tronçon ! => modifier avancer */
 		reste-= (routeActuelle.getLongueur() - this.getPositionDansRoute());
+		deleteObservers();
+		setPositionPrecedente(0);
 		routePrec = routeActuelle;
 		routeActuelle = routeSuiv;
 		routeSuiv = determinerProchain();
@@ -61,10 +68,12 @@ public class Voiture extends Observable{
 		if (this.sens == 0){
 			if(routePrec.getVoituresSens0().contains(this))  routePrec.getVoituresSens0().remove(this);
 			this.routeActuelle.getVoituresSens0().add(this);
+			addObs();
 		}
 		else{
 			if(routePrec.getVoituresSens1().contains(this)) routePrec.getVoituresSens1().remove(this);
 			this.routeActuelle.getVoituresSens1().add(this);
+			addObs();
 		}
 		
 		
@@ -85,7 +94,7 @@ public class Voiture extends Observable{
 			
 			/* Si la voiture est sur une barriﾃｨre on lui fait juste changer de sens*/
 			if (joncActuelle.getSegments().size() == 1){ 
-				if (this.sens == 0) this.sens = 1;
+				if(this.sens == 0) this.sens = 1;
 				else this.sens = 0;
 				return this.routePrec; 
 			}
@@ -119,10 +128,28 @@ public class Voiture extends Observable{
 		}
 	}
 	
+	public void addObs()
+	{
+		if(getSens() == 0)
+		{
+			for(Capteur c:getRouteActuelle().capteurSens0)
+			{
+				addObserver(c);
+			}
+		}
+		else
+		{
+			for(Capteur c:getRouteActuelle().capteurSens1)
+			{
+				addObserver(c);
+			}
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return "Voiture [id=" + id + ", vMax=" + vMax + ", sens=" + sens + ", vitesse=" + vitesse
-				+ ", positionDansRoute=" + positionDansRoute + ", traite=" + traite + "]";
+				+ ", positionDansRoute=" + positionDansRoute + ", positionPrecedente=" + positionPrecedente + ", traite=" + traite + "]";
 	}
 	
 	public String nomRoute(ElementRoute elmt){
@@ -152,8 +179,6 @@ public class Voiture extends Observable{
 
 	public void setvMax(int vMax) {
 		this.vMax = vMax;
-		setChanged();
-		notifyObservers(vMax);
 	}
 
 	public int getLongeur() {
@@ -178,8 +203,6 @@ public class Voiture extends Observable{
 
 	public void setVitesse(int vitesse) {
 		this.vitesse = vitesse;
-		setChanged();
-		notifyObservers(vitesse);
 	}
 
 	public int getSens() {
@@ -213,7 +236,7 @@ public class Voiture extends Observable{
 	public void setPositionDansRoute(int positionDansRoute) {
 		this.positionDansRoute = positionDansRoute;
 		setChanged();
-		notifyObservers(positionDansRoute);
+		notifyObservers();
 	}
 
 	public boolean isTraite() {
@@ -226,5 +249,13 @@ public class Voiture extends Observable{
 
 	public void setRouteActuelle(ElementRoute routeActuelle) {
 		this.routeActuelle = routeActuelle;
+	}
+
+	public int getPositionPrecedente() {
+		return positionPrecedente;
+	}
+
+	public void setPositionPrecedente(int positionPrecedente) {
+		this.positionPrecedente = positionPrecedente;
 	}	
 }
