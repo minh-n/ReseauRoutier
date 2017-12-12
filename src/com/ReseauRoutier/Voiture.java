@@ -15,7 +15,7 @@ public class Voiture extends Observable{
 	private int vitesse;
 	private int positionPrecedente;
 	private int positionDansRoute;
-	private boolean traite; // indique si la voiture a ﾃｩtﾃｩ traitﾃｩe dans un intervalle de temps
+	private boolean traite; // indique si la voiture a ete traitee dans un intervalle de temps
 	
 	private ElementRoute routeActuelle;
 	private ElementRoute routePrec;
@@ -51,10 +51,10 @@ public class Voiture extends Observable{
 	}
 
 	
-	/*/!\ fonction rﾃｩcursive */
+	/*/!\ fonction recursive */
 	public void embranchement(int reste){
 		
-		/* Telle qu'elle est la fonction autorise deux voitures à être sur un moeme tronçon ! => modifier avancer */
+		/* Telle qu'elle est la fonction autorise deux voitures etre sur un moeme tronçon ! => modifier avancer */
 		reste-= (routeActuelle.getLongueur() - this.getPositionDansRoute());
 		deleteObservers();
 		setPositionPrecedente(0);
@@ -92,7 +92,7 @@ public class Voiture extends Observable{
 		if (this.routeActuelle instanceof Jonction){
 			Jonction joncActuelle = (Jonction) this.routeActuelle;
 			
-			/* Si la voiture est sur une barriﾃｨre on lui fait juste changer de sens*/
+			/* Si la voiture est sur une barriere on lui fait juste changer de sens*/
 			if (joncActuelle.getSegments().size() == 1){ 
 				if(this.sens == 0) this.sens = 1;
 				else this.sens = 0;
@@ -101,7 +101,7 @@ public class Voiture extends Observable{
 			
 			/* Si la voiture est sur une jonction simple on la fait aller sur le prochain segment de route*/
 			else if (joncActuelle.getSegments().size() == 2){ 
-				if (joncActuelle.getSegments().get(0) == this.routePrec) return joncActuelle.getSegments().get(1); // pas trouvﾃｩ d'autre moyen qu'on retourne pas celle sur laquelle on ﾃｩtait pas prﾃｩcedemment y-y
+				if (joncActuelle.getSegments().get(0) == this.routePrec) return joncActuelle.getSegments().get(1); // pas trouve d'autre moyen qu'on retourne pas celle sur laquelle on etait pas precedemment y-y
 				else return joncActuelle.getSegments().get(0);
 			}
 			
@@ -111,7 +111,7 @@ public class Voiture extends Observable{
 				SegmentDeRoute segmentChoisi = joncActuelle.getSegments().get(choixSegment);
 				System.out.println("La voiture " + this.getId() + " a decide de prendre la jonction " + choixSegment +" !\n");
 
-				/* Si le random nous fait tomber sur le meme segment que prﾃｩcﾃｩdemment, on change de sens */
+				/* Si le random nous fait tomber sur le meme segment que precedemment, on change de sens */
 				if (segmentChoisi == this.routePrec){
 					if (this.sens == 0) this.sens = 1;
 					else this.sens = 0;
@@ -124,7 +124,7 @@ public class Voiture extends Observable{
 		/* Sinon elle est sur un segment de route : on la fait passer sur la jonction suivante. */
 		else{
 			SegmentDeRoute segmentActuel = (SegmentDeRoute) this.routeActuelle;
-			if (segmentActuel.getJonctionSens0() == this.routePrec) return segmentActuel.getJonctionSens0();
+			if (segmentActuel.getJonctionSens0() == this.routePrec) return segmentActuel.getJonctionSens1();
 			else return segmentActuel.getJonctionSens0();
 		}
 	}

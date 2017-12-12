@@ -11,7 +11,7 @@ public class SegmentDeRoute extends ElementRoute{
 
 	private static int s_id = 1;
 	private int id;
-	private boolean traite; // indique si les voitures de l'ﾃｩlﾃｩment de route ont ﾃｩtﾃｩ traitﾃｩes dans un intervalle de temps
+	private boolean traite; // indique si les voitures de l'element de route ont ete traitees dans un intervalle de temps
 	private Feu feuSens0;
 	private Feu feuSens1;
 	
@@ -75,7 +75,7 @@ public class SegmentDeRoute extends ElementRoute{
 					voit.setVitesse(voit.getvMax());
 					if (segmentSuffisant(voit)){
 						//Verifications si c'est physiquement possible d'avancer 
-						//autrement, on dﾃｩcrﾃｩmente la vitesse jusqu'ﾃ� ce que ce soit possible 
+						//autrement, on decremente la vitesse jusqu'a ce que ce soit possible 
 						// TODO immplémenter ce truc directement dans voiture.avancer()
 						while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), voit.getSens()) && voit.getVitesse() > 0){
 							voit.setVitesse(voit.getVitesse()-1);
@@ -84,7 +84,7 @@ public class SegmentDeRoute extends ElementRoute{
 						// TODO
 						// D'autres éléments pourront diminuer la vitesse d'une voiture genre les feux tricolores 
 						
-						// Si la vitesse est ﾃ� 0, lavoiture n'avance pas donc on passe ﾃ� la voiture suivante 
+						// Si la vitesse est a 0, lavoiture n'avance pas donc on passe a la voiture suivante 
 			 			if (voit.getVitesse() == 0) continue; 
 			 			else{
 			 				voit.avancer();
@@ -113,9 +113,9 @@ public class SegmentDeRoute extends ElementRoute{
 						}
 						
 						// TODO
-						// D'autres éléments pourront diminuer la vitesse d'une voiture genre les feux tricolores 
+						// D'autres elements pourront diminuer la vitesse d'une voiture genre les feux tricolores 
 						
-						// Si la vitesse est ﾃ� 0, lavoiture n'avance pas donc on passe ﾃ� la voiture suivante 
+						// Si la vitesse est a 0, lavoiture n'avance pas donc on passe a la voiture suivante 
 			 			if (voit.getVitesse() == 0) continue; 
 			 			else{
 			 				voit.avancer();
@@ -154,8 +154,8 @@ public class SegmentDeRoute extends ElementRoute{
 	}
 	
 	/**
-	 * Retourne le nombre de tronﾃｧons de dﾃｩpassement d'une voiture 
-	 * dont le dﾃｩplacement la fait sortir du segment
+	 * Retourne le nombre de troncons de depassement d'une voiture 
+	 * dont le deplacement la fait sortir du segment
 	 * @param v
 	 * @return
 	 */
@@ -167,8 +167,8 @@ public class SegmentDeRoute extends ElementRoute{
 	}
 	
 	/**
-	 * Indique, pour un sens donnﾃｩ, si le tronﾃｧon nﾂｰindice est dﾃｩjﾃ�
-	 * occupﾃｩ par une voiture ou non.
+	 * Indique, pour un sens donne, si le troncon a l'indice est 
+	 * occupe par une voiture ou non.
 	 * @param indice
 	 * @param sens
 	 * @return
@@ -199,14 +199,14 @@ public class SegmentDeRoute extends ElementRoute{
 	}
 	
 	public void affichageVoitures(){
-		System.out.println("_________Segment n°" + this.id + " ("+this.longueur+")\n-- Sens 0 :\n");
+		System.out.println("_________Segment n" + this.id + " ("+this.longueur+")\n-- Sens 0 :\n");
 		for (Voiture v:voituresSens0){
-			System.out.println("\t-Voiture n°" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()/*+", sens? = "+v.getSens()+"\n"*/);
+			System.out.println("\t-Voiture n" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()/*+", sens? = "+v.getSens()+"\n"*/);
 		}
 		
 		System.out.println("\n-- Sens 1 :\n");
 		for (Voiture v:voituresSens1){
-			System.out.println("\t-Voiture n°" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()/*+", sens? = "+v.getSens()+"\n"*/);
+			System.out.println("\t-Voiture n" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()/*+", sens? = "+v.getSens()+"\n"*/);
 		}
 		
 		System.out.println("\n");
