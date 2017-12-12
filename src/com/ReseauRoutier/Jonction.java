@@ -3,19 +3,23 @@ package com.ReseauRoutier;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.Regulation.Feu;
+
 public abstract class Jonction extends ElementRoute {
 
 	private static int j_id = 1;
 	private static int longueur = 1;
 	private int id;
 	private ArrayList<SegmentDeRoute> segments;
+	private ArrayList<Feu> sesFeux;
 
 	//private ArrayList<Voisin> voisins = new ArrayList<Voisin>();
 	
 	public Jonction()
 	{
 		super(longueur);
-		segments = new ArrayList<>();
+		segments = new ArrayList<SegmentDeRoute>();
+		sesFeux = new ArrayList<Feu>();
 		setId(j_id);
 		j_id+= 1;
 	}
@@ -83,17 +87,24 @@ public abstract class Jonction extends ElementRoute {
 	
 	// Fusionnable dans ElementRoute
 	public void affichageVoitures(){
+
 		System.out.println("_________Jonction n°" + this.id + "\n-- Sens 0 :\n");
+
 		for (Voiture v:voituresSens0){
+
 			System.out.println("\t-Voiture n°" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()/*+", sens? = "+v.getSens()+"\n"*/);
+
+			
 		}
 		
 		System.out.println("\n-- Sens 1 :\n");
 		for (Voiture v:voituresSens1){
+
 			System.out.println("\t-Voiture n°" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()/*+", sens? = "+v.getSens()+"\n"*/);
+
 		}
 		System.out.println("\n");
 	}
 
-
+	
 }
