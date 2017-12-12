@@ -15,13 +15,17 @@ public class SegmentDeRoute extends ElementRoute{
 	private Feu feuSens0;
 	private Feu feuSens1;
 	
-	private ArrayList<Jonction> sesJonctions;
+	private Jonction jonctionSens0;
+	private Jonction jonctionSens1;
 
 	public SegmentDeRoute()
 	{
 		setId(s_id);
 		s_id+= 1;
-		sesJonctions = new ArrayList<>();
+		
+		setJonctionSens0(new JonctionSimple());
+		setJonctionSens1(new JonctionSimple());
+		
 		traite = false;
 		feuSens0 = new FeuBicolore(0, this);
 		feuSens1 = new FeuBicolore(1, this);
@@ -30,7 +34,8 @@ public class SegmentDeRoute extends ElementRoute{
 	public SegmentDeRoute(int min, int max)
 	{
 		super();
-		sesJonctions = new ArrayList<>();
+		setJonctionSens0(new JonctionSimple());
+		setJonctionSens1(new JonctionSimple());
 		Random rand = new Random();
 		super.setLongueur(rand.nextInt((max - min) + 1) + min);
 		
@@ -45,13 +50,13 @@ public class SegmentDeRoute extends ElementRoute{
 	public SegmentDeRoute(int lon)
 	{
 		super(lon);
-		sesJonctions = new ArrayList<>();
+		setJonctionSens0(new JonctionSimple());
+		setJonctionSens1(new JonctionSimple());
 		setId(s_id);
 		s_id+= 1;
 		
 		feuSens0 = new FeuBicolore(0, this);
 		feuSens1 = new FeuBicolore(1, this);
-
 	}
 	
 	
@@ -222,10 +227,10 @@ public class SegmentDeRoute extends ElementRoute{
 	@Override
 	public String toString() {
 		String affichage = "SegmentDeRoute [id=" + id + ", sesJonctions=";
-		for (Jonction j:sesJonctions){
-			affichage += " " + j.getId();
-		}
-		affichage += "]";
+//		for (Jonction j:sesJonctions){
+//			affichage += " " + j.getId();
+//		}
+//		affichage += "]";
 		return affichage;
 	}
 	
@@ -259,14 +264,6 @@ public class SegmentDeRoute extends ElementRoute{
 		this.traite = traite;
 	}
 
-	public ArrayList<Jonction> getSesJonctions() {
-		return sesJonctions;
-	}
-
-	public void setSesJonctions(ArrayList<Jonction> sesJonctions) {
-		this.sesJonctions = sesJonctions;
-	}
-
 	public Feu getFeuSens0() {
 		return feuSens0;
 	}
@@ -281,6 +278,22 @@ public class SegmentDeRoute extends ElementRoute{
 
 	public void setFeuSens1(Feu feuSens1) {
 		this.feuSens1 = feuSens1;
+	}
+
+	public Jonction getJonctionSens0() {
+		return jonctionSens0;
+	}
+
+	public void setJonctionSens0(Jonction jonctionSens0) {
+		this.jonctionSens0 = jonctionSens0;
+	}
+
+	public Jonction getJonctionSens1() {
+		return jonctionSens1;
+	}
+
+	public void setJonctionSens1(Jonction jonctionSens1) {
+		this.jonctionSens1 = jonctionSens1;
 	}
 
 

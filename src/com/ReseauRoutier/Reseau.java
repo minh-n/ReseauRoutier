@@ -68,8 +68,8 @@ public class Reseau {
 	public void lierJonctions(Jonction jonc1, Jonction jonc2, SegmentDeRoute seg){
 		jonc1.getSegments().add(seg);
 		jonc2.getSegments().add(seg);
-		seg.getSesJonctions().add(jonc1);
-		seg.getSesJonctions().add(jonc2);
+		seg.setJonctionSens0(jonc1);
+		seg.setJonctionSens1(jonc2);
 	}
 	
 	/**
@@ -82,7 +82,7 @@ public class Reseau {
 		voit.setRouteActuelle(joncActuelle.getSegments().get(0));
 		voit.setPositionDansRoute(0);
 		if (voit.getSens() == 0){
-			voit.setRouteSuiv(joncActuelle.getSegments().get(0).getSesJonctions().get(0)); // la jonction qui suit le 1er segment, dans le sens 0
+			voit.setRouteSuiv(joncActuelle.getSegments().get(0).getJonctionSens0()); // la jonction qui suit le 1er segment, dans le sens 0
 			voit.getRouteActuelle().getVoituresSens0().add(voit); 
 			voit.addObs();
 		}
