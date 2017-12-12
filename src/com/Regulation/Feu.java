@@ -22,12 +22,12 @@ public abstract class Feu extends Observable{
 		
 		if(sens == 0)
 		{
-			this.regJonc = new RegJonction(route.getJonctionSens0());
+			this.regJonc = new RegJonctionSimple(route.getJonctionSens0());
 			this.addObserver(regJonc);
 		}
 		else
 		{
-			this.regJonc = new RegJonction(route.getJonctionSens1());
+			this.regJonc = new RegJonctionSimple(route.getJonctionSens1());
 			this.addObserver(regJonc);
 		}
 		
