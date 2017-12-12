@@ -93,6 +93,8 @@ public class Reseau {
 		}
 	}
 	
+	//Permet d'inserer un nombre quelconque de capteur prob pour panneau ?
+	
 	public void insererCapteur(Capteur capt, int idJonction){
 		Jonction joncActuelle = jonctions.get(idJonction);
 		capt.setRoute(joncActuelle.getSegments().get(0));

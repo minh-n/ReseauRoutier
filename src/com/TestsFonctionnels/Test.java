@@ -19,8 +19,11 @@ public class Test {
 		
 		CapteurVitesse c = new CapteurVitesse(1, 0);
 		CapteurVitesse c2 = new CapteurVitesse(1, 1);
-		CapteurVitesse c3 = new CapteurVitesse(2, 0);
-		CapteurVitesse c4 = new CapteurVitesse(2, 1);
+		CapteurPresence c3 = new CapteurPresence(2, 0);
+		CapteurPresence c4 = new CapteurPresence(2, 1);
+		
+		Panneau p = new Panneau(2, 0, 2);
+		Panneau p2 = new Panneau(1, 0, 2);
 		
 		Voiture v = new Voiture(3, 0); // (vmax, sens)
 		Voiture v2 = new Voiture(5, 0);
@@ -33,6 +36,9 @@ public class Test {
 		resal.insererCapteur(c2, 1);
 		resal.insererCapteur(c3, 2);
 		resal.insererCapteur(c4, 2);
+		resal.insererCapteur(p, 2);
+		resal.insererCapteur(p2, 1);
+		
 		resal.iteration();
 		resal.iteration();
 		resal.iteration();

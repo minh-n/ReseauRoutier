@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
+import com.Regulation.Feu;
+
 public class SegmentDeRoute extends ElementRoute{
 
 	private static int s_id = 1;
 	private int id;
 	private boolean traite; // indique si les voitures de l'ﾃｩlﾃｩment de route ont ﾃｩtﾃｩ traitﾃｩes dans un intervalle de temps
-
+	private Feu feuSens0;
+	private Feu feuSens1;
 	
 	private ArrayList<Jonction> sesJonctions;
 

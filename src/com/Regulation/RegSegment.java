@@ -2,11 +2,13 @@ package com.Regulation;
 
 import java.util.Observable;
 
+import com.ReseauRoutier.SegmentDeRoute;
+
 public class RegSegment extends Regulation {
 	
-	public RegSegment()
+	public RegSegment(SegmentDeRoute s)
 	{
-		
+		this.elem = s;
 	}
 	
 	@Override
