@@ -65,7 +65,7 @@ public class SegmentDeRoute extends ElementRoute{
 	@Override
 	public void deplacerVoiture() {
 		
-		System.out.println("Iteration des voitures contenu dans le segment : " + this.getId());
+		//System.out.println("Iteration des voitures contenu dans le segment : " + this.getId());
 		
 		if(feuSens0.getCouleur().getCouleur() == "Vert")
 		{

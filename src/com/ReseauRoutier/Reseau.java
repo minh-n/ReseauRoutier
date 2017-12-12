@@ -164,11 +164,18 @@ public class Reseau {
 	
 	public void affichageVoitures(){
 		for (Jonction j:jonctions){
-			j.affichageVoitures();
+			if(!j.getVoituresSens0().isEmpty() || !j.getVoituresSens1().isEmpty())
+			{
+				j.affichageVoitures();
+
+			}
 			for(SegmentDeRoute seg:j.getSegments()){
-				if (!seg.isTraite()){
-					seg.affichageVoitures();
-					seg.setTraite(true);
+				if((!seg.getVoituresSens0().isEmpty() || !seg.getVoituresSens1().isEmpty()))
+				{
+					if (!seg.isTraite()){
+						seg.affichageVoitures();
+						seg.setTraite(true);
+				}
 				}
 			}
 		}

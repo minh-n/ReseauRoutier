@@ -24,7 +24,7 @@ public abstract class Jonction extends ElementRoute {
 	// Fusionnable dans ElementRoute
 	@Override
 	public void deplacerVoiture() {
-System.out.println("Iteration des voitures contenu dans la jonction : " + this.getId());
+//System.out.println("Iteration des voitures contenu dans la jonction : " + this.getId());
 		
 		for (Iterator<Voiture> ite = voituresSens0.iterator(); ite.hasNext(); ){
 			Voiture voit = ite.next();

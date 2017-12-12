@@ -63,6 +63,16 @@ public class TestSimple {
 		
 		resal.iteration();
 		resal.affichageVoitures();
+		
+		resal.iteration();
+		resal.affichageVoitures();
+		
+		resal.iteration();
+		resal.affichageVoitures();
+
+		resal.iteration();
+		resal.affichageVoitures();
+		
 	}
 	
 }
