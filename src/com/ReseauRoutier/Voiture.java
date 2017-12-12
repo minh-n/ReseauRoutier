@@ -123,8 +123,8 @@ public class Voiture extends Observable{
 		/* Sinon elle est sur un segment de route : on la fait passer sur la jonction suivante. */
 		else{
 			SegmentDeRoute segmentActuel = (SegmentDeRoute) this.routeActuelle;
-			if (segmentActuel.getSesJonctions().get(0) == this.routePrec) return segmentActuel.getSesJonctions().get(0);
-			else return segmentActuel.getSesJonctions().get(0);
+			if (segmentActuel.getJonctionSens0() == this.routePrec) return segmentActuel.getJonctionSens0();
+			else return segmentActuel.getJonctionSens0();
 		}
 	}
 	
