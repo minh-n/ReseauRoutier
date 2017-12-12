@@ -17,23 +17,46 @@ public class Reseau {
 	}
 	
 	/**
-	 * Initialise le réseau
+	 * Initialise le reseau
 	 * @return
 	 */
 	public boolean initReseau(){
 		
+
 		
-		/* On crée un petit réseau de la forme 
-		 * O-------O---O----------O
-		 */
-		jonctions.add(new JonctionBarriere());
-		jonctions.add(new JonctionSimple());
-		jonctions.add(new JonctionSimple());
-		jonctions.add(new JonctionBarriere());
+		jonctions.add(new JonctionBarriere()); 		//0
+		jonctions.add(new JonctionSimple());		//1
+		jonctions.add(new JonctionCarrefour());		//2
+		jonctions.add(new JonctionSimple());		//3
+		jonctions.add(new JonctionSimple());		//4	
+		jonctions.add(new JonctionCarrefour());		//5
+		jonctions.add(new JonctionSimple());		//6	
+		jonctions.add(new JonctionBarriere());		//7
+		jonctions.add(new JonctionSimple());		//8	
+		jonctions.add(new JonctionSimple());		//9	
+		jonctions.add(new JonctionBarriere());		//10
+		
+		//Creation des liens entre les jonctions
 		
 		lierJonctions(jonctions.get(0), jonctions.get(1), new SegmentDeRoute(7));
+		
 		lierJonctions(jonctions.get(1), jonctions.get(2), new SegmentDeRoute(3));
-		lierJonctions(jonctions.get(2), jonctions.get(3), new SegmentDeRoute(10));
+	
+		lierJonctions(jonctions.get(2), jonctions.get(3), new SegmentDeRoute(4));
+		lierJonctions(jonctions.get(2), jonctions.get(5), new SegmentDeRoute(4));
+		lierJonctions(jonctions.get(2), jonctions.get(6), new SegmentDeRoute(4));
+
+		lierJonctions(jonctions.get(3), jonctions.get(4), new SegmentDeRoute(4));
+		
+		lierJonctions(jonctions.get(4), jonctions.get(5), new SegmentDeRoute(4));
+		
+		lierJonctions(jonctions.get(2), jonctions.get(3), new SegmentDeRoute(4));
+		lierJonctions(jonctions.get(2), jonctions.get(3), new SegmentDeRoute(4));
+		lierJonctions(jonctions.get(2), jonctions.get(3), new SegmentDeRoute(4));
+		lierJonctions(jonctions.get(2), jonctions.get(3), new SegmentDeRoute(4));
+		lierJonctions(jonctions.get(2), jonctions.get(3), new SegmentDeRoute(4));
+		lierJonctions(jonctions.get(2), jonctions.get(3), new SegmentDeRoute(4));
+
 		
 		return true;
 	}
@@ -42,7 +65,7 @@ public class Reseau {
 	 * Fait passer un intervalle de temps
 	 */
 	public void iteration(){
-		/* On traite tous les ﾃｩlﾃｩments de route du rﾃｩseau */
+		/* On traite tous les elements de route du reseau */
 		for (Jonction j:jonctions){
 			j.deplacerVoiture();
 			for(SegmentDeRoute seg:j.getSegments()){
@@ -54,7 +77,7 @@ public class Reseau {
 		}
 		
 		System.out.println("\n################################# FIN ITERATION\n\n");
-		/* On reset leur attribut "traite" pour la prochaine itﾃｩration */
+		/* On reset leur attribut "traite" pour la prochaine iteration */
 		resetTraite();
 		
 	}
@@ -94,7 +117,6 @@ public class Reseau {
 	}
 	
 	//Permet d'inserer un nombre quelconque de capteur prob pour panneau ?
-	
 	public void insererCapteur(Capteur capt, int idJonction){
 		Jonction joncActuelle = jonctions.get(idJonction);
 		capt.setRoute(joncActuelle.getSegments().get(0));

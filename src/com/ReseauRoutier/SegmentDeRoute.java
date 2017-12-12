@@ -15,7 +15,7 @@ public class SegmentDeRoute extends ElementRoute{
 	private Feu feuSens0;
 	private Feu feuSens1;
 	
-	private ArrayList<Jonction> sesJonctions;
+	private ArrayList<Jonction> sesJonctions; 
 
 	public SegmentDeRoute()
 	{
