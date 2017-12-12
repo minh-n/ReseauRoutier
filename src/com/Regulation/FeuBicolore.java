@@ -7,8 +7,6 @@ public class FeuBicolore extends Feu{
 	public FeuBicolore(int sens, SegmentDeRoute route)
 	{
 		super(sens, route);
-		this.r = new RegSegment(route);
-		this.addObserver(r);
 	}
 	
 	public void changerCouleur(CouleurFeu couleur)

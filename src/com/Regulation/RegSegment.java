@@ -17,7 +17,7 @@ public class RegSegment extends Regulation {
 	{
 		if(o instanceof Feu)
 		{
-			if(((Feu) o).getCouleur().getCouleur() == "Rouge")
+			if(((Feu) o).getCouleur().getCouleur().compareTo("Rouge") == 0)
 			{
 				if(((Feu) o).getSens() == 0)
 				{
@@ -35,7 +35,7 @@ public class RegSegment extends Regulation {
 				}
 			}
 		}
-		else if(((Feu) o).getCouleur().getCouleur() == "Vert")
+		else if(((Feu) o).getCouleur().getCouleur().compareTo("Vert") == 0)
 		{
 			if(((Feu) o).getSens() == 0)
 			{
