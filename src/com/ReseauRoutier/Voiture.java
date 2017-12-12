@@ -109,7 +109,8 @@ public class Voiture extends Observable{
 			else{ 
 				int choixSegment = (int)(Math.random() * joncActuelle.getSegments().size());
 				SegmentDeRoute segmentChoisi = joncActuelle.getSegments().get(choixSegment);
-				
+				System.out.println("La voiture " + this.getId() + " a decide de prendre la jonction " + choixSegment +" !\n");
+
 				/* Si le random nous fait tomber sur le meme segment que prﾃｩcﾃｩdemment, on change de sens */
 				if (segmentChoisi == this.routePrec){
 					if (this.sens == 0) this.sens = 1;

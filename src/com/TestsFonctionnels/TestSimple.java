@@ -34,10 +34,13 @@ public class TestSimple {
 		Voiture v = new Voiture(3, 0); // (vmax, sens)
 		Voiture v2 = new Voiture(5, 0);
 		Voiture v3 = new Voiture(4, 1);
-		
+		Voiture v4 = new Voiture(10, 1);
+
 		resal.insererVoiture(v, 1);
 		resal.insererVoiture(v2, 2);
 		resal.insererVoiture(v3, 2);
+		resal.insererVoiture(v4, 4);
+
 //		resal.insererCapteur(c, 1);
 //		resal.insererCapteur(c2, 1);
 //		resal.insererCapteur(c3, 2);
