@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import com.Regulation.Feu;
+import com.Regulation.FeuBicolore;
 
 public class SegmentDeRoute extends ElementRoute{
 
@@ -22,11 +23,12 @@ public class SegmentDeRoute extends ElementRoute{
 		s_id+= 1;
 		sesJonctions = new ArrayList<>();
 		traite = false;
+		feuSens0 = new FeuBicolore(0, this);
+		feuSens1 = new FeuBicolore(1, this);
 	}
 	
 	public SegmentDeRoute(int min, int max)
 	{
-		
 		super();
 		sesJonctions = new ArrayList<>();
 		Random rand = new Random();
@@ -34,6 +36,9 @@ public class SegmentDeRoute extends ElementRoute{
 		
 		setId(s_id);
 		s_id+= 1;
+		
+		feuSens0 = new FeuBicolore(0, this);
+		feuSens1 = new FeuBicolore(1, this);
 
 	}
 	
@@ -43,6 +48,9 @@ public class SegmentDeRoute extends ElementRoute{
 		sesJonctions = new ArrayList<>();
 		setId(s_id);
 		s_id+= 1;
+		
+		feuSens0 = new FeuBicolore(0, this);
+		feuSens1 = new FeuBicolore(1, this);
 
 	}
 	
@@ -90,61 +98,66 @@ public class SegmentDeRoute extends ElementRoute{
 		
 		System.out.println("Iteration des voitures contenu dans le segment : " + this.getId());
 		
-		for (Iterator<Voiture> ite = voituresSens0.iterator(); ite.hasNext(); ){
-			Voiture voit = ite.next();			
-			if (!voit.isTraite()){
-				voit.setVitesse(voit.getvMax());
-				if (segmentSuffisant(voit)){
-					//Verifications si c'est physiquement possible d'avancer 
-					//autrement, on dﾃｩcrﾃｩmente la vitesse jusqu'ﾃ� ce que ce soit possible 
-					// TODO immplémenter ce truc directement dans voiture.avancer()
-					while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), voit.getSens()) && voit.getVitesse() > 0){
-						voit.setVitesse(voit.getVitesse()-1);
+		if(feuSens0.getCouleur().getCouleur() == "Vert")
+		{
+			for (Iterator<Voiture> ite = voituresSens0.iterator(); ite.hasNext(); ){
+				Voiture voit = ite.next();			
+				if (!voit.isTraite()){
+					voit.setVitesse(voit.getvMax());
+					if (segmentSuffisant(voit)){
+						//Verifications si c'est physiquement possible d'avancer 
+						//autrement, on dﾃｩcrﾃｩmente la vitesse jusqu'ﾃ� ce que ce soit possible 
+						// TODO immplémenter ce truc directement dans voiture.avancer()
+						while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), voit.getSens()) && voit.getVitesse() > 0){
+							voit.setVitesse(voit.getVitesse()-1);
+						}
+	
+						// TODO
+						// D'autres éléments pourront diminuer la vitesse d'une voiture genre les feux tricolores 
+						
+						// Si la vitesse est ﾃ� 0, lavoiture n'avance pas donc on passe ﾃ� la voiture suivante 
+			 			if (voit.getVitesse() == 0) continue; 
+			 			else{
+			 				voit.avancer();
+			 			}
 					}
-
-					// TODO
-					// D'autres éléments pourront diminuer la vitesse d'une voiture genre les feux tricolores 
-					
-					// Si la vitesse est ﾃ� 0, lavoiture n'avance pas donc on passe ﾃ� la voiture suivante 
-		 			if (voit.getVitesse() == 0) continue; 
-		 			else{
-		 				voit.avancer();
-		 			}
+					else{
+						ite.remove();
+						voit.embranchement(voit.getVitesse());
+					}
+					voit.setTraite(true);
 				}
-				else{
-					ite.remove();
-					voit.embranchement(voit.getVitesse());
-				}
-				voit.setTraite(true);
 			}
 		}
 		
-		
-		for (Iterator<Voiture> ite = voituresSens1.iterator(); ite.hasNext(); ){
-			Voiture voit = ite.next();
-			
-			if (!voit.isTraite()){
-				voit.setVitesse(voit.getvMax());
-				if (segmentSuffisant(voit)){
+		if(feuSens1.getCouleur().getCouleur() == "Vert")
+		{
+			for (Iterator<Voiture> ite = voituresSens1.iterator(); ite.hasNext(); ){
+				Voiture voit = ite.next();
 				
-					while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), voit.getSens()) && voit.getVitesse() > 0){
-						voit.setVitesse(voit.getVitesse()-1);
+				if (!voit.isTraite()){
+					voit.setVitesse(voit.getvMax());
+					if (segmentSuffisant(voit)){
+					
+						while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), voit.getSens()) && voit.getVitesse() > 0){
+							voit.setVitesse(voit.getVitesse()-1);
+						}
+						
+						// TODO
+						// D'autres éléments pourront diminuer la vitesse d'une voiture genre les feux tricolores 
+						
+						// Si la vitesse est ﾃ� 0, lavoiture n'avance pas donc on passe ﾃ� la voiture suivante 
+			 			if (voit.getVitesse() == 0) continue; 
+			 			else{
+			 				voit.avancer();
+			 			}
 					}
-					
-					// TODO
-					// D'autres éléments pourront diminuer la vitesse d'une voiture genre les feux tricolores 
-					
-					// Si la vitesse est ﾃ� 0, lavoiture n'avance pas donc on passe ﾃ� la voiture suivante 
-		 			if (voit.getVitesse() == 0) continue; 
-		 			else{
-		 				voit.avancer();
-		 			}
+					else{
+						ite.remove(); // necessaire pour ne pas avoir de CurrentMosificationException
+						voit.embranchement(voit.getVitesse());
+					}
+					voit.setTraite(true);
 				}
-				else{
-					ite.remove(); // necessaire pour ne pas avoir de CurrentMosificationException
-					voit.embranchement(voit.getVitesse());
-				}
-				voit.setTraite(true);
 			}
 		}
 	}
@@ -252,6 +265,22 @@ public class SegmentDeRoute extends ElementRoute{
 
 	public void setSesJonctions(ArrayList<Jonction> sesJonctions) {
 		this.sesJonctions = sesJonctions;
+	}
+
+	public Feu getFeuSens0() {
+		return feuSens0;
+	}
+
+	public void setFeuSens0(Feu feuSens0) {
+		this.feuSens0 = feuSens0;
+	}
+
+	public Feu getFeuSens1() {
+		return feuSens1;
+	}
+
+	public void setFeuSens1(Feu feuSens1) {
+		this.feuSens1 = feuSens1;
 	}
 
 

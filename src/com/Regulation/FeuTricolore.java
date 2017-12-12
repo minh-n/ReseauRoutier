@@ -1,10 +1,12 @@
 package com.Regulation;
 
+import com.ReseauRoutier.SegmentDeRoute;
+
 public class FeuTricolore extends Feu{
 
-	public FeuTricolore(int sens)
+	public FeuTricolore(int sens, SegmentDeRoute route)
 	{
-		super(sens);
+		super(sens, route);
 	}
 	
 	public void changerCouleur(CouleurFeu couleur)

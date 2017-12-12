@@ -1,13 +1,22 @@
 package com.Regulation;
 
-public abstract class Feu{
+import java.util.Observable;
+
+import com.ReseauRoutier.SegmentDeRoute;
+
+public abstract class Feu extends Observable{
 	
 	private int sens;
 	private CouleurFeu couleur;
+	private SegmentDeRoute route;
+	protected Regulation r;
 	
-	public Feu(int s)
+	public Feu(int sens, SegmentDeRoute route)
 	{
-		this.sens = s;
+		this.sens = sens;
+		this.route = route;
+		
+		this.couleur = CouleurFeu.Vert;	
 	}
 	
 	public abstract void changerCouleur(CouleurFeu couleur);
@@ -26,6 +35,8 @@ public abstract class Feu{
 
 	public void setCouleur(CouleurFeu couleur) {
 		this.couleur = couleur;
+		setChanged();
+		notifyObservers(route);
 	}
 
 }
