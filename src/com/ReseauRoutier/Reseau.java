@@ -42,22 +42,23 @@ public class Reseau {
 		
 		lierJonctions(jonctions.get(1), jonctions.get(2), new SegmentDeRoute(3));
 	
-		lierJonctions(jonctions.get(2), jonctions.get(3), new SegmentDeRoute(4));
-		lierJonctions(jonctions.get(2), jonctions.get(5), new SegmentDeRoute(4));
-		lierJonctions(jonctions.get(2), jonctions.get(6), new SegmentDeRoute(4));
+		//carrefour1
+		lierJonctions(jonctions.get(2), jonctions.get(3), new SegmentDeRoute(5));
+		lierJonctions(jonctions.get(2), jonctions.get(5), new SegmentDeRoute(6));
+		lierJonctions(jonctions.get(2), jonctions.get(6), new SegmentDeRoute(5));
+		
+		lierJonctions(jonctions.get(6), jonctions.get(7), new SegmentDeRoute(13));
 
 		lierJonctions(jonctions.get(3), jonctions.get(4), new SegmentDeRoute(4));
 		
-		lierJonctions(jonctions.get(4), jonctions.get(5), new SegmentDeRoute(4));
+		//carrefour2
+		lierJonctions(jonctions.get(4), jonctions.get(5), new SegmentDeRoute(6));
+		lierJonctions(jonctions.get(5), jonctions.get(8), new SegmentDeRoute(2));
 		
-		lierJonctions(jonctions.get(2), jonctions.get(3), new SegmentDeRoute(4));
-		lierJonctions(jonctions.get(2), jonctions.get(3), new SegmentDeRoute(4));
-		lierJonctions(jonctions.get(2), jonctions.get(3), new SegmentDeRoute(4));
-		lierJonctions(jonctions.get(2), jonctions.get(3), new SegmentDeRoute(4));
-		lierJonctions(jonctions.get(2), jonctions.get(3), new SegmentDeRoute(4));
-		lierJonctions(jonctions.get(2), jonctions.get(3), new SegmentDeRoute(4));
-
+		lierJonctions(jonctions.get(8), jonctions.get(9), new SegmentDeRoute(20));
 		
+		lierJonctions(jonctions.get(9), jonctions.get(10), new SegmentDeRoute(15));
+			
 		return true;
 	}
 	

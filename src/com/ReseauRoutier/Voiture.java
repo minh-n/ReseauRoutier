@@ -107,7 +107,8 @@ public class Voiture extends Observable{
 			
 			/* Si la voiture est sur un carrefour on choisit le segment au hasard*/
 			else{ 
-				int choixSegment = (int)(Math.random() * joncActuelle.getSegments().size() + 1);
+				int choixSegment = (int)(Math.random() * joncActuelle.getSegments().size());
+				System.out.println("RANDOOOOOOMMMMMMMMMMMMMMMMMMM ! " + choixSegment);
 				SegmentDeRoute segmentChoisi = joncActuelle.getSegments().get(choixSegment);
 				
 				/* Si le random nous fait tomber sur le meme segment que prﾃｩcﾃｩdemment, on change de sens */
