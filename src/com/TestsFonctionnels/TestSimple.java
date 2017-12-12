@@ -22,15 +22,13 @@ public class TestSimple {
 		
 		//System.out.println("Réseau créé \n" + r.toString());
 		
-//		CapteurVitesse c = new CapteurVitesse(1, 0);
-//		CapteurVitesse c2 = new CapteurVitesse(1, 1);
-//		CapteurPresence c3 = new CapteurPresence(2, 0);
-//		CapteurPresence c4 = new CapteurPresence(2, 1);
-//		
-//		Panneau p = new Panneau(2, 0, 2);
-//		Panneau p2 = new Panneau(1, 0, 2);
-//	
-		
+		CapteurVitesse c = new CapteurVitesse(1, 0);
+		CapteurVitesse c2 = new CapteurVitesse(1, 1);
+		CapteurPresence c3 = new CapteurPresence(2, 0);
+		CapteurPresence c4 = new CapteurPresence(2, 1);
+		Panneau p = new Panneau(2, 0, 2);
+		Panneau p2 = new Panneau(1, 0, 2);
+
 		Voiture v = new Voiture(3, 0); // (vmax, sens)
 		Voiture v2 = new Voiture(5, 0);
 		Voiture v3 = new Voiture(4, 1);
@@ -41,15 +39,13 @@ public class TestSimple {
 		resal.insererVoiture(v3, 2);
 		resal.insererVoiture(v4, 4);
 
-//		resal.insererCapteur(c, 1);
-//		resal.insererCapteur(c2, 1);
-//		resal.insererCapteur(c3, 2);
-//		resal.insererCapteur(c4, 2);
-//		resal.insererCapteur(p, 2);
-//		resal.insererCapteur(p2, 1);
-//		
-		
-		
+		resal.insererCapteur(c, 1);
+		resal.insererCapteur(c2, 4);
+		resal.insererCapteur(c3, 5);
+		resal.insererCapteur(c4, 6);
+		resal.insererCapteur(p, 2);
+		resal.insererCapteur(p2, 1);
+				
 		System.out.println("AFFICHAGE INITIAL DES VOITURES ! --------------------------------------\n\n");		
 		
 		resal.affichageVoitures();
