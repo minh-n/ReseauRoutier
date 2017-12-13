@@ -62,6 +62,32 @@ public class Reseau {
 		return true;
 	}
 	
+	
+	/**
+	 * Initialise le reseau
+	 * @return
+	 */
+	public boolean initReseauSimple(){
+		
+
+		
+		jonctions.add(new JonctionBarriere()); 		//1	
+		jonctions.add(new JonctionSimple());		//2
+		jonctions.add(new JonctionSimple());		//3
+		jonctions.add(new JonctionSimple());		//4
+		jonctions.add(new JonctionBarriere());		//5
+		
+		//Creation des liens entre les jonctions
+		
+		lierJonctions(jonctions.get(0), jonctions.get(1), new SegmentDeRoute(8));
+		lierJonctions(jonctions.get(1), jonctions.get(2), new SegmentDeRoute(5));
+		lierJonctions(jonctions.get(2), jonctions.get(3), new SegmentDeRoute(3));
+		lierJonctions(jonctions.get(3), jonctions.get(4), new SegmentDeRoute(4));
+				
+		return true;
+	}
+	
+	
 	/**
 	 * Fait passer un intervalle de temps
 	 */
@@ -84,7 +110,7 @@ public class Reseau {
 	}
 	
 	/**
-	 * Relie la jonction 'jonc1' à la jonction 'jonc2' avec le segment de route 'seg'
+	 * Relie la jonction 'jonc1' a la jonction 'jonc2' avec le segment de route 'seg'
 	 * @param jonc1
 	 * @param jonc2
 	 * @param seg
