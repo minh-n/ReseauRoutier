@@ -89,16 +89,16 @@ public class Voiture {
 			}
 			
 			/* Si la voiture est sur une jonction simple on la fait aller sur le prochain segment de route*/
-			else if (joncActuelle.getSegments().size() == 2){ 
+			else if (joncActuelle.getSegments().size() == 2){
 				if (joncActuelle.getSegments().get(0) == this.routePrec) return joncActuelle.getSegments().get(1); // pas trouvﾃｩ d'autre moyen qu'on retourne pas celle sur laquelle on ﾃｩtait pas prﾃｩcedemment y-y
 				else return joncActuelle.getSegments().get(0);
 			}
 			
 			/* Si la voiture est sur un carrefour on choisit le segment au hasard*/
 			else{ 
-				int choixSegment = (int)(Math.random() * joncActuelle.getSegments().size() + 1);
+				int choixSegment = (int)(Math.random() * joncActuelle.getSegments().size());
 				SegmentDeRoute segmentChoisi = joncActuelle.getSegments().get(choixSegment);
-				
+				System.out.println("carrefour : " + joncActuelle.getId()+", choix = "+segmentChoisi.getId() );
 				/* Si le random nous fait tomber sur le meme segment que prﾃｩcﾃｩdemment, on change de sens */
 				if (segmentChoisi == this.routePrec){
 					if (this.sens == 0) this.sens = 1;
@@ -112,15 +112,17 @@ public class Voiture {
 		/* Sinon elle est sur un segment de route : on la fait passer sur la jonction suivante. */
 		else{
 			SegmentDeRoute segmentActuel = (SegmentDeRoute) this.routeActuelle;
-			if (segmentActuel.getSesJonctions().get(0) == this.routePrec) return segmentActuel.getSesJonctions().get(0);
+			if (segmentActuel.getSesJonctions().get(0) == this.routePrec) return segmentActuel.getSesJonctions().get(1);
 			else return segmentActuel.getSesJonctions().get(0);
 		}
 	}
 	
 	@Override
 	public String toString() {
+		SegmentDeRoute seg = (SegmentDeRoute) routeActuelle;
 		return "Voiture [id=" + id + ", vMax=" + vMax + ", sens=" + sens + ", vitesse=" + vitesse
-				+ ", positionDansRoute=" + positionDansRoute + ", traite=" + traite + "]";
+				+ ", positionDansRoute=" + positionDansRoute + ", traite=" + traite 
+				+ (routeActuelle instanceof Jonction ? ", j" : ", s") + seg.getId() +"]";
 	}
 	
 	public String nomRoute(ElementRoute elmt){

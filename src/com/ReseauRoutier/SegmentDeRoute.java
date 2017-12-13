@@ -213,14 +213,20 @@ public class SegmentDeRoute extends ElementRoute{
 	}
 	
 	public void affichageVoitures(){
-		System.out.println("_________Segment n°" + this.id + " ("+this.longueur+")\n-- Sens 0 :\n");
-		for (Voiture v:voituresSens0){
-			System.out.println("\t-Voiture n°" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()/*+", sens? = "+v.getSens()+"\n"*/);
+		System.out.println("_________Segment n°" + this.id + " ("+this.longueur+")");
+
+		if (!voituresSens0.isEmpty()){
+			System.out.println("\n-- Sens 0 :\n");
+			for (Voiture v:voituresSens0){
+				System.out.println("\t-Voiture n°" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()+", sens? = "+v.getSens()+"\n");
+			}
 		}
 		
-		System.out.println("\n-- Sens 1 :\n");
-		for (Voiture v:voituresSens1){
-			System.out.println("\t-Voiture n°" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()/*+", sens? = "+v.getSens()+"\n"*/);
+		if (!voituresSens1.isEmpty()){
+			System.out.println("\n-- Sens 1 :\n");
+			for (Voiture v:voituresSens1){
+				System.out.println("\t-Voiture n°" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()+", sens? = "+v.getSens()+"\n");
+			}
 		}
 		
 		System.out.println("\n");

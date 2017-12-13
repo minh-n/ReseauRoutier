@@ -20,10 +20,10 @@ public class Reseau {
 	 */
 	public boolean initReseau(){
 		
-		
-		/* On crée un petit réseau de la forme 
-		 * O-------O---O----------O
-		 */
+		/*
+		// On crée un petit réseau de la forme 
+		// O-------O---O----------O
+		 
 		jonctions.add(new JonctionBarriere());
 		jonctions.add(new JonctionSimple());
 		jonctions.add(new JonctionSimple());
@@ -32,6 +32,41 @@ public class Reseau {
 		lierJonctions(jonctions.get(0), jonctions.get(1), new SegmentDeRoute(7));
 		lierJonctions(jonctions.get(1), jonctions.get(2), new SegmentDeRoute(3));
 		lierJonctions(jonctions.get(2), jonctions.get(3), new SegmentDeRoute(10));
+		*/			
+		jonctions.add(new JonctionBarriere()); 		//0
+		jonctions.add(new JonctionSimple());		//1
+		jonctions.add(new JonctionCarrefour());		//2
+		jonctions.add(new JonctionSimple());		//3
+		jonctions.add(new JonctionSimple());		//4	
+		jonctions.add(new JonctionCarrefour());		//5
+		jonctions.add(new JonctionSimple());		//6	
+		jonctions.add(new JonctionBarriere());		//7
+		jonctions.add(new JonctionSimple());		//8	
+		jonctions.add(new JonctionSimple());		//9	
+		jonctions.add(new JonctionBarriere());		//10
+			
+		//Creation des liens entre les jonctions
+			
+		lierJonctions(jonctions.get(0), jonctions.get(1), new SegmentDeRoute(7));
+			
+		lierJonctions(jonctions.get(1), jonctions.get(2), new SegmentDeRoute(3));
+		
+		//carrefour1
+		lierJonctions(jonctions.get(2), jonctions.get(3), new SegmentDeRoute(5));
+		lierJonctions(jonctions.get(2), jonctions.get(5), new SegmentDeRoute(6));
+		lierJonctions(jonctions.get(2), jonctions.get(6), new SegmentDeRoute(5));
+		
+		lierJonctions(jonctions.get(6), jonctions.get(7), new SegmentDeRoute(13));
+
+		lierJonctions(jonctions.get(3), jonctions.get(4), new SegmentDeRoute(4));
+			
+		//carrefour2
+		lierJonctions(jonctions.get(4), jonctions.get(5), new SegmentDeRoute(6));
+		lierJonctions(jonctions.get(5), jonctions.get(8), new SegmentDeRoute(2));
+			
+		lierJonctions(jonctions.get(8), jonctions.get(9), new SegmentDeRoute(20));
+			
+		lierJonctions(jonctions.get(9), jonctions.get(10), new SegmentDeRoute(15));
 		
 		return true;
 	}
