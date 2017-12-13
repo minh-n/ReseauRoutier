@@ -161,6 +161,13 @@ public class Reseau {
 	
 	private void resetTraite(){
 		for (Jonction j:jonctions){
+			for (Voiture voit:j.getVoituresSens0()){ // techniquement c'est inutile vu qu'une jonction ne peut contenir qu'une voiture
+				voit.setTraite(false);
+			}
+			for (Voiture voit:j.getVoituresSens1()){
+				voit.setTraite(false);
+			}
+			j.setTraite(false);
 			for(SegmentDeRoute seg:j.getSegments()){
 				if (seg.isTraite()){
 					for (Voiture voit:seg.getVoituresSens0()){

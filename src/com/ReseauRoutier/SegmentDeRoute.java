@@ -12,7 +12,7 @@ public class SegmentDeRoute extends ElementRoute{
 
 	private static int s_id = 1;
 	private int id;
-	private boolean traite; // indique si les voitures de l'element de route ont ete traitees dans un intervalle de temps
+	//private boolean traite; // indique si les voitures de l'element de route ont ete traitees dans un intervalle de temps
 	private Feu feuSens0;
 	private Feu feuSens1;
 	
@@ -225,13 +225,13 @@ public class SegmentDeRoute extends ElementRoute{
 		this.id = id;
 	}
 	
-	public boolean isTraite() {
+	/*public boolean isTraite() {
 		return traite;
 	}
 
 	public void setTraite(boolean traite) {
 		this.traite = traite;
-	}
+	}*/
 
 	public Feu getFeuSens0() {
 		return feuSens0;

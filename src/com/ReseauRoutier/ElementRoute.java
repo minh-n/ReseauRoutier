@@ -6,8 +6,9 @@ import com.Regulation.*;
 
 public abstract class ElementRoute extends Observable {
 
-	protected int longueur;
-	
+	protected int longueur;	
+	protected boolean traite; // indique si les voitures de l'element de route ont ete traitees dans un intervalle de temps
+
 	protected ArrayList<Voiture> voituresSens0;
 	protected ArrayList<Voiture> voituresSens1;
 	protected ArrayList<Capteur> capteurSens0;
@@ -63,6 +64,14 @@ public abstract class ElementRoute extends Observable {
 
 	public void setLongueur(int longueur) {
 		this.longueur = longueur;
+	}
+
+	public boolean isTraite() {
+		return traite;
+	}
+
+	public void setTraite(boolean traite) {
+		this.traite = traite;
 	}
 
 	public ArrayList<Voiture> getVoituresSens0() {
