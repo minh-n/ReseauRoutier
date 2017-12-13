@@ -1,21 +1,16 @@
 package com.Regulation;
 
-import java.util.Observable;
-
 import com.ReseauRoutier.SegmentDeRoute;
 
-public abstract class Feu extends Observable{
+public abstract class Feu extends Semaphore{
 	
-	private int sens;
 	private CouleurFeu couleur;
-	private SegmentDeRoute route;
 	protected RegSegment regSeg;
 	protected RegJonction regJonc;
 	
 	public Feu(int sens, SegmentDeRoute route)
 	{
-		this.sens = sens;
-		this.route = route;
+		super(sens, route);
 		
 		this.regSeg = new RegSegment(route);
 		this.addObserver(regSeg);

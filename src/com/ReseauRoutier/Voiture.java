@@ -131,18 +131,21 @@ public class Voiture extends Observable{
 	
 	public void addObs()
 	{
-		if(getSens() == 0)
+		if(getRouteActuelle() instanceof SegmentDeRoute)
 		{
-			for(Capteur c:getRouteActuelle().capteurSens0)
+			if(getSens() == 0)
 			{
-				addObserver(c);
+				for(Capteur c:((SegmentDeRoute) getRouteActuelle()).getCapteurSens0())
+				{
+					addObserver(c);
+				}
 			}
-		}
-		else
-		{
-			for(Capteur c:getRouteActuelle().capteurSens1)
+			else
 			{
-				addObserver(c);
+				for(Capteur c:((SegmentDeRoute) getRouteActuelle()).getCapteurSens1())
+				{
+					addObserver(c);
+				}
 			}
 		}
 	}

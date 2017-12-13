@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
+import com.Regulation.Capteur;
 import com.Regulation.CouleurFeu;
 import com.Regulation.Feu;
 import com.Regulation.FeuBicolore;
@@ -18,6 +19,9 @@ public class SegmentDeRoute extends ElementRoute{
 	
 	private Jonction jonctionSens0;
 	private Jonction jonctionSens1;
+	
+	private ArrayList<Capteur> capteurSens0;
+	private ArrayList<Capteur> capteurSens1;
 
 	public SegmentDeRoute()
 	{
@@ -30,6 +34,9 @@ public class SegmentDeRoute extends ElementRoute{
 		traite = false;
 		feuSens0 = new FeuBicolore(0, this);
 		feuSens1 = new FeuBicolore(1, this);
+		
+		setCapteurSens0(new ArrayList<Capteur>());
+		setCapteurSens1(new ArrayList<Capteur>());
 	}
 	
 	public SegmentDeRoute(int min, int max)
@@ -45,6 +52,9 @@ public class SegmentDeRoute extends ElementRoute{
 		
 		feuSens0 = new FeuBicolore(0, this);
 		feuSens1 = new FeuBicolore(1, this);
+		
+		setCapteurSens0(new ArrayList<Capteur>());
+		setCapteurSens1(new ArrayList<Capteur>());
 
 	}
 	
@@ -58,6 +68,9 @@ public class SegmentDeRoute extends ElementRoute{
 		
 		feuSens0 = new FeuBicolore(0, this);
 		feuSens1 = new FeuBicolore(1, this);
+		
+		setCapteurSens0(new ArrayList<Capteur>());
+		setCapteurSens1(new ArrayList<Capteur>());
 	}
 	
 	/**
@@ -263,6 +276,22 @@ public class SegmentDeRoute extends ElementRoute{
 
 	public void setJonctionSens1(Jonction jonctionSens1) {
 		this.jonctionSens1 = jonctionSens1;
+	}
+
+	public ArrayList<Capteur> getCapteurSens0() {
+		return capteurSens0;
+	}
+
+	public void setCapteurSens0(ArrayList<Capteur> capteurSens0) {
+		this.capteurSens0 = capteurSens0;
+	}
+
+	public ArrayList<Capteur> getCapteurSens1() {
+		return capteurSens1;
+	}
+
+	public void setCapteurSens1(ArrayList<Capteur> capteurSens1) {
+		this.capteurSens1 = capteurSens1;
 	}
 
 

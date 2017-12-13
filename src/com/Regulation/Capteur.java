@@ -4,6 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import com.ReseauRoutier.ElementRoute;
+import com.ReseauRoutier.SegmentDeRoute;
 import com.ReseauRoutier.Voiture;
 
 public abstract class Capteur implements Observer{
@@ -12,7 +13,7 @@ public abstract class Capteur implements Observer{
 	private int id;
 	private int positionDansRoute = 0;
 	private int sens = 0;
-	private ElementRoute route;
+	private SegmentDeRoute route;
 	
 	public Capteur(int pos, int sens)
 	{
@@ -59,11 +60,11 @@ public abstract class Capteur implements Observer{
 		this.sens = sens;
 	}
 
-	public ElementRoute getRoute() {
+	public SegmentDeRoute getRoute() {
 		return route;
 	}
 
-	public void setRoute(ElementRoute route) {
+	public void setRoute(SegmentDeRoute route) {
 		this.route = route;
 	}
 
