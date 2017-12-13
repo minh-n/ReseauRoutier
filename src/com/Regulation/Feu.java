@@ -6,7 +6,6 @@ public abstract class Feu extends Semaphore{
 	
 	private CouleurFeu couleur;
 	protected RegSegment regSeg;
-	protected RegJonction regJonc;
 	
 	public Feu(int sens, SegmentDeRoute route)
 	{
@@ -14,17 +13,6 @@ public abstract class Feu extends Semaphore{
 		
 		this.regSeg = new RegSegment(route);
 		this.addObserver(regSeg);
-		
-		if(sens == 0)
-		{
-			this.regJonc = new RegJonction(route.getJonctionSens0());
-			this.addObserver(regJonc);
-		}
-		else
-		{
-			this.regJonc = new RegJonction(route.getJonctionSens1());
-			this.addObserver(regJonc);
-		}
 		
 		this.couleur = CouleurFeu.Vert;	
 	}

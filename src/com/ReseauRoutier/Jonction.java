@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.Regulation.Feu;
+import com.Regulation.RegJonction;
 
 public abstract class Jonction extends ElementRoute {
 
@@ -12,6 +13,7 @@ public abstract class Jonction extends ElementRoute {
 	private int id;
 	private ArrayList<SegmentDeRoute> segments;
 	private ArrayList<Feu> sesFeux;
+	protected RegJonction regJonc;
 
 	//private ArrayList<Voisin> voisins = new ArrayList<Voisin>();
 	

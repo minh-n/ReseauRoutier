@@ -17,7 +17,7 @@ public class RegJonction extends Regulation{
 		// TODO Auto-generated method stub
 		if(o instanceof Feu)
 		{
-			if(((Feu) o).getCouleur().getCouleur().compareTo("Rouge") == 0)
+			if(((Feu) o).getCouleur() == CouleurFeu.Rouge)
 			{
 				if(((Feu) o).getSens() == 0)
 				{
