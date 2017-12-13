@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
+import com.Regulation.CouleurFeu;
 import com.Regulation.Feu;
 import com.Regulation.FeuBicolore;
 
@@ -67,7 +68,7 @@ public class SegmentDeRoute extends ElementRoute{
 		
 		//System.out.println("Iteration des voitures contenu dans le segment : " + this.getId());
 		
-		if(feuSens0.getCouleur().getCouleur() == "Vert")
+		if(feuSens1.getCouleur() == CouleurFeu.Vert)
 		{
 			for (Iterator<Voiture> ite = voituresSens0.iterator(); ite.hasNext(); ){
 				Voiture voit = ite.next();			
@@ -77,7 +78,8 @@ public class SegmentDeRoute extends ElementRoute{
 						//Verifications si c'est physiquement possible d'avancer 
 						//autrement, on decremente la vitesse jusqu'a ce que ce soit possible 
 						// TODO immplémenter ce truc directement dans voiture.avancer()
-						while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), voit.getSens()) && voit.getVitesse() > 0){
+						while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(),
+								voit.getSens()) && voit.getVitesse() > 0){
 							voit.setVitesse(voit.getVitesse()-1);
 						}
 	
@@ -99,7 +101,7 @@ public class SegmentDeRoute extends ElementRoute{
 			}
 		}
 		
-		if(feuSens1.getCouleur().getCouleur() == "Vert")
+		if(feuSens1.getCouleur() == CouleurFeu.Vert)
 		{
 			for (Iterator<Voiture> ite = voituresSens1.iterator(); ite.hasNext(); ){
 				Voiture voit = ite.next();
@@ -108,7 +110,9 @@ public class SegmentDeRoute extends ElementRoute{
 					voit.setVitesse(voit.getvMax());
 					if (segmentSuffisant(voit)){
 					
-						while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), voit.getSens()) && voit.getVitesse() > 0){
+						while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), 
+								voit.getSens()) && voit.getVitesse() > 0)
+						{
 							voit.setVitesse(voit.getVitesse()-1);
 						}
 						
@@ -118,6 +122,7 @@ public class SegmentDeRoute extends ElementRoute{
 						// Si la vitesse est a 0, lavoiture n'avance pas donc on passe a la voiture suivante 
 			 			if (voit.getVitesse() == 0) continue; 
 			 			else{
+			 				System.out.println("On avance voiture " + voit.getId() );
 			 				voit.avancer();
 			 			}
 					}
