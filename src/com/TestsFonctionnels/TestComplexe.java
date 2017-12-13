@@ -1,5 +1,7 @@
 package com.TestsFonctionnels;
 
+import java.util.Scanner;
+
 import com.Regulation.CapteurPresence;
 import com.Regulation.CapteurVitesse;
 import com.Regulation.Panneau;
@@ -15,11 +17,9 @@ public class TestComplexe {
 	
 	public void test()
 	{
-		Reseau resal = new Reseau();
-		resal.initReseau();
-		
-		//System.out.println("Réseau créé \n" + r.toString());
-		
+		Reseau res = new Reseau();
+		res.initReseau();
+				
 		CapteurVitesse c = new CapteurVitesse(1, 0);
 		CapteurVitesse c2 = new CapteurVitesse(1, 1);
 		CapteurPresence c3 = new CapteurPresence(2, 0);
@@ -32,43 +32,46 @@ public class TestComplexe {
 		Voiture v3 = new Voiture(4, 1);
 		Voiture v4 = new Voiture(10, 1);
 
-		resal.insererVoiture(v, 1);
-		resal.insererVoiture(v2, 2);
-		resal.insererVoiture(v3, 2);
-		resal.insererVoiture(v4, 4);
+		res.insererVoiture(v, 1);
+		res.insererVoiture(v2, 2);
+		res.insererVoiture(v3, 2);
+		res.insererVoiture(v4, 4);
 
-		resal.insererCapteur(c, 1);
-		resal.insererCapteur(c2, 4);
-		resal.insererCapteur(c3, 5);
-		resal.insererCapteur(c4, 6);
-		resal.insererCapteur(p, 2);
-		resal.insererCapteur(p2, 1);
+		res.insererCapteur(c, 1);
+		res.insererCapteur(c2, 4);
+		res.insererCapteur(c3, 5);
+		res.insererCapteur(c4, 6);
+		res.insererCapteur(p, 2);
+		res.insererCapteur(p2, 1);
 				
 		System.out.println("AFFICHAGE INITIAL DES VOITURES ! --------------------------------------\n\n");		
 		
-		resal.affichageVoitures();
+		res.affichageVoitures();
 
 		System.out.println(" AFFICHAGE INITIAL TERMINE ! -------------------------------------------\n\n");
-		resal.iteration();
-		resal.affichageVoitures();
+		
+		Scanner scanner = new Scanner(System.in);
 
-		resal.iteration();
-		resal.affichageVoitures();
+		System.out.println("\nPour afficher une iteration du programme, appuyez sur la touche 1 puis entrez :");
+		String entry = scanner.nextLine();
+		int i = 0;
+		
+		while(!entry.equals(1))
+		{
+			System.out.println("************ITERATION numero " + i + " !************\n");
+			res.iteration();
+			System.out.println("************AFFICHAGE DES VOITURES !************");
 
-		resal.iteration();
-		resal.affichageVoitures();
-		
-		resal.iteration();
-		resal.affichageVoitures();
-		
-		resal.iteration();
-		resal.affichageVoitures();
-		
-		resal.iteration();
-		resal.affichageVoitures();
+			res.affichageVoitures();
+			System.out.println("\nProchaine iteration ? Entrez 1 :");
 
-		resal.iteration();
-		resal.affichageVoitures();
-		
+			entry = scanner.nextLine();
+			System.out.println("\n*********FIN DE L'ITERATION numero " + i + " !*********");
+			i++;
+
+		}
+
+		scanner.close();
+
 	}
 }

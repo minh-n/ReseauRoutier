@@ -6,9 +6,7 @@ import com.Regulation.Capteur;
 
 public class Reseau {
 	
-	
 	private ArrayList<Jonction> jonctions;
-	
 	
 	public Reseau()
 	{
@@ -17,7 +15,7 @@ public class Reseau {
 	}
 	
 	/**
-	 * Initialise le reseau
+	 * Initialise le reseau complexe
 	 * @return
 	 */
 	public boolean initReseau(){
@@ -39,7 +37,7 @@ public class Reseau {
 		//Creation des liens entre les jonctions
 		
 		lierJonctions(jonctions.get(0), jonctions.get(1), new SegmentDeRoute(7));
-		
+
 		lierJonctions(jonctions.get(1), jonctions.get(2), new SegmentDeRoute(3));
 	
 		//carrefour1
@@ -64,7 +62,7 @@ public class Reseau {
 	
 	
 	/**
-	 * Initialise le reseau
+	 * Initialise le reseau simple
 	 * @return
 	 */
 	public boolean initReseauSimple(){
@@ -102,8 +100,6 @@ public class Reseau {
 				}
 			}
 		}
-		
-		System.out.println("\n################################# FIN ITERATION\n\n");
 		/* On reset leur attribut "traite" pour la prochaine iteration */
 		resetTraite();
 		

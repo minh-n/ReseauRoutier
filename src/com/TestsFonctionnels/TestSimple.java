@@ -1,5 +1,7 @@
 package com.TestsFonctionnels;
 
+import java.util.Scanner;
+
 import com.Regulation.CapteurPresence;
 import com.Regulation.CapteurVitesse;
 import com.Regulation.Panneau;
@@ -17,54 +19,42 @@ public class TestSimple {
 	
 	public void test()
 	{
-		Reseau resal = new Reseau();
-		resal.initReseauSimple();
+		Reseau res = new Reseau();
+		res.initReseauSimple();
 		Voiture v = new Voiture(3, 1); // (vmax, sens)
 
-		resal.insererVoiture(v, 1);
+		res.insererVoiture(v, 1);
 	
 				
 		System.out.println("AFFICHAGE INITIAL DES VOITURES ! --------------------------------------\n\n");		
 		
-		resal.affichageVoitures();
+		res.affichageVoitures();
 
 		System.out.println(" AFFICHAGE INITIAL TERMINE ! -------------------------------------------\n\n");
-		resal.iteration();
-		resal.affichageVoitures();
-
-		resal.iteration();
-		resal.affichageVoitures();
-
-		resal.iteration();
-		resal.affichageVoitures();
+		System.out.println("AFFICHAGE INITIAL DES VOITURES ! --------------------------------------\n\n");		
 		
-		resal.iteration();
-		resal.affichageVoitures();
-		
-		resal.iteration();
-		resal.affichageVoitures();
-		
-		resal.iteration();
-		resal.affichageVoitures();
+		res.affichageVoitures();
 
-		resal.iteration();
-		resal.affichageVoitures();
+		System.out.println(" AFFICHAGE INITIAL TERMINE ! -------------------------------------------\n\n");
 		
+		Scanner scanner = new Scanner(System.in);
 
-		resal.iteration();
-		resal.affichageVoitures();
+		System.out.println("\nPour afficher une iteration du programme, appuyez sur la touche 1 puis entrez :");
+		String entry = scanner.nextLine();
+		int i = 0;
 		
+		while(!entry.equals(1))
+		{
+			System.out.println("************ITERATION numero " + i + " !************");
+			res.iteration();
+			res.affichageVoitures();
+			System.out.println("\nProchaine iteration ? Entrez 1 :");
 
-		resal.iteration();
-		resal.affichageVoitures();
+			entry = scanner.nextLine();
+			i++;
 
-		resal.iteration();
-		resal.affichageVoitures();
-
-		resal.iteration();
-		resal.affichageVoitures();
-		
-		
+		}
+		scanner.close();
 	}
 	
 }
