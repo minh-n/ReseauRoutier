@@ -19,11 +19,25 @@ public class SegmentDeRoute extends ElementRoute{
 	private ArrayList<Capteur> capteurSens1;
 	private ArrayList<Semaphore> semaphoreSens0;
 	private ArrayList<Semaphore> semaphoreSens1;
-	
+
+	public SegmentDeRoute()
+	{
+		id = s_id;
+		s_id+= 1;
+		
+		traite = false;
+		
+		capteurSens0 = new ArrayList<Capteur>();
+		capteurSens1 = new ArrayList<Capteur>();
+		
+		semaphoreSens0 = new ArrayList<Semaphore>();
+		semaphoreSens1 = new ArrayList<Semaphore>();
+	}
+		
 	public SegmentDeRoute(int lon)
 	{
 		super(lon);
-		setId(s_id);
+		id = s_id;
 		s_id+= 1;
 
 		capteurSens0 = new ArrayList<Capteur>();
@@ -192,7 +206,6 @@ public class SegmentDeRoute extends ElementRoute{
 				Voiture voit = ite.next();
 				
 				if (!voit.isTraite()){
-					//voit.setVitesse(voit.getvMax());
 					if (segmentSuffisant(voit)){
 					
 						while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), 
@@ -201,9 +214,6 @@ public class SegmentDeRoute extends ElementRoute{
 							voit.setVitesse(voit.getVitesse()-1);
 						}
 						
-						// TODO
-						// D'autres elements pourront diminuer la vitesse d'une voiture genre les feux tricolores 
-						
 			 			if (voit.getVitesse() == 0) continue; 
 			 			else{
 			 				System.out.println("On avance voiture " + voit.getId() );
@@ -211,7 +221,7 @@ public class SegmentDeRoute extends ElementRoute{
 			 			}
 					}
 					else{
-						ite.remove(); // necessaire pour ne pas avoir de CurrentMosificationException
+						ite.remove();
 						voit.embranchement(voit.getVitesse());
 					}
 					voit.setTraite(true);
@@ -220,11 +230,10 @@ public class SegmentDeRoute extends ElementRoute{
 		
 	}
 	
-	
+
 	/**
-	 * Indique la distance qu'il reste a la voiture v a parcourir sur le segment
 	 * @param v
-	 * @return
+	 * @return la distance restante avant la fin de la route
 	 */
 	public int distanceRestante(Voiture v)
 	{
@@ -271,10 +280,6 @@ public class SegmentDeRoute extends ElementRoute{
 	@Override
 	public String toString() {
 		String affichage = "SegmentDeRoute [id=" + id + ", sesJonctions=";
-//		for (Jonction j:sesJonctions){
-//			affichage += " " + j.getId();
-//		}
-//		affichage += "]";
 		return affichage;
 	}
 	
@@ -299,10 +304,6 @@ public class SegmentDeRoute extends ElementRoute{
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public Jonction getJonctionSens0() {
 		return jonctionSens0;
 	}
@@ -323,12 +324,8 @@ public class SegmentDeRoute extends ElementRoute{
 		return capteurSens0;
 	}
 
-	
-
 	public ArrayList<Capteur> getCapteurSens1() {
 		return capteurSens1;
 	}
-
-
 
 }

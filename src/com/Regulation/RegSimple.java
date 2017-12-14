@@ -17,6 +17,9 @@ public class RegSimple extends Regulation{
 		super(jonction);
 	}
 	
+	/**
+	 * change la couleur des feux d'une jonction a chaque iteration pour avoir qu'un seul feu vert a la fois
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		if(o instanceof Reseau)

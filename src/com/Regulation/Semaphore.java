@@ -19,6 +19,9 @@ public abstract class Semaphore{
 		this.route = route;
 	}	
 
+	/**
+	 * applique la regulation du semaphore sur la route
+	 */
 	public abstract void regle();
 	
 	public int getSens() {

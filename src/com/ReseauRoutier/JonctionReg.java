@@ -42,6 +42,10 @@ public abstract class JonctionReg extends Jonction{
 	 */
 	public void setupFeu()
 	{		
-		this.sesFeux.get(0).setCouleur(CouleurFeu.Vert);
-	}
+		int i = 1;
+		while(i < sesFeux.size())
+		{
+			sesFeux.get(i).setCouleur(CouleurFeu.Rouge);
+			i++;
+		}	}
 }

@@ -5,14 +5,14 @@ import com.ReseauRoutier.Voiture;
 
 public class PanneauLimitationV extends Semaphore{
 
-	private int valeur;
+	private int valeurvMaxRoute;
 	
 	public PanneauLimitationV(int sens, int valeur, SegmentDeRoute route)
 	{
 		
 		super(sens, route);
 
-		this.valeur = valeur;
+		this.valeurvMaxRoute = valeur;
 	}
 
 	@Override
@@ -22,10 +22,10 @@ public class PanneauLimitationV extends Semaphore{
 		{
 			for(Voiture v:this.route.getVoituresSens0())
 			{
-				v.setvMax(this.valeur);
+				v.setvMax(this.valeurvMaxRoute);
 				if(v.getVitesse() > v.getvMax())
 				{
-					v.setVitesse(this.valeur);
+					v.setVitesse(this.valeurvMaxRoute);
 				}
 			}
 		}
@@ -33,12 +33,12 @@ public class PanneauLimitationV extends Semaphore{
 		{
 			for(Voiture v:this.route.getVoituresSens1())
 			{
-				v.setvMax(this.valeur);
+				v.setvMax(this.valeurvMaxRoute);
 				if(v.getVitesse() > v.getvMax())
 				{
-					v.setVitesse(this.valeur);
+					v.setVitesse(this.valeurvMaxRoute);
 				}			
-				}
+			}
 		}
 	}
 	

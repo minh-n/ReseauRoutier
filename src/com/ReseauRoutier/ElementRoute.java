@@ -111,17 +111,7 @@ public abstract class ElementRoute extends Observable {
 		return voituresSens0;
 	}
 
-//	public void setVoituresSens0(ArrayList<Voiture> mesVoitures) {
-//		this.voituresSens0 = mesVoitures;
-//	}
-//	
 	public ArrayList<Voiture> getVoituresSens1() {
 		return voituresSens1;
 	}
-//
-//
-//	public void setVoituresSens1(ArrayList<Voiture> voituresSens1) {
-//		this.voituresSens1 = voituresSens1;
-//	}
-	
 }

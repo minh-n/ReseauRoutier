@@ -38,7 +38,9 @@ public abstract class Feu extends Semaphore{
 	}
 	
 	
-
+	/**
+	 * Change la couleur du feu selon le code de la route
+	 */
 	public abstract void changerCouleur();
 
 

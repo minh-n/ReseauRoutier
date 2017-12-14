@@ -10,13 +10,12 @@ public abstract class Jonction extends ElementRoute {
 	private int id;
 	private ArrayList<SegmentDeRoute> segments;
 	protected int nbRoutes;
-
 	
 	public Jonction()
 	{
 		super(longueur);
 		segments = new ArrayList<SegmentDeRoute>();
-		setId(j_id);
+		id = j_id;
 		j_id+= 1;
 	}
 	
@@ -52,18 +51,12 @@ public abstract class Jonction extends ElementRoute {
 					voit.setTraite(true);
 				}
 			}
-			
 		}
 	}
 	
 	public int getId() {
 		return id;
 	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 
 	public ArrayList<SegmentDeRoute> getSegments() {
 		return segments;
@@ -86,6 +79,10 @@ public abstract class Jonction extends ElementRoute {
 		return this.segments.remove(route);
 	}
 
+	/**
+	 * permet de mettre le premier feu de la jonction au vert
+	 * si la jonction ne possede pas de feu, ne fait rien
+	 */
 	public void setupFeu(){}
 	
 	@Override
