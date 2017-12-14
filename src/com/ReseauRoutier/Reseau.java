@@ -29,10 +29,10 @@ public class Reseau extends Observable{
 		
 		jonctions.add(new JonctionBarriere()); 		//0
 		jonctions.add(jonc);		//1
-		jonctions.add(new JonctionCarrefour(3));		//2
+		jonctions.add(new JonctionCarrefour(4));		//2
 		jonctions.add(new JonctionSimple());		//3
 		jonctions.add(new JonctionSimple());		//4	
-		jonctions.add(new JonctionCarrefour(4));		//5
+		jonctions.add(new JonctionCarrefour(3));		//5
 		jonctions.add(new JonctionSimple());		//6	
 		jonctions.add(new JonctionBarriere());		//7
 		jonctions.add(new JonctionSimple());		//8	
@@ -88,8 +88,8 @@ public class Reseau extends Observable{
 		
 		//Creation des liens entre les jonctions
 		
-		lierJonctions(jonctions.get(0), jonctions.get(1), 8);
-		lierJonctions(jonctions.get(1), jonctions.get(2), 5);
+		lierJonctions(jonctions.get(0), jonctions.get(1), 7);
+		lierJonctions(jonctions.get(1), jonctions.get(2), 2);
 		lierJonctions(jonctions.get(2), jonctions.get(3), 3);
 		lierJonctions(jonctions.get(3), jonctions.get(4), 4);
 		
@@ -160,7 +160,7 @@ public class Reseau extends Observable{
 			return true;
 		}
 		
-		System.err.println("lierJonction : impossible de lier les deux jonctions !");
+		System.err.println("lierJonction : impossible de lier les deux jonctions ! Jonctions : " + jonc1.getId() + ", " + jonc2.getId());
 		return false;
 	}
 	

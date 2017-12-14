@@ -46,7 +46,7 @@ public abstract class JonctionReg extends Jonction{
 	
 	public boolean setupFeu()
 	{
-		if(this.sesFeux.size() < this.nbRoutes)
+		if(this.sesFeux.size() < this.nbRoutes - 1)
 		{
 			System.err.println("setupFeu : la jonction "+ getId() +" est pas complete !");
 			return false;
