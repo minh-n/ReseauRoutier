@@ -104,18 +104,15 @@ public class Voiture extends Observable{
 	 */
 	public boolean embranchementPossible(int avancement){
 		if (avancement < 0){
-			System.out.println("avancement < 0");
 			return false;
 		}
 		int sensActuel;
 		for(int i = avancement; i >= 0 ; i--){
 			sensActuel = (routeSuiv instanceof JonctionBarriere ? inverse(sens) : sens );
 			if (!routeSuiv.estOccupe(i, sensActuel)){
-				System.out.println("Embranchement possible");
 				return true; 
 			}
 		}
-		System.out.println("Embranchement impossible");
 		return false;
 	}
 	

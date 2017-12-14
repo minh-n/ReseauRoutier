@@ -147,7 +147,7 @@ public class SegmentDeRoute extends ElementRoute{
 		}
 		else
 		{
-			v.setRouteSuiv(this.jonctionSens1); // la jonction qui suit le 1er segment, dans le sens 1 (i.e. elle même)
+			v.setRouteSuiv(this.jonctionSens1); 
 			this.voituresSens1.add(v); 
 			
 			for(Capteur c:this.capteurSens1)
@@ -242,7 +242,6 @@ public class SegmentDeRoute extends ElementRoute{
 	{
 		if(v.getVitesse() >= distanceRestante(v))
 		{
-			System.out.println("\n--Pour la voiture " + v.getId() + " => Segment trop court !\n");
 			return false;
 		}
 		return true;

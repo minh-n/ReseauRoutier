@@ -233,6 +233,12 @@ public class Reseau extends Observable{
 		return true;
 	}
 	
+	/**
+	 * Insère le semaphore 'sema' sur la route n° 'idRoute'
+	 * @param sema
+	 * @param idRoute
+	 * @return true si l'operation s'est bien passee
+	 */
 	public boolean insererSemaphore(Semaphore sema, int idRoute)
 	{
 		SegmentDeRoute r = getRoute(idRoute);
@@ -246,6 +252,11 @@ public class Reseau extends Observable{
 		return true;
 	}
 	
+	/**
+	 * Renvoie la Jonction ayant l'id 'idJonction'
+	 * @param idJonction
+	 * @return null la Jonction en question n'existe pas
+	 */
 	public Jonction getJonction(int idJonction)
 	{
 		for(Jonction j:jonctions)
@@ -259,6 +270,11 @@ public class Reseau extends Observable{
 		return null;
 	}
 	
+	/**
+	 * Renvoie le Segment de Route ayout l'id 'idRoute'
+	 * @param idRoute
+	 * @return null si le Segment de route en question n'existe pas
+	 */
 	public SegmentDeRoute getRoute(int idRoute)
 	{
 		for(SegmentDeRoute r:routes)
@@ -277,7 +293,7 @@ public class Reseau extends Observable{
 	 */
 	private void resetTraite(){
 		for (Jonction j:jonctions){
-			for (Voiture voit:j.getVoituresSens0()){ // techniquement c'est inutile vu qu'une jonction ne peut contenir qu'une voiture
+			for (Voiture voit:j.getVoituresSens0()){ 
 				voit.setTraite(false);
 			}
 			for (Voiture voit:j.getVoituresSens1()){
