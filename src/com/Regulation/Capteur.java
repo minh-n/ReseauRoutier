@@ -27,7 +27,7 @@ public abstract class Capteur implements Observer{
 	public abstract void update(Observable o, Object arg);
 	
 	/**
-	 * permet au capteur de recevoir les informations sur les positions des voitures deja presente dans la route
+	 * Permet au capteur de recevoir les informations sur les positions des voitures deja presente dans la route
 	 */
 	public void addObs()
 	{
