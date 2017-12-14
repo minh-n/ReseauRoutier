@@ -78,7 +78,6 @@ public class TestSimple {
 				case "n":
 					System.out.println("\nPour afficher une iteration du programme, appuyez sur la touche 1 puis entrez :");
 					break;
-					
 				default:
 					System.out.println("Reponse " + entry + "detectee. Fin du Test Simple...");
 
@@ -86,7 +85,6 @@ public class TestSimple {
 					break;
 				}
 				
-				entry = scanner.nextLine();
 				System.out.println("Fin 2 du test simple............");
 				break;
 

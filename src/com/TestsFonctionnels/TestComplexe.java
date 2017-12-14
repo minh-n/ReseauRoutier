@@ -49,27 +49,37 @@ public class TestComplexe {
 
 		System.out.println(" AFFICHAGE INITIAL TERMINE ! -------------------------------------------\n\n");
 		
+		boolean continuer = true;
 		Scanner scanner = new Scanner(System.in);
 
 		System.out.println("\nPour afficher une iteration du programme, appuyez sur la touche 1 puis entrez :");
 		String entry = scanner.nextLine();
 		int i = 0;
 		
-		while((entry.compareTo("1") == 0))
+		while(continuer)
 		{
-			System.out.println("************ITERATION numero " + i + " !************\n");
-			res.iteration();
-			System.out.println("************AFFICHAGE DES VOITURES !************");
+			switch(entry)
+			{
+			case "1":
+				System.out.println("************ITERATION numero " + i + " !************");
+				
+				res.iteration();
+				res.affichageVoitures();
+				i++;
 
-			res.affichageVoitures();
-			System.out.println("\nProchaine iteration ? Entrez 1 :");
+				System.out.println("\nProchaine iteration ? Entrez 1 ou une autre lettre pour quitter :");
 
-			entry = scanner.nextLine();
-			System.out.println("\n*********FIN DE L'ITERATION numero " + i + " !*********");
-			i++;
+				entry = scanner.nextLine();
+				break;
 
+			default:
+				System.out.println("Fin du Test Complexe");
+				continuer = false;
+				break;
+
+			}
+		
 		}
-
 		scanner.close();
 
 	}
