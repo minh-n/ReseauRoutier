@@ -69,7 +69,6 @@ public class Reseau extends Observable{
 		return true;
 	}
 	
-	
 	/**
 	 * Initialise le reseau simple
 	 * @return
@@ -98,6 +97,9 @@ public class Reseau extends Observable{
 		return true;
 	}
 	
+	/**
+	 * Ajoute les feux sur les jonctions
+	 */
 	public void setupJonction()
 	{
 		for(Jonction j:jonctions)

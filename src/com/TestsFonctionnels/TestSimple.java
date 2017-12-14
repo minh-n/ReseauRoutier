@@ -44,21 +44,55 @@ public class TestSimple {
 
 		System.out.println(" AFFICHAGE INITIAL TERMINE ! -------------------------------------------\n\n");
 		
+		boolean continuer = true;
 		Scanner scanner = new Scanner(System.in);
-
 		System.out.println("\nPour afficher une iteration du programme, appuyez sur la touche 1 puis entrez :");
 		String entry = scanner.nextLine();
+	
 		int i = 0;
 		
-		while((entry.compareTo("1") == 0))
+		while(continuer)
 		{
-			System.out.println("************ITERATION numero " + i + " !************");
-			res.iteration();
-			res.affichageVoitures();
-			System.out.println("\nProchaine iteration ? Entrez 1 :");
+			switch(entry)
+			{
+			case "1":
+				System.out.println("************ITERATION numero " + i + " !************");
+				
+				res.iteration();
+				res.affichageVoitures();
+				i++;
 
-			entry = scanner.nextLine();
-			i++;
+				System.out.println("\nProchaine iteration ? Entrez 1 :");
+
+				entry = scanner.nextLine();
+				break;
+
+			default:
+				System.out.println("Quitter le Test Simple ? Y/N");
+				entry = scanner.nextLine();
+
+				switch(entry)
+				{
+				
+				case "N":
+				case "n":
+					System.out.println("\nPour afficher une iteration du programme, appuyez sur la touche 1 puis entrez :");
+					break;
+					
+				default:
+					System.out.println("Reponse " + entry + "detectee. Fin du Test Simple...");
+
+					continuer = false;
+					break;
+				}
+				
+				entry = scanner.nextLine();
+				System.out.println("Fin 2 du test simple............");
+				break;
+
+			}
+		
+		
 
 		}
 		scanner.close();
