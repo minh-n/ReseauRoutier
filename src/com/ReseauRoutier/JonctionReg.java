@@ -10,11 +10,6 @@ import com.Regulation.Regulation;
 public abstract class JonctionReg extends Jonction{
 	
 	protected ArrayList<Feu> sesFeux;
-	protected Regulation regulation;
-	
-	public void setRegulation(Regulation regulation) {
-		this.regulation = regulation;
-	}
 
 	public JonctionReg(int nbRoutes)
 	{

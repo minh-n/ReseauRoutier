@@ -13,7 +13,6 @@ public abstract class Regulation implements Observer{
 	public Regulation(JonctionReg jonction, Reseau reseau)
 	{
 		this.jonction = jonction;
-		this.jonction.setRegulation(this);
 		reseau.addObserver(this);
 	}
 	

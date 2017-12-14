@@ -80,14 +80,14 @@ public class Reseau extends Observable{
 		
 		jonctions.add(new JonctionBarriere()); 		//1	
 		jonctions.add(jonc);		//2
-		jonctions.add(jonc1);		//3
-		jonctions.add(new JonctionSimple());		//4
+		jonctions.add(new JonctionSimple());	//3
+		jonctions.add(jonc1);		//4
 		jonctions.add(new JonctionBarriere());		//5
 		
-		RegSimple r = new RegSimple(jonc);
-		addObserver(r);
-		RegSimple r2 = new RegSimple(jonc);
-		addObserver(r2);
+		RegSimple r = new RegSimple(jonc, this);
+//		addObserver(r);
+		RegSimple r2 = new RegSimple(jonc, this);
+//		addObserver(r2);
 		
 		//Creation des liens entre les jonctions
 		
