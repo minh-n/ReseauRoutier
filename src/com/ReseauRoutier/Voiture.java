@@ -35,11 +35,18 @@ public class Voiture {
 	/* Cette fonction part du principe que sa vitesse ne lui permet pas de dﾃｩpasser le segment sur lequel elle est */
 	public void avancer(){
 		//System.out.println("v"+id+" = "+this.getPositionDansRoute()+" -> "+(this.getPositionDansRoute()+this.getVitesse()));
-		setPositionDansRoute(getPositionDansRoute() + getVitesse());
+		while (routeActuelle.estOccupe(positionDansRoute + vitesse, sens) && vitesse > 0){
+			vitesse -= 1;
+		}
+		setPositionDansRoute(positionDansRoute + vitesse);
 	}
 	
 	public void avancer(int avancement){
-		//System.out.println("v"+id+" = "+this.getPositionDansRoute()+" -> "+(this.getPositionDansRoute()+avancement));
+		while (routeActuelle.estOccupe(positionDansRoute + avancement, sens) && avancement > 0){
+			avancement -= 1;
+		}
+		vitesse = avancement;
+		System.out.println("v"+id+" = "+this.getPositionDansRoute()+" -> "+(this.getPositionDansRoute()+avancement));
 		setPositionDansRoute(getPositionDansRoute() + avancement);
 	}
 
@@ -49,30 +56,61 @@ public class Voiture {
 		
 		/* Telle qu'elle est la fonction autorise deux voitures à être sur un moeme tronçon ! => modifier avancer */
 		reste-= (routeActuelle.getLongueur() - this.getPositionDansRoute());
-		routePrec = routeActuelle;
-		routeActuelle = routeSuiv;
-		routeSuiv = determinerProchain();
-		
-		
-		//System.out.println(nomRoute(routePrec)+" -> "+nomRoute(routeActuelle)+", reste = "+reste);
-		
-		if (this.sens == 0){
-			if(routePrec.getVoituresSens0().contains(this))  routePrec.getVoituresSens0().remove(this);
-			this.routeActuelle.getVoituresSens0().add(this);
+		if (embranchementPossible(reste)){
+			routePrec = routeActuelle;
+			routeActuelle = routeSuiv;
+			routeSuiv = determinerProchain();
+			
+			
+			System.out.println(nomRoute(routePrec)+" -> "+nomRoute(routeActuelle)+", reste = "+reste);
+			
+			if (this.sens == 0){
+				if(routePrec.getVoituresSens0().contains(this))  routePrec.getVoituresSens0().remove(this);
+				this.routeActuelle.getVoituresSens0().add(this);
+			}
+			else{
+				if(routePrec.getVoituresSens1().contains(this)) routePrec.getVoituresSens1().remove(this);
+				this.routeActuelle.getVoituresSens1().add(this);
+			}
+			
+			
+			this.setPositionDansRoute(0);
+			if (reste >= routeActuelle.getLongueur()){
+				embranchement(reste);
+			}
+			else{
+				avancer(reste);
+			}
 		}
 		else{
-			if(routePrec.getVoituresSens1().contains(this)) routePrec.getVoituresSens1().remove(this);
-			this.routeActuelle.getVoituresSens1().add(this);
+			avancer(routeActuelle.getLongueur() - this.getPositionDansRoute() - 1);
 		}
-		
-		
-		this.setPositionDansRoute(0);
-		if (reste >= routeActuelle.getLongueur()){
-			embranchement(reste);
+	}
+	
+	/**
+	 * Indique si l'embranchement est physiquement possible
+	 * @param avancement
+	 * @return true s'il y assez de place dans la route suivante pour avancer
+	 */
+	public boolean embranchementPossible(int avancement){
+		if (avancement < 0){
+			System.out.println("avancement < 0");
+			return false;
 		}
-		else{
-			avancer(reste);
+		int sensActuel;
+		for(int i = avancement; i >= 0 ; i--){
+			sensActuel = (routeSuiv instanceof JonctionBarriere ? inverse(sens) : sens );
+			if (!routeSuiv.estOccupe(i, sensActuel)){
+				System.out.println("Embranchement possible");
+				return true; 
+			}
 		}
+		System.out.println("Embranchement impossible");
+		return false;
+	}
+	
+	private int inverse(int sens){
+		return (sens == 0 ? 1 : 0);
 	}
 	
 	public ElementRoute determinerProchain(){

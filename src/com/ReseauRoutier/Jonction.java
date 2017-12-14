@@ -92,7 +92,7 @@ System.out.println("Iteration des voitures contenu dans la jonction : " + this.g
 				System.out.println("\t-Voiture n°" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()+", sens? = "+v.getSens()+"\n");
 			}
 		}
-		if (!voituresSens0.isEmpty()){
+		if (!voituresSens1.isEmpty()){
 			System.out.println("\n-- Sens 1 :\n");
 			for (Voiture v:voituresSens1){
 				System.out.println("\t-Voiture n°" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()+", sens? = "+v.getSens()+"\n");
