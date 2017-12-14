@@ -39,13 +39,11 @@ public class Voiture extends Observable{
 	
 	/* Cette fonction part du principe que sa vitesse ne lui permet pas de depasser le segment sur lequel elle est */
 	public void avancer(){
-		//System.out.println("v"+id+" = "+this.getPositionDansRoute()+" -> "+(this.getPositionDansRoute()+this.getVitesse()));
 		setPositionPrecedente(getPositionDansRoute());
 		setPositionDansRoute(getPositionDansRoute() + getVitesse());
 	}
 	
 	public void avancer(int avancement){
-		//System.out.println("v"+id+" = "+this.getPositionDansRoute()+" -> "+(this.getPositionDansRoute()+avancement));
 		setPositionPrecedente(getPositionDansRoute());
 		setPositionDansRoute(getPositionDansRoute() + avancement);
 	}
@@ -196,10 +194,6 @@ public class Voiture extends Observable{
 	public ElementRoute getRouteActuelle() {
 		return routeActuelle;
 	}
-
-	/*public void setRouteActuelle(SegmentDeRoute routeActuelle) {
-		this.routeActuelle = routeActuelle;
-	}*/
 
 	public int getVitesse() {
 		return vitesse;

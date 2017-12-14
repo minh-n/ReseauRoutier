@@ -89,11 +89,7 @@ public abstract class Jonction extends ElementRoute {
 		return this.segments.remove(route);
 	}
 
-	public boolean setupFeu()
-	{
-		return true;
-	}
-	
+	public void setupFeu(){}
 	
 	@Override
 	public String toString() {

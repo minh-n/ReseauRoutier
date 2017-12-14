@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 import com.Regulation.CapteurPresence;
 import com.Regulation.CapteurVitesse;
+import com.Regulation.PanneauLimitationV;
+import com.Regulation.RegSimple;
+import com.ReseauRoutier.JonctionReg;
 import com.ReseauRoutier.Reseau;
 import com.ReseauRoutier.Voiture;
 
@@ -23,26 +26,31 @@ public class TestSimple {
 		res.initReseauSimple();
 		
 		CapteurPresence c = new CapteurPresence(0, 1); //(position, sens)
-
 		
-		Voiture v = new Voiture(3, 1); // (vmax, sens)1
-		Voiture v2 = new Voiture(3, 1); // (vmax, sens)1
+		Voiture v = new Voiture(3, 1); // (vmax = 3, sens = 1)
 
 		res.insererCapteur(c, 3);
-
 		
-		res.insererVoiture(v2, 1);		
-				
+		PanneauLimitationV p = new PanneauLimitationV(1, 2, res.getRoute(1));
+		PanneauLimitationV p2 = new PanneauLimitationV(0, 5, res.getRoute(2));
+		PanneauLimitationV p3 = new PanneauLimitationV(1, 3, res.getRoute(4));
+		
+		RegSimple r = new RegSimple(((JonctionReg) res.getJonction(3)), res);
+
+		res.getRoute(1).ajoutSemaphore(p);
+		res.getRoute(2).ajoutSemaphore(p2);
+		res.getRoute(4).ajoutSemaphore(p3);
+		
+		
+		
+		res.insererVoiture(v, 1);		
+
 		System.out.println("AFFICHAGE INITIAL DES VOITURES ! --------------------------------------\n\n");		
 		
 		res.affichageVoitures();
 
 		System.out.println(" AFFICHAGE INITIAL TERMINE ! -------------------------------------------\n\n");
-		System.out.println("AFFICHAGE INITIAL DES VOITURES ! --------------------------------------\n\n");		
-		
-		res.affichageVoitures();
 
-		System.out.println(" AFFICHAGE INITIAL TERMINE ! -------------------------------------------\n\n");
 		
 		boolean continuer = true;
 		Scanner scanner = new Scanner(System.in);
@@ -62,7 +70,7 @@ public class TestSimple {
 				res.affichageVoitures();
 				i++;
 
-				System.out.println("\nProchaine iteration ? Entrez 1 :");
+				System.out.println("\nProchaine iteration ? Entrez 1 pour continuer ou un autre charactere pour quitter :");
 
 				entry = scanner.nextLine();
 				break;
@@ -73,7 +81,6 @@ public class TestSimple {
 
 				switch(entry)
 				{
-				
 				case "N":
 				case "n":
 					System.out.println("\nPour afficher une iteration du programme, appuyez sur la touche 1 puis entrez :");

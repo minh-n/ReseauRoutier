@@ -33,9 +33,6 @@ public abstract class Feu extends Semaphore{
 	}
 
 
-
-	public abstract void changerCouleur(CouleurFeu couleur);
-
 	public int getSens() {
 		return sens;
 	}

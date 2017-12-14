@@ -9,7 +9,9 @@ public class PanneauLimitationV extends Semaphore{
 	
 	public PanneauLimitationV(int sens, int valeur, SegmentDeRoute route)
 	{
+		
 		super(sens, route);
+
 		this.valeur = valeur;
 	}
 
@@ -21,6 +23,7 @@ public class PanneauLimitationV extends Semaphore{
 			for(Voiture v:this.route.getVoituresSens0())
 			{
 				v.setvMax(this.valeur);
+				v.setVitesse(this.valeur);
 			}
 		}
 		else
@@ -28,6 +31,7 @@ public class PanneauLimitationV extends Semaphore{
 			for(Voiture v:this.route.getVoituresSens1())
 			{
 				v.setvMax(this.valeur);
+				v.setVitesse(this.valeur);
 			}
 		}
 	}

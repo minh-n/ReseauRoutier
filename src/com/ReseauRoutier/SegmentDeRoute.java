@@ -179,6 +179,19 @@ public class SegmentDeRoute extends ElementRoute{
 	public void deplacerVoiture() {
 		
 			for (Iterator<Voiture> ite = voituresSens0.iterator(); ite.hasNext(); ){
+				
+				for(Semaphore s:this.semaphoreSens0)
+				{
+					System.out.println("On applique le semaphore " + s.getClass().getName() );
+				
+					if(s instanceof Feu)
+					{
+						System.out.println("Le feu est de couleur " + ((Feu)s).getCouleur());
+
+					}
+					s.regle();
+				}
+				
 				Voiture voit = ite.next();			
 				if (!voit.isTraite()){
 					voit.setVitesse(voit.getvMax());
@@ -190,10 +203,7 @@ public class SegmentDeRoute extends ElementRoute{
 								voit.getSens()) && voit.getVitesse() > 0){
 							voit.setVitesse(voit.getVitesse()-1);
 						}
-	
-						// TODO
-						// D'autres éléments pourront diminuer la vitesse d'une voiture genre les feux tricolores 
-						
+											
 						// Si la vitesse est a 0, lavoiture n'avance pas donc on passe a la voiture suivante 
 			 			if (voit.getVitesse() == 0) continue; 
 			 			else{
@@ -211,6 +221,12 @@ public class SegmentDeRoute extends ElementRoute{
 		
 	
 			for (Iterator<Voiture> ite = voituresSens1.iterator(); ite.hasNext(); ){
+								
+				for(Semaphore s:this.semaphoreSens1)
+				{
+					s.regle();
+				}
+				
 				Voiture voit = ite.next();
 				
 				if (!voit.isTraite()){
@@ -226,7 +242,6 @@ public class SegmentDeRoute extends ElementRoute{
 						// TODO
 						// D'autres elements pourront diminuer la vitesse d'une voiture genre les feux tricolores 
 						
-						// Si la vitesse est a 0, lavoiture n'avance pas donc on passe a la voiture suivante 
 			 			if (voit.getVitesse() == 0) continue; 
 			 			else{
 			 				System.out.println("On avance voiture " + voit.getId() );
@@ -313,12 +328,12 @@ public class SegmentDeRoute extends ElementRoute{
 	public void affichageVoitures(){
 		System.out.println("_________Segment n" + this.id + " ("+this.longueur+")\n-- Sens 0 :\n");
 		for (Voiture v:voituresSens0){
-			System.out.println("\t-Voiture n" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()/*+", sens? = "+v.getSens()+"\n"*/);
+			System.out.println("\t-Voiture n" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse());
 		}
 		
 		System.out.println("\n-- Sens 1 :\n");
 		for (Voiture v:voituresSens1){
-			System.out.println("\t-Voiture n" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse()/*+", sens? = "+v.getSens()+"\n"*/);
+			System.out.println("\t-Voiture n" + v.getId() + " : pos = "+v.getPositionDansRoute()+", vit = "+v.getVitesse());
 		}
 		
 		System.out.println("\n");

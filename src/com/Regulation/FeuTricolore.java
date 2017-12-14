@@ -10,10 +10,6 @@ public class FeuTricolore extends Feu{
 		super(sens, route);
 	}
 	
-	public void changerCouleur(CouleurFeu couleur)
-	{
-		
-	}
 	
 	public CouleurFeu getCouleur()
 	{
@@ -80,15 +76,18 @@ public class FeuTricolore extends Feu{
 	{
 		if(this.couleur == CouleurFeu.Rouge)
 		{
+			System.out.println("GO VERT  #########");
 			this.couleur = CouleurFeu.Vert;
 		}
 		else if(this.couleur == CouleurFeu.Vert)
 		{
+			System.out.println("GO ORANGEGNSF");
 			this.couleur = CouleurFeu.Orange;
 		}
 		else
 		{
 			this.couleur = CouleurFeu.Rouge;
+			System.out.println("GO DROUROUOUGE");
 		}
 	}
 }
