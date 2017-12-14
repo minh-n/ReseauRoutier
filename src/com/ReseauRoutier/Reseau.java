@@ -80,7 +80,7 @@ public class Reseau extends Observable{
 		jonctions.add(new JonctionBarriere());		//5
 
 		RegSimple r = new RegSimple(jonc, this);
-		RegSimple r2 = new RegSimple(jonc, this);
+		RegSimple r2 = new RegSimple(jonc1, this);
 
 		//Creation des liens entre les jonctions
 		lierJonctions(jonctions.get(0), jonctions.get(1), 7);
