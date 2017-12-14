@@ -2,12 +2,9 @@ package com.ReseauRoutier;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Random;
 
 import com.Regulation.Capteur;
-import com.Regulation.CouleurFeu;
 import com.Regulation.Feu;
-import com.Regulation.FeuBicolore;
 import com.Regulation.Semaphore;
 
 public class SegmentDeRoute extends ElementRoute{
@@ -22,52 +19,19 @@ public class SegmentDeRoute extends ElementRoute{
 	private ArrayList<Capteur> capteurSens1;
 	private ArrayList<Semaphore> semaphoreSens0;
 	private ArrayList<Semaphore> semaphoreSens1;
-
-	/*public SegmentDeRoute()
-	{
-		setId(s_id);
-		s_id+= 1;
-		
-		traite = false;
-		
-		capteurSens0 = new ArrayList<Capteur>();
-		capteurSens1 = new ArrayList<Capteur>();
-		
-		semaphoreSens0 = new ArrayList<Semaphore>();
-		semaphoreSens1 = new ArrayList<Semaphore>();
-	}
-	
-	public SegmentDeRoute(int min, int max)
-	{
-		super();
-		Random rand = new Random();
-		super.setLongueur(rand.nextInt((max - min) + 1) + min);
-		
-		setId(s_id);
-		s_id+= 1;
-		
-		capteurSens0 = new ArrayList<Capteur>();
-		capteurSens1 = new ArrayList<Capteur>();
-		
-		semaphoreSens0 = new ArrayList<Semaphore>();
-		semaphoreSens1 = new ArrayList<Semaphore>();
-
-	}*/
 	
 	public SegmentDeRoute(int lon)
 	{
 		super(lon);
 		setId(s_id);
 		s_id+= 1;
-	
-		
+
 		capteurSens0 = new ArrayList<Capteur>();
 		capteurSens1 = new ArrayList<Capteur>();
 		
 		semaphoreSens0 = new ArrayList<Semaphore>();
 		semaphoreSens1 = new ArrayList<Semaphore>();
 	}
-	
 	
 	public void ajoutSemaphore(Semaphore sema)
 	{
@@ -194,18 +158,23 @@ public class SegmentDeRoute extends ElementRoute{
 				
 				Voiture voit = ite.next();			
 				if (!voit.isTraite()){
-					voit.setVitesse(voit.getvMax());
-					if (segmentSuffisant(voit)) voit.avancer();
-
+					//voit.setVitesse(voit.getvMax());
+					if (segmentSuffisant(voit)){
+						//Verifications si c'est physiquement possible d'avancer 
+						//autrement, on decremente la vitesse jusqu'a ce que ce soit possible 
+						while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(),
+								voit.getSens()) && voit.getVitesse() > 0){
+							voit.setVitesse(voit.getVitesse()-1);
+						}		
+						// Si la vitesse est a 0, lavoiture n'avance pas donc on passe a la voiture suivante 
+			 			if (voit.getVitesse() == 0) continue; 
+			 			else{
+			 				voit.avancer();
+			 			}
+					}
 					else{
-						int postEmbranchement = voit.getVitesse() - (longueur - voit.getPositionDansRoute());
-						if (voit.embranchementPossible(postEmbranchement)){
-							ite.remove();
-							voit.embranchement(voit.getVitesse());
-						}
-						else{
-							voit.avancer(longueur - voit.getPositionDansRoute() - 1);
-						}
+						ite.remove();
+						voit.embranchement(voit.getVitesse());
 					}
 					voit.setTraite(true);
 				}
@@ -223,26 +192,34 @@ public class SegmentDeRoute extends ElementRoute{
 				Voiture voit = ite.next();
 				
 				if (!voit.isTraite()){
-
-					voit.setVitesse(voit.getvMax());
-					if (segmentSuffisant(voit)) voit.avancer();
-
-	
+					//voit.setVitesse(voit.getvMax());
+					if (segmentSuffisant(voit)){
+					
+						while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), 
+								voit.getSens()) && voit.getVitesse() > 0)
+						{
+							voit.setVitesse(voit.getVitesse()-1);
+						}
+						
+						// TODO
+						// D'autres elements pourront diminuer la vitesse d'une voiture genre les feux tricolores 
+						
+			 			if (voit.getVitesse() == 0) continue; 
+			 			else{
+			 				System.out.println("On avance voiture " + voit.getId() );
+			 				voit.avancer();
+			 			}
+					}
 					else{
-						int postEmbranchement = voit.getVitesse() - (longueur - voit.getPositionDansRoute());
-						if (voit.embranchementPossible(postEmbranchement)){
-							ite.remove();
-							voit.embranchement(voit.getVitesse());
-						}
-						else{
-							voit.avancer(longueur - voit.getPositionDansRoute() - 1);
-						}
+						ite.remove(); // necessaire pour ne pas avoir de CurrentMosificationException
+						voit.embranchement(voit.getVitesse());
 					}
 					voit.setTraite(true);
 				}
 			}
 		
 	}
+	
 	
 	/**
 	 * Indique la distance qu'il reste a la voiture v a parcourir sur le segment
