@@ -88,8 +88,8 @@ public class Reseau extends Observable{
 		
 		//Creation des liens entre les jonctions
 		
-		lierJonctions(jonctions.get(0), jonctions.get(1), 8);
-		lierJonctions(jonctions.get(1), jonctions.get(2), 5);
+		lierJonctions(jonctions.get(0), jonctions.get(1), 7);
+		lierJonctions(jonctions.get(1), jonctions.get(2), 2);
 		lierJonctions(jonctions.get(2), jonctions.get(3), 3);
 		lierJonctions(jonctions.get(3), jonctions.get(4), 4);
 		

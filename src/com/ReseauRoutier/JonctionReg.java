@@ -44,15 +44,8 @@ public abstract class JonctionReg extends Jonction{
 		return sesFeux;
 	}
 	
-	public boolean setupFeu()
+	public void setupFeu()
 	{
-		if(this.sesFeux.size() < this.nbRoutes)
-		{
-			System.err.println("setupFeu : la jonction "+ getId() +" est pas complete !");
-			return false;
-		}
-		
 		this.sesFeux.get(0).setCouleur(CouleurFeu.Vert);
-		return true;
 	}
 }
