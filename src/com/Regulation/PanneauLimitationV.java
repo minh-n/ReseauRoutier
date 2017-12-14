@@ -23,7 +23,10 @@ public class PanneauLimitationV extends Semaphore{
 			for(Voiture v:this.route.getVoituresSens0())
 			{
 				v.setvMax(this.valeur);
-				v.setVitesse(this.valeur);
+				if(v.getVitesse() > v.getvMax())
+				{
+					v.setVitesse(this.valeur);
+				}
 			}
 		}
 		else
@@ -31,8 +34,11 @@ public class PanneauLimitationV extends Semaphore{
 			for(Voiture v:this.route.getVoituresSens1())
 			{
 				v.setvMax(this.valeur);
-				v.setVitesse(this.valeur);
-			}
+				if(v.getVitesse() > v.getvMax())
+				{
+					v.setVitesse(this.valeur);
+				}			
+				}
 		}
 	}
 	

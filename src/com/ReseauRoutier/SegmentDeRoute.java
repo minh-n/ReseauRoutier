@@ -194,16 +194,14 @@ public class SegmentDeRoute extends ElementRoute{
 				
 				Voiture voit = ite.next();			
 				if (!voit.isTraite()){
-					voit.setVitesse(voit.getvMax());
+					//voit.setVitesse(voit.getvMax());
 					if (segmentSuffisant(voit)){
 						//Verifications si c'est physiquement possible d'avancer 
 						//autrement, on decremente la vitesse jusqu'a ce que ce soit possible 
-						// TODO immplémenter ce truc directement dans voiture.avancer()
 						while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(),
 								voit.getSens()) && voit.getVitesse() > 0){
 							voit.setVitesse(voit.getVitesse()-1);
-						}
-											
+						}		
 						// Si la vitesse est a 0, lavoiture n'avance pas donc on passe a la voiture suivante 
 			 			if (voit.getVitesse() == 0) continue; 
 			 			else{
@@ -230,7 +228,7 @@ public class SegmentDeRoute extends ElementRoute{
 				Voiture voit = ite.next();
 				
 				if (!voit.isTraite()){
-					voit.setVitesse(voit.getvMax());
+					//voit.setVitesse(voit.getvMax());
 					if (segmentSuffisant(voit)){
 					
 						while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), 
