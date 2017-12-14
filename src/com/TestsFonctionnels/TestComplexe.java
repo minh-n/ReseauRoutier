@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import com.Regulation.CapteurPresence;
 import com.Regulation.CapteurVitesse;
-import com.Regulation.Panneau;
 import com.ReseauRoutier.Reseau;
 import com.ReseauRoutier.Voiture;
 
@@ -24,8 +23,8 @@ public class TestComplexe {
 		CapteurVitesse c2 = new CapteurVitesse(1, 1);
 		CapteurPresence c3 = new CapteurPresence(2, 0);
 		CapteurPresence c4 = new CapteurPresence(2, 1);
-		Panneau p = new Panneau(2, 0, 2);
-		Panneau p2 = new Panneau(1, 0, 2);
+//		Panneau p = new Panneau(2, 0, 2);
+//		Panneau p2 = new Panneau(1, 0, 2);
 
 		Voiture v = new Voiture(3, 0); // (vmax, sens)
 		Voiture v2 = new Voiture(5, 0);
@@ -41,8 +40,8 @@ public class TestComplexe {
 		res.insererCapteur(c2, 4);
 		res.insererCapteur(c3, 5);
 		res.insererCapteur(c4, 6);
-		res.insererCapteur(p, 2);
-		res.insererCapteur(p2, 1);
+//		res.insererCapteur(p, 2);
+//		res.insererCapteur(p2, 1);
 				
 		System.out.println("AFFICHAGE INITIAL DES VOITURES ! --------------------------------------\n\n");		
 		

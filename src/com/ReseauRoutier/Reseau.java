@@ -1,17 +1,22 @@
 package com.ReseauRoutier;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 import com.Regulation.Capteur;
+import com.Regulation.FeuTricolore;
+import com.Regulation.RegSimple;
+import com.Regulation.Semaphore;
 
-public class Reseau {
+public class Reseau extends Observable{
 	
 	private ArrayList<Jonction> jonctions;
+	private ArrayList<SegmentDeRoute> routes;
 	
 	public Reseau()
 	{
 		jonctions = new ArrayList<Jonction>();
-
+		routes = new ArrayList<SegmentDeRoute>();
 	}
 	
 	/**
@@ -20,42 +25,44 @@ public class Reseau {
 	 */
 	public boolean initReseau(){
 		
-
+		JonctionSimple jonc = new JonctionSimple();
 		
 		jonctions.add(new JonctionBarriere()); 		//0
-		jonctions.add(new JonctionSimple());		//1
-		jonctions.add(new JonctionCarrefour());		//2
+		jonctions.add(jonc);		//1
+		jonctions.add(new JonctionCarrefour(3));		//2
 		jonctions.add(new JonctionSimple());		//3
 		jonctions.add(new JonctionSimple());		//4	
-		jonctions.add(new JonctionCarrefour());		//5
+		jonctions.add(new JonctionCarrefour(4));		//5
 		jonctions.add(new JonctionSimple());		//6	
 		jonctions.add(new JonctionBarriere());		//7
 		jonctions.add(new JonctionSimple());		//8	
 		jonctions.add(new JonctionSimple());		//9	
 		jonctions.add(new JonctionBarriere());		//10
 		
+		RegSimple r = new RegSimple(jonc, this);
+		
 		//Creation des liens entre les jonctions
 		
-		lierJonctions(jonctions.get(0), jonctions.get(1), new SegmentDeRoute(7));
+		lierJonctions(jonctions.get(0), jonctions.get(1), 7);
 
-		lierJonctions(jonctions.get(1), jonctions.get(2), new SegmentDeRoute(3));
+		lierJonctions(jonctions.get(1), jonctions.get(2), 3);
 	
 		//carrefour1
-		lierJonctions(jonctions.get(2), jonctions.get(3), new SegmentDeRoute(5));
-		lierJonctions(jonctions.get(2), jonctions.get(5), new SegmentDeRoute(6));
-		lierJonctions(jonctions.get(2), jonctions.get(6), new SegmentDeRoute(5));
+		lierJonctions(jonctions.get(2), jonctions.get(3), 5);
+		lierJonctions(jonctions.get(2), jonctions.get(5), 6);
+		lierJonctions(jonctions.get(2), jonctions.get(6), 5);
 		
-		lierJonctions(jonctions.get(6), jonctions.get(7), new SegmentDeRoute(13));
+		lierJonctions(jonctions.get(6), jonctions.get(7), 13);
 
-		lierJonctions(jonctions.get(3), jonctions.get(4), new SegmentDeRoute(4));
+		lierJonctions(jonctions.get(3), jonctions.get(4), 4);
 		
 		//carrefour2
-		lierJonctions(jonctions.get(4), jonctions.get(5), new SegmentDeRoute(6));
-		lierJonctions(jonctions.get(5), jonctions.get(8), new SegmentDeRoute(2));
+		lierJonctions(jonctions.get(4), jonctions.get(5), 6);
+		lierJonctions(jonctions.get(5), jonctions.get(8), 2);
 		
-		lierJonctions(jonctions.get(8), jonctions.get(9), new SegmentDeRoute(20));
+		lierJonctions(jonctions.get(8), jonctions.get(9), 20);
 		
-		lierJonctions(jonctions.get(9), jonctions.get(10), new SegmentDeRoute(15));
+		lierJonctions(jonctions.get(9), jonctions.get(10), 15);
 			
 		return true;
 	}
@@ -67,20 +74,22 @@ public class Reseau {
 	 */
 	public boolean initReseauSimple(){
 		
-
+		JonctionSimple jonc = new JonctionSimple();
 		
 		jonctions.add(new JonctionBarriere()); 		//1	
-		jonctions.add(new JonctionSimple());		//2
+		jonctions.add(jonc);		//2
 		jonctions.add(new JonctionSimple());		//3
 		jonctions.add(new JonctionSimple());		//4
 		jonctions.add(new JonctionBarriere());		//5
 		
+		RegSimple r = new RegSimple(jonc, this);
+		
 		//Creation des liens entre les jonctions
 		
-		lierJonctions(jonctions.get(0), jonctions.get(1), new SegmentDeRoute(8));
-		lierJonctions(jonctions.get(1), jonctions.get(2), new SegmentDeRoute(5));
-		lierJonctions(jonctions.get(2), jonctions.get(3), new SegmentDeRoute(3));
-		lierJonctions(jonctions.get(3), jonctions.get(4), new SegmentDeRoute(4));
+		lierJonctions(jonctions.get(0), jonctions.get(1), 8);
+		lierJonctions(jonctions.get(1), jonctions.get(2), 5);
+		lierJonctions(jonctions.get(2), jonctions.get(3), 3);
+		lierJonctions(jonctions.get(3), jonctions.get(4), 4);
 				
 		return true;
 	}
@@ -103,6 +112,8 @@ public class Reseau {
 		/* On reset leur attribut "traite" pour la prochaine iteration */
 		resetTraite();
 		
+		setChanged();
+		notifyObservers();
 	}
 	
 	/**
@@ -111,49 +122,137 @@ public class Reseau {
 	 * @param jonc2
 	 * @param seg
 	 */
-	public void lierJonctions(Jonction jonc1, Jonction jonc2, SegmentDeRoute seg){
-		jonc1.getSegments().add(seg);
-		jonc2.getSegments().add(seg);
-		seg.setJonctionSens0(jonc1);
-		seg.setJonctionSens1(jonc2);
+	public boolean lierJonctions(Jonction jonc1, Jonction jonc2, int tailleRoute){
+		
+		SegmentDeRoute seg = new SegmentDeRoute(tailleRoute);
+		
+		if(jonc1.ajouterRoute(seg) && jonc2.ajouterRoute(seg))
+		{
+			seg.setJonctionSens0(jonc1);
+			seg.setJonctionSens1(jonc2);
+			
+			if(jonc1 instanceof JonctionReg)
+			{
+				FeuTricolore f = new FeuTricolore(0, seg); //TODO accepter feu bi et tri
+				if(!((JonctionReg) jonc1).ajouterFeu(f)) return false;
+				seg.ajoutSemaphore(f);
+			}
+			else if(jonc2 instanceof JonctionReg)
+			{
+				FeuTricolore f = new FeuTricolore(1, seg); //TODO accepter feu bi et tri
+				if(!((JonctionReg) jonc2).ajouterFeu(f)) return false;
+				seg.ajoutSemaphore(f);
+			}
+			
+			routes.add(seg);
+			
+			return true;
+		}
+		
+		System.err.println("lierJonction : impossible de lier les deux jonctions !");
+		return false;
 	}
 	
 	/**
-	 * Ajoute la voiture 'voit' dans le premier segment de la jonction n° 'idJonction'
+	 * Ajoute la voiture 'voit' dans le segment n° 'idRoute'
 	 * @param voit
 	 * @param idJonction
 	 */
-	public void insererVoiture(Voiture voit, int idJonction){
-		Jonction joncActuelle = jonctions.get(idJonction);
-		voit.setRouteActuelle(joncActuelle.getSegments().get(0));
+	public boolean insererVoiture(Voiture voit, int idRoute){
+		
+		SegmentDeRoute r = getRoute(idRoute);
+		if(r.equals(null))
+		{
+			System.err.println("La route n'existe pas !");
+			return false;
+		}
+		
+		voit.setRouteActuelle(r);
 		voit.setPositionDansRoute(0);
+		
 		if (voit.getSens() == 0){
-			voit.setRouteSuiv(joncActuelle.getSegments().get(0).getJonctionSens0()); // la jonction qui suit le 1er segment, dans le sens 0
-			voit.getRouteActuelle().getVoituresSens0().add(voit); 
-			voit.addObs();
+			voit.setRouteSuiv(r.getJonctionSens0()); // la jonction qui suit le 1er segment, dans le sens 0
+			r.ajouterVoiture(voit);
 		}
 		else{
-			voit.setRouteSuiv(joncActuelle); // la jonction qui suit le 1er segment, dans le sens 1 (i.e. elle même)
-			voit.getRouteActuelle().getVoituresSens1().add(voit); 
-			voit.addObs();
+			voit.setRouteSuiv(r.getJonctionSens1()); // la jonction qui suit le 1er segment, dans le sens 1 (i.e. elle même)
+			r.ajouterVoiture(voit);
 		}
+		
+		return true;
 	}
 	
-	//Permet d'inserer un nombre quelconque de capteur prob pour panneau ?
-	public void insererCapteur(Capteur capt, int idJonction){
-		Jonction joncActuelle = jonctions.get(idJonction);
-		capt.setRoute(joncActuelle.getSegments().get(0));
+	//Insere un capteur, peut inserer un nbr qqc de capteur a une meme position d'une route
+	public boolean insererCapteur(Capteur capt, int idRoute){
+	
+		SegmentDeRoute r = getRoute(idRoute);
+		if(r.equals(null))
+		{
+			System.err.println("La route n'existe pas !");
+			return false;
+		}
+		
+		capt.setRoute(r);
 		capt.setPositionDansRoute(capt.getPositionDansRoute());
-		if (capt.getSens() == 0){
-			capt.getRoute().getCapteurSens0().add(capt); 
-			capt.addObs();
+		
+		if(capt.getPositionDansRoute() >= 0 && capt.getPositionDansRoute() < capt.getRoute().getLongueur())
+		{
+			if (capt.getSens() == 0){
+				capt.getRoute().getCapteurSens0().add(capt); 
+				capt.addObs();
+			}
+			else{
+				capt.getRoute().getCapteurSens1().add(capt); 
+				capt.addObs();
+			}
 		}
-		else{
-			capt.getRoute().getCapteurSens1().add(capt); 
-			capt.addObs();
+		else
+		{
+			System.err.println("La route est trop courte !");
+			return false;
 		}
+		
+		return true;
 	}
 	
+	public boolean insererSemaphore(Semaphore sema, int idRoute)
+	{
+		SegmentDeRoute r = getRoute(idRoute);
+		if(r.equals(null))
+		{
+			System.err.println("La route n'existe pas !");
+			return false;
+		}
+		
+		r.ajoutSemaphore(sema);
+		return true;
+	}
+	
+	public Jonction getJonction(int idJonction)
+	{
+		for(Jonction j:jonctions)
+		{
+			if(j.getId() == idJonction)
+			{
+				return j;
+			}
+		}
+		
+		return null;
+	}
+	
+	public SegmentDeRoute getRoute(int idRoute)
+	{
+		for(SegmentDeRoute r:routes)
+		{
+			if(r.getId() == idRoute)
+			{
+				return r;
+			}
+		}
+		
+		return null;
+	}
 	
 	private void resetTraite(){
 		for (Jonction j:jonctions){

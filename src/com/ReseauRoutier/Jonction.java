@@ -3,15 +3,13 @@ package com.ReseauRoutier;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.Regulation.Feu;
-
 public abstract class Jonction extends ElementRoute {
 
 	private static int j_id = 1;
 	private static int longueur = 1;
 	private int id;
 	private ArrayList<SegmentDeRoute> segments;
-	private ArrayList<Feu> sesFeux;
+	protected int nbRoutes;
 
 	//private ArrayList<Voisin> voisins = new ArrayList<Voisin>();
 	
@@ -19,7 +17,6 @@ public abstract class Jonction extends ElementRoute {
 	{
 		super(longueur);
 		segments = new ArrayList<SegmentDeRoute>();
-		sesFeux = new ArrayList<Feu>();
 		setId(j_id);
 		j_id+= 1;
 	}
@@ -75,10 +72,23 @@ public abstract class Jonction extends ElementRoute {
 		return segments;
 	}
 
-
-	public void setSegments(ArrayList<SegmentDeRoute> segments) {
-		this.segments = segments;
+	public boolean ajouterRoute(SegmentDeRoute route)
+	{
+		if(this.segments.size() < nbRoutes)
+		{
+			this.segments.add(route);
+			return true;
+		}
+		
+		System.err.println("ajouterRoute: jonction pleine !");
+		return false;
 	}
+	
+	public boolean retirerRoute(SegmentDeRoute route)
+	{
+		return this.segments.remove(route);
+	}
+
 	
 	@Override
 	public String toString() {

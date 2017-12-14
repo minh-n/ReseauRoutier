@@ -1,6 +1,7 @@
 package com.Regulation;
 
 import com.ReseauRoutier.SegmentDeRoute;
+import com.ReseauRoutier.Voiture;
 
 public class FeuTricolore extends Feu{
 
@@ -19,10 +20,75 @@ public class FeuTricolore extends Feu{
 		return super.getCouleur();
 	}
 	
-	public void setCouleur(CouleurFeu c)
+	@Override
+	public void regle()
 	{
-		super.setCouleur(c);
+		if(this.couleur == CouleurFeu.Rouge)
+		{
+			if(this.sens == 0)
+			{
+				for(Voiture v:this.route.getVoituresSens0())
+				{
+					v.setVitesse(0);
+				}
+			}
+			else
+			{
+				for(Voiture v:this.route.getVoituresSens1())
+				{
+					v.setVitesse(0);
+				}
+			}
+		}
+		else if(this.couleur == CouleurFeu.Vert)
+		{
+			if(this.sens == 0)
+			{
+				for(Voiture v:this.route.getVoituresSens0())
+				{
+					v.setVitesse(v.getvMax());
+				}
+			}
+			else
+			{
+				for(Voiture v:this.route.getVoituresSens1())
+				{
+					v.setVitesse(v.getvMax());
+				}
+			}
+		}
+		else
+		{
+			if(this.sens == 0)
+			{
+				for(Voiture v:this.route.getVoituresSens0())
+				{
+					v.setVitesse(v.getvMax()/2);
+				}
+			}
+			else
+			{
+				for(Voiture v:this.route.getVoituresSens1())
+				{
+					v.setVitesse(v.getvMax()/2);
+				}
+			}
+		}
 	}
 	
-	
+	public void changerCouleur()
+	{
+		if(this.couleur == CouleurFeu.Rouge)
+		{
+			this.couleur = CouleurFeu.Vert;
+		}
+		else if(this.couleur == CouleurFeu.Vert)
+		{
+			this.couleur = CouleurFeu.Orange;
+		}
+		else
+		{
+			this.couleur = CouleurFeu.Rouge;
+		}
+	}
 }

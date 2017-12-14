@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import com.Regulation.CapteurPresence;
 import com.Regulation.CapteurVitesse;
-import com.Regulation.Panneau;
 import com.ReseauRoutier.Reseau;
 import com.ReseauRoutier.Voiture;
 
@@ -19,12 +18,15 @@ public class TestSimple {
 	
 	public void test()
 	{
+
 		Reseau res = new Reseau();
 		res.initReseauSimple();
-		Voiture v = new Voiture(3, 1); // (vmax, sens)
+		Voiture v = new Voiture(3, 1); // (vmax, sens)1
 
 		res.insererVoiture(v, 1);
 	
+
+		
 				
 		System.out.println("AFFICHAGE INITIAL DES VOITURES ! --------------------------------------\n\n");		
 		

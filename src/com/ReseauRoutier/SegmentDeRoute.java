@@ -4,72 +4,180 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
+import com.Regulation.Capteur;
 import com.Regulation.CouleurFeu;
 import com.Regulation.Feu;
 import com.Regulation.FeuBicolore;
+import com.Regulation.Semaphore;
 
 public class SegmentDeRoute extends ElementRoute{
 
 	private static int s_id = 1;
 	private int id;
-	//private boolean traite; // indique si les voitures de l'element de route ont ete traitees dans un intervalle de temps
-	private Feu feuSens0;
-	private Feu feuSens1;
 	
 	private Jonction jonctionSens0;
 	private Jonction jonctionSens1;
+	
+	private ArrayList<Capteur> capteurSens0;
+	private ArrayList<Capteur> capteurSens1;
+	private ArrayList<Semaphore> semaphoreSens0;
+	private ArrayList<Semaphore> semaphoreSens1;
 
 	public SegmentDeRoute()
 	{
 		setId(s_id);
 		s_id+= 1;
 		
-		setJonctionSens0(new JonctionSimple());
-		setJonctionSens1(new JonctionSimple());
-		
 		traite = false;
-		feuSens0 = new FeuBicolore(0, this);
-		feuSens1 = new FeuBicolore(1, this);
+		
+		capteurSens0 = new ArrayList<Capteur>();
+		capteurSens1 = new ArrayList<Capteur>();
+		
+		semaphoreSens0 = new ArrayList<Semaphore>();
+		semaphoreSens1 = new ArrayList<Semaphore>();
 	}
 	
 	public SegmentDeRoute(int min, int max)
 	{
 		super();
-		setJonctionSens0(new JonctionSimple());
-		setJonctionSens1(new JonctionSimple());
 		Random rand = new Random();
 		super.setLongueur(rand.nextInt((max - min) + 1) + min);
 		
 		setId(s_id);
 		s_id+= 1;
 		
-		feuSens0 = new FeuBicolore(0, this);
-		feuSens1 = new FeuBicolore(1, this);
+		capteurSens0 = new ArrayList<Capteur>();
+		capteurSens1 = new ArrayList<Capteur>();
+		
+		semaphoreSens0 = new ArrayList<Semaphore>();
+		semaphoreSens1 = new ArrayList<Semaphore>();
 
 	}
 	
 	public SegmentDeRoute(int lon)
 	{
 		super(lon);
-		setJonctionSens0(new JonctionSimple());
-		setJonctionSens1(new JonctionSimple());
 		setId(s_id);
 		s_id+= 1;
+	
 		
-		feuSens0 = new FeuBicolore(0, this);
-		feuSens1 = new FeuBicolore(1, this);
+		capteurSens0 = new ArrayList<Capteur>();
+		capteurSens1 = new ArrayList<Capteur>();
+		
+		semaphoreSens0 = new ArrayList<Semaphore>();
+		semaphoreSens1 = new ArrayList<Semaphore>();
 	}
 	
+	
+	public void ajoutSemaphore(Semaphore sema)
+	{
+		Semaphore temp = null;
+		boolean vu = false;
+		
+		if(sema.getSens() == 0)
+		{
+			for(Semaphore s:semaphoreSens0)
+			{
+				if(s.getClass() == sema.getClass() || (s instanceof Feu && sema instanceof Feu)) //impossible d'avoir deux feux differents, mais possible d'avoir plusieurs panneaux differents
+				{
+					temp = s;
+					vu = true;
+				}
+			}
+			
+			if(vu)
+			{
+				semaphoreSens0.remove(temp);
+			}
+			semaphoreSens0.add(sema);
+		}
+		else
+		{
+			for(Semaphore s:semaphoreSens1)
+			{
+				if(s.getClass() == sema.getClass() || (s instanceof Feu && sema instanceof Feu))
+				{
+					temp = s;
+					vu = true;
+				}
+			}
+			if(vu)
+			{
+				semaphoreSens1.remove(temp);
+			}
+			semaphoreSens1.add(sema);
+		}
+	}
+	
+	public boolean retirerSema(Semaphore sema)
+	{
+		if(sema.getSens() == 0)
+		{
+			return this.semaphoreSens0.remove(sema);
+		}
+		
+		return this.semaphoreSens1.remove(sema);
+	}
+	
+	@Override
+	public boolean ajouterVoiture(Voiture v)
+	{
+		if(v.getPositionDansRoute() < 0 || v.getPositionDansRoute() >= this.longueur)
+		{
+			System.err.println("ajoutVoiture : route trop courte !");
+			return false;
+		}
+		
+		v.setRouteActuelle(this);
+		
+		if(v.getSens() == 0)
+		{
+			v.setRouteSuiv(this.jonctionSens0); 
+			this.voituresSens0.add(v);
+			
+			for(Capteur c:this.capteurSens0)
+			{
+				v.addObserver(c);
+			}
+			
+			for(Semaphore s:this.semaphoreSens0)
+			{
+				s.regle();
+			}
+		}
+		else
+		{
+			v.setRouteSuiv(this.jonctionSens1); // la jonction qui suit le 1er segment, dans le sens 1 (i.e. elle même)
+			this.voituresSens1.add(v); 
+			
+			for(Capteur c:this.capteurSens1)
+			{
+				v.addObserver(c);
+			}
+			
+			for(Semaphore s:this.semaphoreSens0)
+			{
+				s.regle();
+			}
+		}
+		
+		return true;
+	}
+
+	public ArrayList<Semaphore> getSemaphoreSens0() {
+		return semaphoreSens0;
+	}
+
+	public ArrayList<Semaphore> getSemaphoreSens1() {
+		return semaphoreSens1;
+	}
+
 	/**
 	 * Deplacement de voitures sur le segment
 	 */
 	@Override
 	public void deplacerVoiture() {
 		
-		//System.out.println("Iteration des voitures contenu dans le segment : " + this.getId());
-		
-		if(feuSens1.getCouleur() == CouleurFeu.Vert)
-		{
 			for (Iterator<Voiture> ite = voituresSens0.iterator(); ite.hasNext(); ){
 				Voiture voit = ite.next();			
 				if (!voit.isTraite()){
@@ -99,10 +207,9 @@ public class SegmentDeRoute extends ElementRoute{
 					voit.setTraite(true);
 				}
 			}
-		}
 		
-		if(feuSens1.getCouleur() == CouleurFeu.Vert)
-		{
+		
+	
 			for (Iterator<Voiture> ite = voituresSens1.iterator(); ite.hasNext(); ){
 				Voiture voit = ite.next();
 				
@@ -133,7 +240,7 @@ public class SegmentDeRoute extends ElementRoute{
 					voit.setTraite(true);
 				}
 			}
-		}
+		
 	}
 	
 	public int distanceRestante(Voiture v)
@@ -224,30 +331,6 @@ public class SegmentDeRoute extends ElementRoute{
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	/*public boolean isTraite() {
-		return traite;
-	}
-
-	public void setTraite(boolean traite) {
-		this.traite = traite;
-	}*/
-
-	public Feu getFeuSens0() {
-		return feuSens0;
-	}
-
-	public void setFeuSens0(Feu feuSens0) {
-		this.feuSens0 = feuSens0;
-	}
-
-	public Feu getFeuSens1() {
-		return feuSens1;
-	}
-
-	public void setFeuSens1(Feu feuSens1) {
-		this.feuSens1 = feuSens1;
-	}
 
 	public Jonction getJonctionSens0() {
 		return jonctionSens0;
@@ -264,6 +347,17 @@ public class SegmentDeRoute extends ElementRoute{
 	public void setJonctionSens1(Jonction jonctionSens1) {
 		this.jonctionSens1 = jonctionSens1;
 	}
+
+	public ArrayList<Capteur> getCapteurSens0() {
+		return capteurSens0;
+	}
+
+	
+
+	public ArrayList<Capteur> getCapteurSens1() {
+		return capteurSens1;
+	}
+
 
 
 }

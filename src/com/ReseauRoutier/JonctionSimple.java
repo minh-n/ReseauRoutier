@@ -1,5 +1,11 @@
 package com.ReseauRoutier;
 
-public class JonctionSimple extends Jonction{
+import com.Regulation.Regulation;
+
+public class JonctionSimple extends JonctionReg{
 	
+	public JonctionSimple()
+	{
+		super(2);
+	}
 }

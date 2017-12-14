@@ -1,38 +1,19 @@
 package com.Regulation;
 
-import java.util.Observable;
-
 import com.ReseauRoutier.SegmentDeRoute;
 
-public abstract class Feu extends Observable{
+public abstract class Feu extends Semaphore{
 	
-	private int sens;
-	private CouleurFeu couleur;
-	private SegmentDeRoute route;
-	protected RegSegment regSeg;
-	protected RegJonction regJonc;
+	protected CouleurFeu couleur;
 	
 	public Feu(int sens, SegmentDeRoute route)
 	{
-		this.sens = sens;
-		this.route = route;
-		
-		this.regSeg = new RegSegment(route);
-		this.addObserver(regSeg);
-		
-		if(sens == 0)
-		{
-			this.regJonc = new RegJonction(route.getJonctionSens0());
-			this.addObserver(regJonc);
-		}
-		else
-		{
-			this.regJonc = new RegJonction(route.getJonctionSens1());
-			this.addObserver(regJonc);
-		}
+		super(sens, route);
 		
 		this.couleur = CouleurFeu.Vert;	
 	}
+	
+
 	
 	public SegmentDeRoute getRoute() {
 		return route;
@@ -56,10 +37,7 @@ public abstract class Feu extends Observable{
 		return couleur;
 	}
 
-	public void setCouleur(CouleurFeu couleur) {
-		this.couleur = couleur;
-		setChanged();
-		notifyObservers(route);
-	}
+	public abstract void changerCouleur();
+
 
 }
