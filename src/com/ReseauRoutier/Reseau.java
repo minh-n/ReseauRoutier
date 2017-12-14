@@ -132,9 +132,11 @@ public class Reseau extends Observable{
 	}
 	
 	/**
-	 * Relie la jonction 'jonc1' a la jonction 'jonc2' avec le segment de route 'seg'
+	 * Relie la jonction 'jonc1' a la jonction 'jonc2' avec le segment de route 'seg' de taille 'tailleRoute'
 	 * @param jonc1
 	 * @param jonc2
+	 * @param tailleRoute
+	 * @return false si la liasion ne se fait pas
 	 */
 	public boolean lierJonctions(Jonction jonc1, Jonction jonc2, int tailleRoute){
 		
@@ -147,13 +149,13 @@ public class Reseau extends Observable{
 			
 			if(jonc1 instanceof JonctionReg)
 			{
-				FeuTricolore f = new FeuTricolore(0, seg); //TODO accepter feu bi et tri
+				FeuTricolore f = new FeuTricolore(0, seg); //TODO accepter feu bicolore ou tricolore
 				if(!((JonctionReg) jonc1).ajouterFeu(f)) return false;
 				seg.ajoutSemaphore(f);
 			}
 			else if(jonc2 instanceof JonctionReg)
 			{
-				FeuTricolore f = new FeuTricolore(1, seg); //TODO accepter feu bi et tri
+				FeuTricolore f = new FeuTricolore(1, seg); //TODO accepter feu bicolore ou tricolore
 				if(!((JonctionReg) jonc2).ajouterFeu(f)) return false;
 				seg.ajoutSemaphore(f);
 			}
@@ -168,9 +170,10 @@ public class Reseau extends Observable{
 	}
 	
 	/**
-	 * Ajoute la voiture 'voit' dans le segment n° 'idRoute'
+	 * Ajoute la voiture 'voit' dans le segment avec pour id 'idRoute'
 	 * @param voit la voiture qu'on ajoute
 	 * @param idRoute l'id de la route voulue
+	 * @return false si l'ajout echoue
 	 */
 	public boolean insererVoiture(Voiture voit, int idRoute){
 		
@@ -277,16 +280,16 @@ public class Reseau extends Observable{
 	public ArrayList<Jonction> getJonctions() {
 		return jonctions;
 	}
-	
-	public void setJonctions(ArrayList<Jonction> jonctions) {
-		this.jonctions = jonctions;
-	}
 
 	@Override
 	public String toString() {
 		return "Reseau [jonctions=" + jonctions + "]";
 	}
 	
+	/**
+	 * @param idJonction
+	 * @return la jonction associe a l'idJonction ou null sinon
+	 */
 	public Jonction getJonction(int idJonction)
 	{
 		for(Jonction j:jonctions)
@@ -300,6 +303,11 @@ public class Reseau extends Observable{
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @param idRoute
+	 * @return la route associe a l'idRoute ou null sinon
+	 */
 	public SegmentDeRoute getRoute(int idRoute)
 	{
 		for(SegmentDeRoute r:routes)

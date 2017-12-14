@@ -21,11 +21,9 @@ public class CapteurVitesse extends Capteur{
 					&& ((Voiture) o).getPositionPrecedente() <= this.getPositionDansRoute() 
 					&& ((Voiture) o).getRouteActuelle() == this.getRoute())
 			{
-				System.out.println("Capteur de vitesse " + this.getId()); 
-				System.out.println("Position : " + this.getPositionDansRoute());
+				System.out.println("Capteur de vitesse " + this.getId() + "a la pos " + this.getPositionDansRoute());
 				System.out.println("La vitesse de la voiture "+ ((Voiture) o).getId() + " est "
 				+ ((Voiture) o).getVitesse());
-				System.out.println(o.toString() + "\n");
 			}
 		}
 	}

@@ -26,6 +26,9 @@ public abstract class Capteur implements Observer{
 	@Override
 	public abstract void update(Observable o, Object arg);
 	
+	/**
+	 * permet au capteur de recevoir les informations sur les positions des voitures deja presente dans la route
+	 */
 	public void addObs()
 	{
 		if(getSens() == 0)
@@ -54,10 +57,6 @@ public abstract class Capteur implements Observer{
 
 	public int getSens() {
 		return sens;
-	}
-
-	public void setSens(int sens) {
-		this.sens = sens;
 	}
 
 	public SegmentDeRoute getRoute() {

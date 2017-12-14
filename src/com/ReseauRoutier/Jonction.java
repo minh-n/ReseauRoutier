@@ -10,14 +10,12 @@ public abstract class Jonction extends ElementRoute {
 	private int id;
 	private ArrayList<SegmentDeRoute> segments;
 	protected int nbRoutes;
-
-	//private ArrayList<Voisin> voisins = new ArrayList<Voisin>();
 	
 	public Jonction()
 	{
 		super(longueur);
 		segments = new ArrayList<SegmentDeRoute>();
-		setId(j_id);
+		id = j_id;
 		j_id+= 1;
 	}
 	
@@ -25,7 +23,6 @@ public abstract class Jonction extends ElementRoute {
 	// Fusionnable dans ElementRoute
 	@Override
 	public void deplacerVoiture() {
-//System.out.println("Iteration des voitures contenu dans la jonction : " + this.getId());
 		
 		for (Iterator<Voiture> ite = voituresSens0.iterator(); ite.hasNext(); ){
 			Voiture voit = ite.next();
@@ -48,7 +45,6 @@ public abstract class Jonction extends ElementRoute {
 				voit.embranchement(voit.getVitesse());
 				voit.setTraite(true);
 			}
-			
 		}
 	}
 	
@@ -62,11 +58,6 @@ public abstract class Jonction extends ElementRoute {
 	public int getId() {
 		return id;
 	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 
 	public ArrayList<SegmentDeRoute> getSegments() {
 		return segments;
@@ -89,6 +80,10 @@ public abstract class Jonction extends ElementRoute {
 		return this.segments.remove(route);
 	}
 
+	/**
+	 * permet de mettre le premier feu de la jonction au vert
+	 * si la jonction ne possede pas de feu, ne fait rien
+	 */
 	public void setupFeu(){}
 	
 	@Override

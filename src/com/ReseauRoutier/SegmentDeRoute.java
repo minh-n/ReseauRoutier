@@ -5,9 +5,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import com.Regulation.Capteur;
-import com.Regulation.CouleurFeu;
 import com.Regulation.Feu;
-import com.Regulation.FeuBicolore;
 import com.Regulation.Semaphore;
 
 public class SegmentDeRoute extends ElementRoute{
@@ -25,7 +23,7 @@ public class SegmentDeRoute extends ElementRoute{
 
 	public SegmentDeRoute()
 	{
-		setId(s_id);
+		id = s_id;
 		s_id+= 1;
 		
 		traite = false;
@@ -43,7 +41,7 @@ public class SegmentDeRoute extends ElementRoute{
 		Random rand = new Random();
 		super.setLongueur(rand.nextInt((max - min) + 1) + min);
 		
-		setId(s_id);
+		id = s_id;
 		s_id+= 1;
 		
 		capteurSens0 = new ArrayList<Capteur>();
@@ -57,7 +55,7 @@ public class SegmentDeRoute extends ElementRoute{
 	public SegmentDeRoute(int lon)
 	{
 		super(lon);
-		setId(s_id);
+		id = s_id;
 		s_id+= 1;
 	
 		
@@ -228,7 +226,6 @@ public class SegmentDeRoute extends ElementRoute{
 				Voiture voit = ite.next();
 				
 				if (!voit.isTraite()){
-					//voit.setVitesse(voit.getvMax());
 					if (segmentSuffisant(voit)){
 					
 						while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), 
@@ -237,9 +234,6 @@ public class SegmentDeRoute extends ElementRoute{
 							voit.setVitesse(voit.getVitesse()-1);
 						}
 						
-						// TODO
-						// D'autres elements pourront diminuer la vitesse d'une voiture genre les feux tricolores 
-						
 			 			if (voit.getVitesse() == 0) continue; 
 			 			else{
 			 				System.out.println("On avance voiture " + voit.getId() );
@@ -247,7 +241,7 @@ public class SegmentDeRoute extends ElementRoute{
 			 			}
 					}
 					else{
-						ite.remove(); // necessaire pour ne pas avoir de CurrentMosificationException
+						ite.remove();
 						voit.embranchement(voit.getVitesse());
 					}
 					voit.setTraite(true);
@@ -256,6 +250,10 @@ public class SegmentDeRoute extends ElementRoute{
 		
 	}
 	
+	/**
+	 * @param v
+	 * @return la distance restante avant la fin de la route
+	 */
 	public int distanceRestante(Voiture v)
 	{
 		int distanceRestante = this.getLongueur() - v.getPositionDansRoute();
@@ -341,10 +339,6 @@ public class SegmentDeRoute extends ElementRoute{
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public Jonction getJonctionSens0() {
 		return jonctionSens0;
 	}
@@ -364,8 +358,6 @@ public class SegmentDeRoute extends ElementRoute{
 	public ArrayList<Capteur> getCapteurSens0() {
 		return capteurSens0;
 	}
-
-	
 
 	public ArrayList<Capteur> getCapteurSens1() {
 		return capteurSens1;

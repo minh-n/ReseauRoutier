@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import com.Regulation.CouleurFeu;
 import com.Regulation.Feu;
-import com.Regulation.Regulation;
-
 
 public abstract class JonctionReg extends Jonction{
 	
