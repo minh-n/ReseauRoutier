@@ -9,7 +9,7 @@ public abstract class Feu extends Semaphore{
 	public Feu(int sens, SegmentDeRoute route)
 	{
 		super(sens, route);
-		this.couleur = CouleurFeu.Rouge;	
+		this.couleur = CouleurFeu.Vert;	
 	}
 		
 	public SegmentDeRoute getRoute() {

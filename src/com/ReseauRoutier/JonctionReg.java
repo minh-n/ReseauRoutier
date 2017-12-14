@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import com.Regulation.CouleurFeu;
 import com.Regulation.Feu;
-import com.Regulation.Regulation;
-
 
 public abstract class JonctionReg extends Jonction{
 	
@@ -44,9 +42,6 @@ public abstract class JonctionReg extends Jonction{
 	 */
 	public void setupFeu()
 	{		
-		/**
-		 * TODO rouge ou vert ?
-		 */
-		this.sesFeux.get(0).setCouleur(CouleurFeu.Rouge);
+		this.sesFeux.get(0).setCouleur(CouleurFeu.Vert);
 	}
 }
