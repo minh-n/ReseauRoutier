@@ -44,6 +44,9 @@ public abstract class JonctionReg extends Jonction{
 	 */
 	public void setupFeu()
 	{		
-		this.sesFeux.get(0).setCouleur(CouleurFeu.Vert);
+		/**
+		 * TODO rouge ou vert ?
+		 */
+		this.sesFeux.get(0).setCouleur(CouleurFeu.Rouge);
 	}
 }
