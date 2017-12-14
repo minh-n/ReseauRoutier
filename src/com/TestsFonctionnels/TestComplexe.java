@@ -30,11 +30,13 @@ public class TestComplexe {
 		Voiture v2 = new Voiture(5, 0);
 		Voiture v3 = new Voiture(4, 1);
 		Voiture v4 = new Voiture(10, 1);
+		Voiture v5 = new Voiture(2, 2);
 
 		res.insererVoiture(v, 1);
 		res.insererVoiture(v2, 2);
 		res.insererVoiture(v3, 2);
 		res.insererVoiture(v4, 4);
+		res.insererVoiture(v5, 7);
 
 		res.insererCapteur(c, 1);
 		res.insererCapteur(c2, 4);

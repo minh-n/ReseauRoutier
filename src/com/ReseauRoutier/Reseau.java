@@ -27,8 +27,7 @@ public class Reseau extends Observable{
 
 
 		jonctions.add(new JonctionBarriere()); 		//1
-		JonctionSimple jonc = new JonctionSimple();
-		jonctions.add(jonc);						//2
+		jonctions.add(new JonctionSimple());		//2
 		jonctions.add(new JonctionCarrefour(4));	//3
 		jonctions.add(new JonctionSimple());		//4
 		jonctions.add(new JonctionSimple());		//5	
@@ -40,7 +39,6 @@ public class Reseau extends Observable{
 		jonctions.add(new JonctionBarriere());		//11
 
 		//Ajoute une regulation simple sur la jonction jonc. AddObserver se fait a l'aide de son constructeur.
-		RegSimple r = new RegSimple(jonc, this);
 
 		//Creation des liens entre les jonctions
 
@@ -85,14 +83,12 @@ public class Reseau extends Observable{
 		jonctions.add(new JonctionBarriere());		//5
 
 		RegSimple r = new RegSimple(jonc, this);
-		//		addObserver(r);
 		RegSimple r2 = new RegSimple(jonc, this);
-		//		addObserver(r2);
 
 		//Creation des liens entre les jonctions
 		lierJonctions(jonctions.get(0), jonctions.get(1), 7);
 		lierJonctions(jonctions.get(1), jonctions.get(2), 2);
-		lierJonctions(jonctions.get(2), jonctions.get(3), 6);
+		lierJonctions(jonctions.get(2), jonctions.get(3), 3);
 		lierJonctions(jonctions.get(3), jonctions.get(4), 4);
 
 		setupJonction();
