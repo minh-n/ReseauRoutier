@@ -195,17 +195,10 @@ public class Reseau extends Observable{
 	}
 
 	/**
-<<<<<<< HEAD
-	 * Insere un capteur, peut inserer un nbr qqc de capteur a une meme position d'une route
-	 * @param capt
-	 * @param idRoute
-	 * @return
-=======
 	 * Insere un capteur, peut inserer un nombre quelconque de capteur a une meme position d'une route
 	 * @param capt
 	 * @param idRoute
 	 * @return false si l'ajout ne peut pas se faire
->>>>>>> refs/remotes/origin/FinalAdFeu
 	 */
 	public boolean insererCapteur(Capteur capt, int idRoute){
 
@@ -258,14 +251,9 @@ public class Reseau extends Observable{
 		return true;
 	}
 
-
-	/**
-	 * Fonction privee : ne sert que dans les fonctions d'affichage et d'iteration
-=======
 	/**
 	 * Remet l'etat Traite a false pour tous les elements d'un reseau. 
 	 * Cette methode est appellee a la fin d'une iteration.
->>>>>>> refs/remotes/origin/FinalAdFeu
 	 */
 	private void resetTraite(){
 		for (Jonction j:jonctions){
@@ -315,8 +303,6 @@ public class Reseau extends Observable{
 		return null;
 	}
 
-
-	
 	/**
 	 * 
 	 * @param idRoute

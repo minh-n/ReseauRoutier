@@ -1,8 +1,6 @@
 package com.Regulation;
 
 import java.util.Observable;
-
-import com.ReseauRoutier.SegmentDeRoute;
 import com.ReseauRoutier.Voiture;
 
 public class CapteurVitesse extends Capteur{

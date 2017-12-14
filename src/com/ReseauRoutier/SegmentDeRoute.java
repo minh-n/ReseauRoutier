@@ -172,7 +172,6 @@ public class SegmentDeRoute extends ElementRoute{
 				
 				Voiture voit = ite.next();			
 				if (!voit.isTraite()){
-					//voit.setVitesse(voit.getvMax());
 					if (segmentSuffisant(voit)){
 						//Verifications si c'est physiquement possible d'avancer 
 						//autrement, on decremente la vitesse jusqu'a ce que ce soit possible 
@@ -202,9 +201,7 @@ public class SegmentDeRoute extends ElementRoute{
 				{
 					s.regle();
 				}
-				
 				Voiture voit = ite.next();
-				
 				if (!voit.isTraite()){
 					if (segmentSuffisant(voit)){
 					
@@ -227,10 +224,8 @@ public class SegmentDeRoute extends ElementRoute{
 					voit.setTraite(true);
 				}
 			}
-		
 	}
 	
-
 	/**
 	 * @param v
 	 * @return la distance restante avant la fin de la route
@@ -240,7 +235,6 @@ public class SegmentDeRoute extends ElementRoute{
 		int distanceRestante = this.getLongueur() - v.getPositionDansRoute();
 		return distanceRestante;
 	}
-	
 	
 	/**
 	 * Indique s'il reste assez de place sur ce segment pour deplacer la voiture.

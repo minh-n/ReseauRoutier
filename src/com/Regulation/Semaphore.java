@@ -1,7 +1,4 @@
 package com.Regulation;
-
-import java.util.Observable;
-
 import com.ReseauRoutier.SegmentDeRoute;
 
 public abstract class Semaphore{
