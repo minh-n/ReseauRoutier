@@ -42,10 +42,14 @@ public abstract class JonctionReg extends Jonction{
 	 */
 	public void setupFeu()
 	{		
+		
+		/**
+		 * TODO bug
+		 */
 		int i = 1;
 		while(i < sesFeux.size())
 		{
-			sesFeux.get(i).setCouleur(CouleurFeu.Rouge);
+			sesFeux.get(i).setCouleur(CouleurFeu.Vert);
 			i++;
 		}	}
 }
