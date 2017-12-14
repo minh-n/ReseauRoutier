@@ -21,12 +21,17 @@ public class TestSimple {
 
 		Reseau res = new Reseau();
 		res.initReseauSimple();
-		Voiture v = new Voiture(3, 1); // (vmax, sens)1
-
-		res.insererVoiture(v, 1);
-	
+		
+		CapteurPresence c = new CapteurPresence(0, 1); //(position, sens)
 
 		
+		Voiture v = new Voiture(3, 1); // (vmax, sens)1
+		Voiture v2 = new Voiture(3, 1); // (vmax, sens)1
+
+		res.insererCapteur(c, 3);
+
+		
+		res.insererVoiture(v2, 1);		
 				
 		System.out.println("AFFICHAGE INITIAL DES VOITURES ! --------------------------------------\n\n");		
 		
@@ -45,7 +50,7 @@ public class TestSimple {
 		String entry = scanner.nextLine();
 		int i = 0;
 		
-		while(!entry.equals(1))
+		while((entry.compareTo("1") == 0))
 		{
 			System.out.println("************ITERATION numero " + i + " !************");
 			res.iteration();

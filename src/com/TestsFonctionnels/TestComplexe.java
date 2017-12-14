@@ -26,7 +26,7 @@ public class TestComplexe {
 //		Panneau p = new Panneau(2, 0, 2);
 //		Panneau p2 = new Panneau(1, 0, 2);
 
-		Voiture v = new Voiture(3, 0); // (vmax, sens)
+		Voiture v = new Voiture(3, 0); // (vmax, sens). Le sens peut etre 0 (sens0) ou un entier quelconque (sens1). 
 		Voiture v2 = new Voiture(5, 0);
 		Voiture v3 = new Voiture(4, 1);
 		Voiture v4 = new Voiture(10, 1);
@@ -55,7 +55,7 @@ public class TestComplexe {
 		String entry = scanner.nextLine();
 		int i = 0;
 		
-		while(!entry.equals(1))
+		while((entry.compareTo("1") == 0))
 		{
 			System.out.println("************ITERATION numero " + i + " !************\n");
 			res.iteration();

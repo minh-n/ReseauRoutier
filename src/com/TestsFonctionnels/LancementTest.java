@@ -3,15 +3,11 @@ package com.TestsFonctionnels;
 import java.util.Scanner;
 
 public class LancementTest {
-	
-	
-	
+		
 	public LancementTest()
 	{
 		
 	}
-	
-	
 	
 	public static void main(String[] args) {
 				
@@ -27,14 +23,21 @@ public class LancementTest {
 		System.out.println("\nEntrez 1 pour le test simple, 2 pour le test complexe, 3 pour sortir du programme :");
 		String entry = scanner.nextLine();
 		
-		while(!entry.equals(1) || !entry.equals(2))
+		System.out.println("Entry = " + entry.toString());
+		while((entry.compareTo("1") == 0) || (entry.compareTo("2") == 0))
 		{
-			if(!entry.equals(1)){t.test();}
-			else{t2.test();}
+			if(entry.compareTo("1") == 0){
+				System.out.println("LANCEMENT DU TEST SIMPLE");			
+				t.test();
+			}
+			else
+			{
+				System.out.println("LANCEMENT DU TEST COMPLEXE");
+				t2.test();
+			}
 			entry = scanner.nextLine();
 		}
 
-		
 		scanner.close();
 
 		System.out.println("**********################ FIN DU PROGRAMME ###############*********");
