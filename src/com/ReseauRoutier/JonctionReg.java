@@ -10,11 +10,6 @@ import com.Regulation.Regulation;
 public abstract class JonctionReg extends Jonction{
 	
 	protected ArrayList<Feu> sesFeux;
-	protected Regulation regulation;
-	
-	public void setRegulation(Regulation regulation) {
-		this.regulation = regulation;
-	}
 
 	public JonctionReg(int nbRoutes)
 	{
@@ -44,15 +39,11 @@ public abstract class JonctionReg extends Jonction{
 		return sesFeux;
 	}
 	
-	public boolean setupFeu()
-	{
-		if(this.sesFeux.size() < this.nbRoutes - 1)
-		{
-			System.err.println("setupFeu : la jonction "+ getId() +" est pas complete !");
-			return false;
-		}
-		
+	/**
+	 * Met le premier feu d'un carrefour au vert pour permettre la circulation.
+	 */
+	public void setupFeu()
+	{		
 		this.sesFeux.get(0).setCouleur(CouleurFeu.Vert);
-		return true;
 	}
 }

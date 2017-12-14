@@ -11,9 +11,7 @@ public abstract class Feu extends Semaphore{
 		super(sens, route);
 		this.couleur = CouleurFeu.Rouge;	
 	}
-	
-
-	
+		
 	public SegmentDeRoute getRoute() {
 		return route;
 	}
@@ -26,15 +24,10 @@ public abstract class Feu extends Semaphore{
 		return couleur;
 	}
 
-
-
 	public void setCouleur(CouleurFeu couleur) {
 		this.couleur = couleur;
 	}
 
-
-
-	public abstract void changerCouleur(CouleurFeu couleur);
 
 	public int getSens() {
 		return sens;

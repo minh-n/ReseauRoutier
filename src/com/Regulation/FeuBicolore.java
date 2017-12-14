@@ -9,10 +9,6 @@ public class FeuBicolore extends Feu{
 	{
 		super(sens, route);
 	}
-	
-	public void changerCouleur(CouleurFeu couleur)
-	{
-	}
 
 	@Override
 	public void regle()

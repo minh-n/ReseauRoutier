@@ -20,25 +20,26 @@ public class Reseau extends Observable{
 	}
 	
 	/**
-	 * Initialise le reseau complexe
-	 * @return
+	 * Initialise le reseau complexe.
+	 * 
 	 */
-	public boolean initReseau(){
+	public void initReseau(){
 		
+		
+		jonctions.add(new JonctionBarriere()); 		//1
 		JonctionSimple jonc = new JonctionSimple();
-		
-		jonctions.add(new JonctionBarriere()); 		//0
-		jonctions.add(jonc);		//1
-		jonctions.add(new JonctionCarrefour(4));		//2
-		jonctions.add(new JonctionSimple());		//3
-		jonctions.add(new JonctionSimple());		//4	
-		jonctions.add(new JonctionCarrefour(3));		//5
-		jonctions.add(new JonctionSimple());		//6	
-		jonctions.add(new JonctionBarriere());		//7
-		jonctions.add(new JonctionSimple());		//8	
+		jonctions.add(jonc);						//2
+		jonctions.add(new JonctionCarrefour(4));	//3
+		jonctions.add(new JonctionSimple());		//4
+		jonctions.add(new JonctionSimple());		//5	
+		jonctions.add(new JonctionCarrefour(3));	//6
+		jonctions.add(new JonctionSimple());		//7	
+		jonctions.add(new JonctionBarriere());		//8
 		jonctions.add(new JonctionSimple());		//9	
-		jonctions.add(new JonctionBarriere());		//10
+		jonctions.add(new JonctionSimple());		//10	
+		jonctions.add(new JonctionBarriere());		//11
 		
+		//Ajoute une regulation simple sur la jonction jonc. AddObserver se fait a l'aide de son constructeur.
 		RegSimple r = new RegSimple(jonc, this);
 		
 		//Creation des liens entre les jonctions
@@ -47,7 +48,7 @@ public class Reseau extends Observable{
 
 		lierJonctions(jonctions.get(1), jonctions.get(2), 3);
 	
-		//carrefour1
+		//carrefour 1
 		lierJonctions(jonctions.get(2), jonctions.get(3), 5);
 		lierJonctions(jonctions.get(2), jonctions.get(5), 6);
 		lierJonctions(jonctions.get(2), jonctions.get(6), 5);
@@ -56,7 +57,7 @@ public class Reseau extends Observable{
 
 		lierJonctions(jonctions.get(3), jonctions.get(4), 4);
 		
-		//carrefour2
+		//carrefour 2
 		lierJonctions(jonctions.get(4), jonctions.get(5), 6);
 		lierJonctions(jonctions.get(5), jonctions.get(8), 2);
 		
@@ -66,24 +67,27 @@ public class Reseau extends Observable{
 		
 		setupJonction();
 			
-		return true;
 	}
 	
 	/**
 	 * Initialise le reseau simple
-	 * @return
+	 * 
 	 */
-	public boolean initReseauSimple(){
+	public void initReseauSimple(){
 		
 		JonctionSimple jonc = new JonctionSimple();
+		JonctionSimple jonc1 = new JonctionSimple();
 		
 		jonctions.add(new JonctionBarriere()); 		//1	
 		jonctions.add(jonc);		//2
-		jonctions.add(new JonctionSimple());		//3
-		jonctions.add(new JonctionSimple());		//4
+		jonctions.add(new JonctionSimple());	//3
+		jonctions.add(jonc1);		//4
 		jonctions.add(new JonctionBarriere());		//5
 		
 		RegSimple r = new RegSimple(jonc, this);
+//		addObserver(r);
+		RegSimple r2 = new RegSimple(jonc, this);
+//		addObserver(r2);
 		
 		//Creation des liens entre les jonctions
 		
@@ -93,12 +97,10 @@ public class Reseau extends Observable{
 		lierJonctions(jonctions.get(3), jonctions.get(4), 4);
 		
 		setupJonction();
-				
-		return true;
 	}
 	
 	/**
-	 * Ajoute les feux sur les jonctions
+	 * Met le premier feu de chaque jonction au vert.
 	 */
 	public void setupJonction()
 	{
@@ -109,7 +111,7 @@ public class Reseau extends Observable{
 	}
 	
 	/**
-	 * Fait passer un intervalle de temps
+	 * Fait passer un intervalle de temps.
 	 */
 	public void iteration(){
 		/* On traite tous les elements de route du reseau */
@@ -133,7 +135,6 @@ public class Reseau extends Observable{
 	 * Relie la jonction 'jonc1' a la jonction 'jonc2' avec le segment de route 'seg'
 	 * @param jonc1
 	 * @param jonc2
-	 * @param seg
 	 */
 	public boolean lierJonctions(Jonction jonc1, Jonction jonc2, int tailleRoute){
 		
@@ -168,8 +169,8 @@ public class Reseau extends Observable{
 	
 	/**
 	 * Ajoute la voiture 'voit' dans le segment n° 'idRoute'
-	 * @param voit
-	 * @param idJonction
+	 * @param voit la voiture qu'on ajoute
+	 * @param idRoute l'id de la route voulue
 	 */
 	public boolean insererVoiture(Voiture voit, int idRoute){
 		
@@ -196,10 +197,17 @@ public class Reseau extends Observable{
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * Insere un capteur, peut inserer un nbr qqc de capteur a une meme position d'une route
 	 * @param capt
 	 * @param idRoute
 	 * @return
+=======
+	 * Insere un capteur, peut inserer un nombre quelconque de capteur a une meme position d'une route
+	 * @param capt
+	 * @param idRoute
+	 * @return false si l'ajout ne peut pas se faire
+>>>>>>> refs/remotes/origin/FinalAdFeu
 	 */
 	public boolean insererCapteur(Capteur capt, int idRoute){
 	
@@ -251,45 +259,15 @@ public class Reseau extends Observable{
 		r.ajoutSemaphore(sema);
 		return true;
 	}
-	
-	/**
-	 * Renvoie la Jonction ayant l'id 'idJonction'
-	 * @param idJonction
-	 * @return null la Jonction en question n'existe pas
-	 */
-	public Jonction getJonction(int idJonction)
-	{
-		for(Jonction j:jonctions)
-		{
-			if(j.getId() == idJonction)
-			{
-				return j;
-			}
-		}
-		
-		return null;
-	}
-	
-	/**
-	 * Renvoie le Segment de Route ayout l'id 'idRoute'
-	 * @param idRoute
-	 * @return null si le Segment de route en question n'existe pas
-	 */
-	public SegmentDeRoute getRoute(int idRoute)
-	{
-		for(SegmentDeRoute r:routes)
-		{
-			if(r.getId() == idRoute)
-			{
-				return r;
-			}
-		}
-		
-		return null;
-	}
+
 	
 	/**
 	 * Fonction privee : ne sert que dans les fonctions d'affichage et d'iteration
+=======
+	/**
+	 * Remet l'etat Traite a false pour tous les elements d'un reseau. 
+	 * Cette methode est appellee a la fin d'une iteration.
+>>>>>>> refs/remotes/origin/FinalAdFeu
 	 */
 	private void resetTraite(){
 		for (Jonction j:jonctions){
@@ -328,7 +306,42 @@ public class Reseau extends Observable{
 	}
 	
 	/**
-	 * Affiche les voitures du reseau et leur etat
+	 * Renvoie la Jonction ayant l'id 'idJonction'
+	 * @param idJonction
+	 * @return null la Jonction en question n'existe pas
+	 */
+	public Jonction getJonction(int idJonction)
+	{
+		for(Jonction j:jonctions)
+		{
+			if(j.getId() == idJonction)
+			{
+				return j;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Renvoie le Segment de Route ayout l'id 'idRoute'
+	 * @param idRoute
+	 * @return null si le Segment de route en question n'existe pas
+	 */
+	public SegmentDeRoute getRoute(int idRoute)
+	{
+		for(SegmentDeRoute r:routes)
+		{
+			if(r.getId() == idRoute)
+			{
+				return r;
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Affiche les voitures du reseau.
 	 */
 	public void affichageVoitures(){
 		for (Jonction j:jonctions){

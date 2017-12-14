@@ -13,17 +13,18 @@ public class CapteurVitesse extends Capteur{
 	}
 	
 	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
+	public void update(Observable o, Object arg) {	
 		if(o instanceof Voiture)
 		{
-			if(((Voiture) o).getSens() == this.getSens() && ((Voiture) o).getPositionDansRoute() >= this.getPositionDansRoute()
-					&& ((Voiture) o).getPositionPrecedente() <= this.getPositionDansRoute() && ((Voiture) o).getRouteActuelle() == this.getRoute())
+			if(((Voiture) o).getSens() == this.getSens() 
+					&& ((Voiture) o).getPositionDansRoute() > this.getPositionDansRoute()
+					&& ((Voiture) o).getPositionPrecedente() <= this.getPositionDansRoute() 
+					&& ((Voiture) o).getRouteActuelle() == this.getRoute())
 			{
 				System.out.println("Capteur de vitesse " + this.getId()); 
 				System.out.println("Position : " + this.getPositionDansRoute());
-				System.out.println("La vitesse de la voiture "+ ((Voiture) o).getId() + " est "+ ((Voiture) o).getVitesse());
+				System.out.println("La vitesse de la voiture "+ ((Voiture) o).getId() + " est "
+				+ ((Voiture) o).getVitesse());
 				System.out.println(o.toString() + "\n");
 			}
 		}
