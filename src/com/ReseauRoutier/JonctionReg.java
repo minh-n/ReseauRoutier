@@ -47,5 +47,6 @@ public abstract class JonctionReg extends Jonction{
 		{
 			sesFeux.get(i).setCouleur(CouleurFeu.Rouge);
 			i++;
-		}	}
+		}	
+	}
 }
