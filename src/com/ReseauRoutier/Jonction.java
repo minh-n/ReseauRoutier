@@ -11,7 +11,6 @@ public abstract class Jonction extends ElementRoute {
 	private ArrayList<SegmentDeRoute> segments;
 	protected int nbRoutes;
 
-	//private ArrayList<Voisin> voisins = new ArrayList<Voisin>();
 	
 	public Jonction()
 	{
@@ -22,19 +21,22 @@ public abstract class Jonction extends ElementRoute {
 	}
 	
 
-	// Fusionnable dans ElementRoute
+	/**
+	 * Opère au deplacement des voitures dans cette Jonction
+	 */
 	@Override
 	public void deplacerVoiture() {
-//System.out.println("Iteration des voitures contenu dans la jonction : " + this.getId());
 		
 		for (Iterator<Voiture> ite = voituresSens0.iterator(); ite.hasNext(); ){
 			Voiture voit = ite.next();
 			
 			if (!voit.isTraite()){
+				if (voit.embranchementPossible(voit.getVitesse())){
 					voit.setVitesse(voit.getvMax());
 					ite.remove();
 					voit.embranchement(voit.getVitesse());
 					voit.setTraite(true);
+				}
 			}
 						
 		}
@@ -43,19 +45,14 @@ public abstract class Jonction extends ElementRoute {
 			Voiture voit = ite.next();
 			
 			if (!voit.isTraite()){
-				voit.setVitesse(voit.getvMax());
-				ite.remove();
-				voit.embranchement(voit.getVitesse());
-				voit.setTraite(true);
+				if (voit.embranchementPossible(voit.getVitesse())){
+					voit.setVitesse(voit.getvMax());
+					ite.remove();
+					voit.embranchement(voit.getVitesse());
+					voit.setTraite(true);
+				}
 			}
 			
-		}
-	}
-	
-	public void afficherJonction() {
-		System.out.println("Jonction n" + id);
-		for (SegmentDeRoute v : this.segments){
-			System.out.println(v.toString());
 		}
 	}
 	
@@ -100,7 +97,9 @@ public abstract class Jonction extends ElementRoute {
 		return "Jonction [id=" + id + ", segments=" + segments + "]";
 	}
 	
-	// Fusionnable dans ElementRoute
+	/**
+	 * Affiche les voitures dans cette Jonction et leur etat
+	 */
 	public void affichageVoitures(){
 
 		System.out.println("_________Jonction n" + this.id + "\n-- Sens 0 :\n");

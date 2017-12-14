@@ -69,6 +69,28 @@ public abstract class ElementRoute extends Observable {
 		return this.voituresSens1.remove(v);
 	}
 	
+	/**
+	 * Indique si le tronçon n° 'indice', dans le sens 'sens' est occupé par une voiture ou non
+	 * @param indice
+	 * @param sens
+	 * @return
+	 */
+	public boolean estOccupe(int indice, int sens)
+	{
+		if (sens == 0){
+			for (Voiture v:this.getVoituresSens0()){
+				if (v.getPositionDansRoute() == indice) return true;
+			}
+		}
+		else{
+			for (Voiture v:this.getVoituresSens1()){
+				if (v.getPositionDansRoute() == indice) return true;
+			}
+		}
+		return false;
+	}
+	
+	
 	public int getLongueur() {
 		return longueur;
 	}

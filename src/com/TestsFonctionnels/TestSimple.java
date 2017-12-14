@@ -26,7 +26,7 @@ public class TestSimple {
 
 		
 		Voiture v = new Voiture(3, 1); // (vmax, sens)1
-		Voiture v2 = new Voiture(3, 1); // (vmax, sens)1
+		Voiture v2 = new Voiture(3, 1); 
 
 		res.insererCapteur(c, 3);
 
@@ -38,11 +38,11 @@ public class TestSimple {
 		res.affichageVoitures();
 
 		System.out.println(" AFFICHAGE INITIAL TERMINE ! -------------------------------------------\n\n");
-		System.out.println("AFFICHAGE INITIAL DES VOITURES ! --------------------------------------\n\n");		
+		/*System.out.println("AFFICHAGE INITIAL DES VOITURES ! --------------------------------------\n\n");		
 		
 		res.affichageVoitures();
 
-		System.out.println(" AFFICHAGE INITIAL TERMINE ! -------------------------------------------\n\n");
+		System.out.println(" AFFICHAGE INITIAL TERMINE ! -------------------------------------------\n\n");*/
 		
 		boolean continuer = true;
 		Scanner scanner = new Scanner(System.in);

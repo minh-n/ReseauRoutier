@@ -195,7 +195,12 @@ public class Reseau extends Observable{
 		return true;
 	}
 	
-	//Insere un capteur, peut inserer un nbr qqc de capteur a une meme position d'une route
+	/**
+	 * Insere un capteur, peut inserer un nbr qqc de capteur a une meme position d'une route
+	 * @param capt
+	 * @param idRoute
+	 * @return
+	 */
 	public boolean insererCapteur(Capteur capt, int idRoute){
 	
 		SegmentDeRoute r = getRoute(idRoute);
@@ -267,6 +272,9 @@ public class Reseau extends Observable{
 		return null;
 	}
 	
+	/**
+	 * Fonction privee : ne sert que dans les fonctions d'affichage et d'iteration
+	 */
 	private void resetTraite(){
 		for (Jonction j:jonctions){
 			for (Voiture voit:j.getVoituresSens0()){ // techniquement c'est inutile vu qu'une jonction ne peut contenir qu'une voiture
@@ -303,6 +311,9 @@ public class Reseau extends Observable{
 		return "Reseau [jonctions=" + jonctions + "]";
 	}
 	
+	/**
+	 * Affiche les voitures du reseau et leur etat
+	 */
 	public void affichageVoitures(){
 		for (Jonction j:jonctions){
 			if(!j.getVoituresSens0().isEmpty() || !j.getVoituresSens1().isEmpty())

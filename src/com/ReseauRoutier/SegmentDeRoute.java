@@ -23,7 +23,7 @@ public class SegmentDeRoute extends ElementRoute{
 	private ArrayList<Semaphore> semaphoreSens0;
 	private ArrayList<Semaphore> semaphoreSens1;
 
-	public SegmentDeRoute()
+	/*public SegmentDeRoute()
 	{
 		setId(s_id);
 		s_id+= 1;
@@ -52,7 +52,7 @@ public class SegmentDeRoute extends ElementRoute{
 		semaphoreSens0 = new ArrayList<Semaphore>();
 		semaphoreSens1 = new ArrayList<Semaphore>();
 
-	}
+	}*/
 	
 	public SegmentDeRoute(int lon)
 	{
@@ -182,27 +182,16 @@ public class SegmentDeRoute extends ElementRoute{
 				Voiture voit = ite.next();			
 				if (!voit.isTraite()){
 					voit.setVitesse(voit.getvMax());
-					if (segmentSuffisant(voit)){
-						//Verifications si c'est physiquement possible d'avancer 
-						//autrement, on decremente la vitesse jusqu'a ce que ce soit possible 
-						// TODO immplémenter ce truc directement dans voiture.avancer()
-						while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(),
-								voit.getSens()) && voit.getVitesse() > 0){
-							voit.setVitesse(voit.getVitesse()-1);
-						}
-	
-						// TODO
-						// D'autres éléments pourront diminuer la vitesse d'une voiture genre les feux tricolores 
-						
-						// Si la vitesse est a 0, lavoiture n'avance pas donc on passe a la voiture suivante 
-			 			if (voit.getVitesse() == 0) continue; 
-			 			else{
-			 				voit.avancer();
-			 			}
-					}
+					if (segmentSuffisant(voit)) voit.avancer();
 					else{
-						ite.remove();
-						voit.embranchement(voit.getVitesse());
+						int postEmbranchement = voit.getVitesse() - (longueur - voit.getPositionDansRoute());
+						if (voit.embranchementPossible(postEmbranchement)){
+							ite.remove();
+							voit.embranchement(voit.getVitesse());
+						}
+						else{
+							voit.avancer(longueur - voit.getPositionDansRoute() - 1);
+						}
 					}
 					voit.setTraite(true);
 				}
@@ -215,27 +204,16 @@ public class SegmentDeRoute extends ElementRoute{
 				
 				if (!voit.isTraite()){
 					voit.setVitesse(voit.getvMax());
-					if (segmentSuffisant(voit)){
-					
-						while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), 
-								voit.getSens()) && voit.getVitesse() > 0)
-						{
-							voit.setVitesse(voit.getVitesse()-1);
-						}
-						
-						// TODO
-						// D'autres elements pourront diminuer la vitesse d'une voiture genre les feux tricolores 
-						
-						// Si la vitesse est a 0, lavoiture n'avance pas donc on passe a la voiture suivante 
-			 			if (voit.getVitesse() == 0) continue; 
-			 			else{
-			 				System.out.println("On avance voiture " + voit.getId() );
-			 				voit.avancer();
-			 			}
-					}
+					if (segmentSuffisant(voit)) voit.avancer();
 					else{
-						ite.remove(); // necessaire pour ne pas avoir de CurrentMosificationException
-						voit.embranchement(voit.getVitesse());
+						int postEmbranchement = voit.getVitesse() - (longueur - voit.getPositionDansRoute());
+						if (voit.embranchementPossible(postEmbranchement)){
+							ite.remove();
+							voit.embranchement(voit.getVitesse());
+						}
+						else{
+							voit.avancer(longueur - voit.getPositionDansRoute() - 1);
+						}
 					}
 					voit.setTraite(true);
 				}
@@ -243,6 +221,11 @@ public class SegmentDeRoute extends ElementRoute{
 		
 	}
 	
+	/**
+	 * Indique la distance qu'il reste a la voiture v a parcourir sur le segment
+	 * @param v
+	 * @return
+	 */
 	public int distanceRestante(Voiture v)
 	{
 		int distanceRestante = this.getLongueur() - v.getPositionDansRoute();
@@ -285,21 +268,7 @@ public class SegmentDeRoute extends ElementRoute{
 	 * @param sens
 	 * @return
 	 */
-	public boolean estOccupe(int indice, int sens)
-	{
-		if (sens == 0){
-			for (Voiture v:this.getVoituresSens0()){
-				if (v.getPositionDansRoute() == indice) return true;
-			}
-		}
-		else{
-			for (Voiture v:this.getVoituresSens1()){
-				if (v.getPositionDansRoute() == indice) return true;
-			}
-		}
-		return false;
-	}
-	
+
 	@Override
 	public String toString() {
 		String affichage = "SegmentDeRoute [id=" + id + ", sesJonctions=";
@@ -310,6 +279,9 @@ public class SegmentDeRoute extends ElementRoute{
 		return affichage;
 	}
 	
+	/**
+	 * Affiche les voitures sur ce segment et leur etat
+	 */
 	public void affichageVoitures(){
 		System.out.println("_________Segment n" + this.id + " ("+this.longueur+")\n-- Sens 0 :\n");
 		for (Voiture v:voituresSens0){

@@ -37,24 +37,36 @@ public class Voiture extends Observable{
 		this.traite = false;
 	}
 	
-	/* Cette fonction part du principe que sa vitesse ne lui permet pas de depasser le segment sur lequel elle est */
+	/**
+	 * Fait avancer la voiture en fonction de sa vitesse
+	 */
 	public void avancer(){
-		//System.out.println("v"+id+" = "+this.getPositionDansRoute()+" -> "+(this.getPositionDansRoute()+this.getVitesse()));
 		setPositionPrecedente(getPositionDansRoute());
-		setPositionDansRoute(getPositionDansRoute() + getVitesse());
+		while (routeActuelle.estOccupe(positionDansRoute + vitesse, sens) && vitesse > 0){
+			vitesse -= 1;
+		}
+		setPositionDansRoute(positionDansRoute + vitesse);
 	}
 	
+	/**
+	 * Fait avancer la voiture de 'avancement' tronçons
+	 * @param avancement
+	 */
 	public void avancer(int avancement){
-		//System.out.println("v"+id+" = "+this.getPositionDansRoute()+" -> "+(this.getPositionDansRoute()+avancement));
 		setPositionPrecedente(getPositionDansRoute());
+		while (routeActuelle.estOccupe(positionDansRoute + avancement, sens) && avancement > 0){
+			avancement -= 1;
+		}
 		setPositionDansRoute(getPositionDansRoute() + avancement);
 	}
 
 	
-	/*/!\ fonction recursive */
+	/**
+	 * Effectue l'embranchement sur un nouvel Element de Route
+	 * @param reste le nombre de tronçons restant à parcourir après l'embranchement
+	 */
 	public void embranchement(int reste){
 		
-		/* Telle qu'elle est la fonction autorise deux voitures etre sur un moeme tronçon ! => modifier avancer */
 		reste-= (routeActuelle.getLongueur() - this.getPositionDansRoute());
 		deleteObservers();
 		setPositionPrecedente(0);
@@ -63,7 +75,6 @@ public class Voiture extends Observable{
 		routeSuiv = determinerProchain();
 		
 		
-		//System.out.println(nomRoute(routePrec)+" -> "+nomRoute(routeActuelle)+", reste = "+reste);
 		
 		if (this.sens == 0){
 			if(routePrec.getVoituresSens0().contains(this))  routePrec.getVoituresSens0().remove(this);
@@ -84,6 +95,37 @@ public class Voiture extends Observable{
 		else{
 			avancer(reste);
 		}
+	}
+	
+	/**
+	 * Indique si l'embranchement est physiquement possible
+	 * @param avancement
+	 * @return true s'il y assez de place dans la route suivante pour avancer
+	 */
+	public boolean embranchementPossible(int avancement){
+		if (avancement < 0){
+			System.out.println("avancement < 0");
+			return false;
+		}
+		int sensActuel;
+		for(int i = avancement; i >= 0 ; i--){
+			sensActuel = (routeSuiv instanceof JonctionBarriere ? inverse(sens) : sens );
+			if (!routeSuiv.estOccupe(i, sensActuel)){
+				System.out.println("Embranchement possible");
+				return true; 
+			}
+		}
+		System.out.println("Embranchement impossible");
+		return false;
+	}
+	
+	/**
+	 * Pour un sens donne, donne le sens inverse 
+	 * @param sens
+	 * @return
+	 */
+	private int inverse(int sens){
+		return (sens == 0 ? 1 : 0);
 	}
 	
 	public ElementRoute determinerProchain(){
@@ -155,19 +197,6 @@ public class Voiture extends Observable{
 		return "Voiture [id=" + id + ", vMax=" + vMax + ", sens=" + sens + ", vitesse=" + vitesse
 				+ ", positionDansRoute=" + positionDansRoute + ", positionPrecedente=" + positionPrecedente + ", traite=" + traite + "]";
 	}
-	
-	public String nomRoute(ElementRoute elmt){
-		String resultat = "?";
-		if (elmt instanceof Jonction){
-			Jonction jonc = (Jonction) elmt;
-			resultat = "j"+jonc.getId();
-		}
-		else if (elmt instanceof SegmentDeRoute){
-			SegmentDeRoute seg = (SegmentDeRoute) elmt;
-			resultat = "s"+seg.getId();
-		}
-		return resultat;
-	}
 
 	public int getId() {
 		return id;
@@ -196,10 +225,6 @@ public class Voiture extends Observable{
 	public ElementRoute getRouteActuelle() {
 		return routeActuelle;
 	}
-
-	/*public void setRouteActuelle(SegmentDeRoute routeActuelle) {
-		this.routeActuelle = routeActuelle;
-	}*/
 
 	public int getVitesse() {
 		return vitesse;
