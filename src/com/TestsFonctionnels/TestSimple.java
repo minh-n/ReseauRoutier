@@ -84,8 +84,6 @@ public class TestSimple {
 					continuer = false;
 					break;
 				}
-				
-				System.out.println("Fin 2 du test simple............");
 				break;
 
 			}
