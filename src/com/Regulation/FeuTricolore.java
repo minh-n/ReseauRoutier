@@ -76,18 +76,18 @@ public class FeuTricolore extends Feu{
 	{
 		if(this.couleur == CouleurFeu.Rouge)
 		{
-			System.out.println("GO VERT  #########");
+			System.out.println("FEU VERT");
 			this.couleur = CouleurFeu.Vert;
 		}
 		else if(this.couleur == CouleurFeu.Vert)
 		{
-			System.out.println("GO ORANGEGNSF");
+			System.out.println("FEU ORANGE");
 			this.couleur = CouleurFeu.Orange;
 		}
 		else
 		{
 			this.couleur = CouleurFeu.Rouge;
-			System.out.println("GO DROUROUOUGE");
+			System.out.println("FEU ROUGE");
 		}
 	}
 }

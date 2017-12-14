@@ -12,18 +12,23 @@ public class RegSimple extends Regulation{
 		super(jonction, reseau);
 	}
 	
+	public RegSimple(JonctionReg jonction)
+	{
+		super(jonction);
+	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		if(o instanceof Reseau)
 		{
 			int i = 0;
 			
-			while(i < jonction.getSesFeux().size()-1)
+			while(i < jonction.getSesFeux().size())
 			{				
 				System.out.println("Jonction actuel "  + jonction.getId());
 				System.out.println("son feu " + jonction.getSesFeux().get(0));
 				
-				if(jonction.getSesFeux().get(i).getCouleur() == CouleurFeu.Vert)
+				if(jonction.getSesFeux().get(i).getCouleur() == CouleurFeu.Vert || jonction.getSesFeux().get(i).getCouleur() == CouleurFeu.Orange)
 				{
 					jonction.getSesFeux().get(i).changerCouleur();
 					jonction.getSesFeux().get(i).regle();
@@ -34,6 +39,7 @@ public class RegSimple extends Regulation{
 					}
 					jonction.getSesFeux().get(i).changerCouleur();
 					jonction.getSesFeux().get(i).regle();
+					break;
 				}
 				i++;
 			}

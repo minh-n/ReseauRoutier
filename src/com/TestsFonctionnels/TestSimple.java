@@ -35,7 +35,8 @@ public class TestSimple {
 		PanneauLimitationV p2 = new PanneauLimitationV(0, 5, res.getRoute(2));
 		PanneauLimitationV p3 = new PanneauLimitationV(1, 3, res.getRoute(4));
 		
-		RegSimple r = new RegSimple(((JonctionReg) res.getJonction(3)), res);
+//		RegSimple r = new RegSimple(((JonctionReg) res.getJonction(3)));
+//		res.addObserver(r);
 
 		res.getRoute(1).ajoutSemaphore(p);
 		res.getRoute(2).ajoutSemaphore(p2);

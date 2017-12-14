@@ -3,7 +3,6 @@ package com.Regulation;
 import java.util.Observable;
 import java.util.Observer;
 
-import com.ReseauRoutier.ElementRoute;
 import com.ReseauRoutier.JonctionReg;
 import com.ReseauRoutier.Reseau;
 
@@ -14,8 +13,13 @@ public abstract class Regulation implements Observer{
 	public Regulation(JonctionReg jonction, Reseau reseau)
 	{
 		this.jonction = jonction;
-		jonction.setRegulation(this);
+		this.jonction.setRegulation(this);
 		reseau.addObserver(this);
+	}
+	
+	public Regulation(JonctionReg jonction)
+	{
+		this.jonction = jonction;
 	}
 	
 	@Override
