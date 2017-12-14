@@ -2,6 +2,7 @@ package com.ReseauRoutier;
 
 import java.util.ArrayList;
 
+import com.Regulation.CouleurFeu;
 import com.Regulation.Feu;
 import com.Regulation.Regulation;
 
@@ -41,5 +42,17 @@ public abstract class JonctionReg extends Jonction{
 
 	public ArrayList<Feu> getSesFeux() {
 		return sesFeux;
+	}
+	
+	public boolean setupFeu()
+	{
+		if(this.sesFeux.size() < this.nbRoutes)
+		{
+			System.err.println("setupFeu : la jonction "+ getId() +" est pas complete !");
+			return false;
+		}
+		
+		this.sesFeux.get(0).setCouleur(CouleurFeu.Vert);
+		return true;
 	}
 }

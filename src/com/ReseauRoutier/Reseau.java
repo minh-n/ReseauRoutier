@@ -63,6 +63,8 @@ public class Reseau extends Observable{
 		lierJonctions(jonctions.get(8), jonctions.get(9), 20);
 		
 		lierJonctions(jonctions.get(9), jonctions.get(10), 15);
+		
+		setupJonction();
 			
 		return true;
 	}
@@ -90,10 +92,19 @@ public class Reseau extends Observable{
 		lierJonctions(jonctions.get(1), jonctions.get(2), 5);
 		lierJonctions(jonctions.get(2), jonctions.get(3), 3);
 		lierJonctions(jonctions.get(3), jonctions.get(4), 4);
+		
+		setupJonction();
 				
 		return true;
 	}
 	
+	public void setupJonction()
+	{
+		for(Jonction j:jonctions)
+		{
+			j.setupFeu();
+		}
+	}
 	
 	/**
 	 * Fait passer un intervalle de temps
