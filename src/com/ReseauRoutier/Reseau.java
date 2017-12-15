@@ -78,7 +78,9 @@ public class Reseau extends Observable{
 		jonctions.add(jonc1);					//4
 		jonctions.add(new JonctionBarriere());		//5
 
+		@SuppressWarnings("unused")
 		RegSimple r = new RegSimple(jonc, this);
+		@SuppressWarnings("unused")
 		RegSimple r2 = new RegSimple(jonc1, this);
 
 		//Creation des liens entre les jonctions
@@ -105,6 +107,7 @@ public class Reseau extends Observable{
 		jonctions.add(new JonctionBarriere()); 		//5	
 		jonctions.add(new JonctionBarriere()); 		//6	
 		
+		@SuppressWarnings("unused")
 		RegSimple r = new RegSimple(jonc, this);
 
 		//Creation des liens entre les jonctions

@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import com.Regulation.CapteurPresence;
 import com.Regulation.CapteurVitesse;
-import com.Regulation.PanneauLimitationV;
 import com.ReseauRoutier.Reseau;
 import com.ReseauRoutier.Voiture;
 

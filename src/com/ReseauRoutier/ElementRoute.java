@@ -2,7 +2,6 @@ package com.ReseauRoutier;
 
 import java.util.ArrayList;
 import java.util.Observable;
-import com.Regulation.*;
 
 public abstract class ElementRoute extends Observable {
 

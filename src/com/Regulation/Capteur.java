@@ -2,8 +2,6 @@ package com.Regulation;
 
 import java.util.Observable;
 import java.util.Observer;
-
-import com.ReseauRoutier.ElementRoute;
 import com.ReseauRoutier.SegmentDeRoute;
 import com.ReseauRoutier.Voiture;
 
