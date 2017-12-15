@@ -24,28 +24,57 @@ public class RegSimple extends Regulation{
 	public void update(Observable o, Object arg) {
 		if(o instanceof Reseau)
 		{
-			int i = 0;
-			
-			while(i < jonction.getSesFeux().size())
-			{				
-				System.out.println("Jonction actuel "  + jonction.getId());
-				System.out.println("son feu " + jonction.getSesFeux().get(0));
-				
-				if(jonction.getSesFeux().get(i).getCouleur() == CouleurFeu.Vert || jonction.getSesFeux().get(i).getCouleur() == CouleurFeu.Orange)
+			if(jonction.getNbRoutes() == 2)
+			{
+				if(jonction.getSesFeux().get(0).getCouleur() == CouleurFeu.Vert)
 				{
-					jonction.getSesFeux().get(i).changerCouleur();
-					jonction.getSesFeux().get(i).regle();
-					i++;
-					if(i > jonction.getSesFeux().size()-1)
-					{
-						i = 0;
-					}
-					jonction.getSesFeux().get(i).changerCouleur();
-					jonction.getSesFeux().get(i).regle();
-					break;
+					jonction.getSesFeux().get(0).setCouleur(CouleurFeu.Orange);
+					jonction.getSesFeux().get(0).setCouleur(CouleurFeu.Orange);
 				}
-				i++;
+				else if(jonction.getSesFeux().get(0).getCouleur() == CouleurFeu.Orange)
+				{
+					jonction.getSesFeux().get(0).setCouleur(CouleurFeu.Rouge);
+					jonction.getSesFeux().get(0).setCouleur(CouleurFeu.Rouge);
+				}
+				else
+				{
+					jonction.getSesFeux().get(0).setCouleur(CouleurFeu.Vert);
+					jonction.getSesFeux().get(0).setCouleur(CouleurFeu.Vert);
+				}
 			}
+			else{
+				int i = 0;
+				
+				while(i < jonction.getSesFeux().size())
+				{				
+					System.out.println("Jonction actuel "  + jonction.getId());
+					System.out.println("son feu " + jonction.getSesFeux().get(0));
+					
+					if(jonction.getSesFeux().get(i).getCouleur() == CouleurFeu.Vert || jonction.getSesFeux().get(i).getCouleur() == CouleurFeu.Orange)
+					{
+						jonction.getSesFeux().get(i).changerCouleur();
+						jonction.getSesFeux().get(i).regle();
+						i++;
+						if(i > jonction.getSesFeux().size()-1)
+						{
+							i = 0;
+						}
+						jonction.getSesFeux().get(i).changerCouleur();
+						jonction.getSesFeux().get(i).regle();
+						
+						i++;
+						if(i > jonction.getSesFeux().size()-1)
+						{
+							i = 0;
+						}
+						jonction.getSesFeux().get(i).changerCouleur();
+						jonction.getSesFeux().get(i).regle();
+						
+						break;
+					}
+					i++;
+				}
+			}	
 		}
 	}
 

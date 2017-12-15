@@ -20,6 +20,11 @@ public abstract class Jonction extends ElementRoute {
 	}
 	
 
+	public int getNbRoutes() {
+		return nbRoutes;
+	}
+
+
 	/**
 	 * Opère au deplacement des voitures dans cette Jonction
 	 */
