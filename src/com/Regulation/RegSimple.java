@@ -26,21 +26,8 @@ public class RegSimple extends Regulation{
 		{
 			if(jonction.getNbRoutes() == 2)
 			{
-				if(jonction.getSesFeux().get(0).getCouleur() == CouleurFeu.Vert)
-				{
-					jonction.getSesFeux().get(0).setCouleur(CouleurFeu.Orange);
-					jonction.getSesFeux().get(0).setCouleur(CouleurFeu.Orange);
-				}
-				else if(jonction.getSesFeux().get(0).getCouleur() == CouleurFeu.Orange)
-				{
-					jonction.getSesFeux().get(0).setCouleur(CouleurFeu.Rouge);
-					jonction.getSesFeux().get(0).setCouleur(CouleurFeu.Rouge);
-				}
-				else
-				{
-					jonction.getSesFeux().get(0).setCouleur(CouleurFeu.Vert);
-					jonction.getSesFeux().get(0).setCouleur(CouleurFeu.Vert);
-				}
+				jonction.getSesFeux().get(0).changerCouleur();
+				jonction.getSesFeux().get(1).changerCouleur();
 			}
 			else{
 				int i = 0;
