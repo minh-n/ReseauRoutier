@@ -187,7 +187,6 @@ public class SegmentDeRoute extends ElementRoute{
 					if(s instanceof Feu)
 					{
 						System.out.println("Le feu est de couleur " + ((Feu)s).getCouleur());
-
 					}
 					s.regle();
 				}
