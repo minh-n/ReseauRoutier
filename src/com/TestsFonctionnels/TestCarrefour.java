@@ -64,7 +64,7 @@ public class TestCarrefour {
 				break;
 
 			default:
-				System.out.println("Quitter le Test Simple ? Y/N");
+				System.out.println("Quitter le Test Carrefour ? Y/N");
 				entry = scanner.nextLine();
 
 				switch(entry)
@@ -74,7 +74,7 @@ public class TestCarrefour {
 					System.out.println("\nPour afficher une iteration du programme, appuyez sur la touche 1 puis entrez :");
 					break;
 				default:
-					System.out.println("Reponse " + entry + "detectee. Fin du Test Simple...");
+					System.out.println("Reponse " + entry + " detectee. Fin du Test Carrefour...");
 
 					continuer = false;
 					break;

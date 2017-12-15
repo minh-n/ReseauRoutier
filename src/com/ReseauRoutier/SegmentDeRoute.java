@@ -172,23 +172,17 @@ public class SegmentDeRoute extends ElementRoute{
 				
 				Voiture voit = ite.next();			
 				if (!voit.isTraite()){
-					//voit.setVitesse(voit.getvMax());
-					if (segmentSuffisant(voit)){
-						//Verifications si c'est physiquement possible d'avancer 
-						//autrement, on decremente la vitesse jusqu'a ce que ce soit possible 
-						while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(),
-								voit.getSens()) && voit.getVitesse() > 0){
-							voit.setVitesse(voit.getVitesse()-1);
-						}		
-						// Si la vitesse est a 0, lavoiture n'avance pas donc on passe a la voiture suivante 
-			 			if (voit.getVitesse() == 0) continue; 
-			 			else{
-			 				voit.avancer();
-			 			}
-					}
+					voit.setVitesse(voit.getvMax());
+					if (segmentSuffisant(voit)) voit.avancer();
 					else{
-						ite.remove();
-						voit.embranchement(voit.getVitesse());
+						int postEmbranchement = voit.getVitesse() - (longueur - voit.getPositionDansRoute());
+						if (voit.embranchementPossible(postEmbranchement)){
+							ite.remove();
+							voit.embranchement(voit.getVitesse());
+						}
+						else{
+							voit.avancer(longueur - voit.getPositionDansRoute() - 1);
+						}
 					}
 					voit.setTraite(true);
 				}
@@ -206,23 +200,17 @@ public class SegmentDeRoute extends ElementRoute{
 				Voiture voit = ite.next();
 				
 				if (!voit.isTraite()){
-					if (segmentSuffisant(voit)){
-					
-						while (estOccupe(voit.getPositionDansRoute() + voit.getVitesse(), 
-								voit.getSens()) && voit.getVitesse() > 0)
-						{
-							voit.setVitesse(voit.getVitesse()-1);
-						}
-						
-			 			if (voit.getVitesse() == 0) continue; 
-			 			else{
-			 				System.out.println("On avance voiture " + voit.getId() );
-			 				voit.avancer();
-			 			}
-					}
+					voit.setVitesse(voit.getvMax());
+					if (segmentSuffisant(voit)) voit.avancer();
 					else{
-						ite.remove();
-						voit.embranchement(voit.getVitesse());
+						int postEmbranchement = voit.getVitesse() - (longueur - voit.getPositionDansRoute());
+						if (voit.embranchementPossible(postEmbranchement)){
+							ite.remove();
+							voit.embranchement(voit.getVitesse());
+						}
+						else{
+							voit.avancer(longueur - voit.getPositionDansRoute() - 1);
+						}
 					}
 					voit.setTraite(true);
 				}
@@ -268,14 +256,6 @@ public class SegmentDeRoute extends ElementRoute{
 		}
 		return -1;
 	}
-	
-	/**
-	 * Indique, pour un sens donne, si le troncon a l'indice est 
-	 * occupe par une voiture ou non.
-	 * @param indice
-	 * @param sens
-	 * @return
-	 */
 
 	@Override
 	public String toString() {

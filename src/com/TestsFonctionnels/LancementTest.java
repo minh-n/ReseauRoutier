@@ -19,7 +19,7 @@ public class LancementTest {
 
 		Scanner scanner = new Scanner(System.in);
 		
-		System.out.println("\nEntrez 1 pour le test simple, 2 pour le test complexe, 3 pour le test carrefour (feux), un autre caractere pour sortir du programme :");
+		System.out.println("\nEntrez 1 pour le test simple,\n2 pour le test complexe, 3 pour le test carrefour (feux),\nun autre caractere pour sortir du programme :");
 		
 		String input = scanner.nextLine();
 		

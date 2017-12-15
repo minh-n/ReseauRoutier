@@ -73,7 +73,7 @@ public class Reseau extends Observable{
 		JonctionSimple jonc1 = new JonctionSimple();
 
 		jonctions.add(new JonctionBarriere()); 		//1	
-		jonctions.add(jonc);		//2
+		jonctions.add(jonc);					//2
 		jonctions.add(new JonctionSimple());	//3
 		jonctions.add(jonc1);					//4
 		jonctions.add(new JonctionBarriere());		//5
@@ -85,9 +85,9 @@ public class Reseau extends Observable{
 
 		//Creation des liens entre les jonctions
 		lierJonctions(jonctions.get(0), jonctions.get(1), 7);
-		lierJonctions(jonctions.get(1), jonctions.get(2), 2);
+		lierJonctions(jonctions.get(1), jonctions.get(2), 5);
 		lierJonctions(jonctions.get(2), jonctions.get(3), 3);
-		lierJonctions(jonctions.get(3), jonctions.get(4), 4);
+		lierJonctions(jonctions.get(3), jonctions.get(4), 6);
 
 		jonc.setupFeu();
 		jonc1.setupFeu();
@@ -271,12 +271,8 @@ public class Reseau extends Observable{
 
 
 	/**
-	 * Fonction privee : ne sert que dans les fonctions d'affichage et d'iteration
-=======
-	/**
 	 * Remet l'etat Traite a false pour tous les elements d'un reseau. 
 	 * Cette methode est appellee a la fin d'une iteration.
->>>>>>> refs/remotes/origin/FinalAdFeu
 	 */
 	private void resetTraite(){
 		for (Jonction j:jonctions){

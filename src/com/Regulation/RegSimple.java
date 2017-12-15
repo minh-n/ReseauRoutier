@@ -24,7 +24,7 @@ public class RegSimple extends Regulation{
 	public void update(Observable o, Object arg) {
 		if(o instanceof Reseau)
 		{
-			if(jonction.getNbRoutes() == 2)
+			if((jonction.getNbRoutes() == 2) && (jonction.getSesFeux().size() == 2))
 			{
 				jonction.getSesFeux().get(0).changerCouleur();
 				jonction.getSesFeux().get(1).changerCouleur();
