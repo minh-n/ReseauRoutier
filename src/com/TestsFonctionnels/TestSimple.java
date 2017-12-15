@@ -3,10 +3,8 @@ package com.TestsFonctionnels;
 import java.util.Scanner;
 
 import com.Regulation.CapteurPresence;
-import com.Regulation.CapteurVitesse;
 import com.Regulation.PanneauLimitationV;
-import com.Regulation.RegSimple;
-import com.ReseauRoutier.JonctionReg;
+
 import com.ReseauRoutier.Reseau;
 import com.ReseauRoutier.Voiture;
 

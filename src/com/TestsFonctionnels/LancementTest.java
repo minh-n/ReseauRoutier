@@ -14,12 +14,12 @@ public class LancementTest {
 		System.out.println("Bienvenue dans le programme de simulation routiere. \n");
 		
 		TestSimple t = new TestSimple();
-		
 		TestComplexe t2 = new TestComplexe();
-		
+		TestCarrefour t3 = new TestCarrefour();
+
 		Scanner scanner = new Scanner(System.in);
 		
-		System.out.println("\nEntrez 1 pour le test simple, 2 pour le test complexe, un autre caractere pour sortir du programme :");
+		System.out.println("\nEntrez 1 pour le test simple, 2 pour le test complexe, 3 pour le test carrefour (feux), un autre caractere pour sortir du programme :");
 		
 		String input = scanner.nextLine();
 		
@@ -37,6 +37,11 @@ public class LancementTest {
 				t2.test();
 				break;
 		
+			case "3": 
+				System.out.println("LANCEMENT DU TEST CARREFOUR");
+				t3.test();
+				break;
+				
 			default:
 				System.out.println("Fin du programme.");
 				break;

@@ -23,9 +23,8 @@ public class Reseau extends Observable{
 	 * Initialise le reseau complexe.
 	 * 
 	 */
-	public void initReseau(){
-
-
+	public void initReseau()
+	{
 		jonctions.add(new JonctionBarriere()); 		//1
 		jonctions.add(new JonctionSimple());		//2
 		jonctions.add(new JonctionCarrefour(4));	//3
@@ -92,6 +91,35 @@ public class Reseau extends Observable{
 		jonc1.setupFeu();
 	}
 
+	public void initReseauCarrefour(){
+
+		JonctionCarrefour jonc = new JonctionCarrefour(4);
+
+		jonctions.add(new JonctionBarriere()); 		//1	
+		jonctions.add(new JonctionSimple());		//2
+		
+		//carrefour
+		jonctions.add(jonc);						//3
+		
+		jonctions.add(new JonctionBarriere()); 		//4
+		jonctions.add(new JonctionBarriere()); 		//5	
+		jonctions.add(new JonctionBarriere()); 		//6	
+		
+		RegSimple r = new RegSimple(jonc, this);
+
+		//Creation des liens entre les jonctions
+		lierJonctions(jonctions.get(0), jonctions.get(1), 7);
+		lierJonctions(jonctions.get(1), jonctions.get(2), 4);
+		
+		lierJonctions(jonctions.get(2), jonctions.get(3), 4);
+		lierJonctions(jonctions.get(2), jonctions.get(4), 4);
+		lierJonctions(jonctions.get(2), jonctions.get(5), 4);
+
+		jonc.setupFeu();
+	}
+
+	
+	
 	/**
 	 * Fait passer un intervalle de temps.
 	 */
