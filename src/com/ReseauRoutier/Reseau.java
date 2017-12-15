@@ -182,17 +182,10 @@ public class Reseau extends Observable{
 	}
 
 	/**
-<<<<<<< HEAD
 	 * Insere un capteur, peut inserer un nbr qqc de capteur a une meme position d'une route
 	 * @param capt
 	 * @param idRoute
 	 * @return
-=======
-	 * Insere un capteur, peut inserer un nombre quelconque de capteur a une meme position d'une route
-	 * @param capt
-	 * @param idRoute
-	 * @return false si l'ajout ne peut pas se faire
->>>>>>> refs/remotes/origin/FinalAdFeu
 	 */
 	public boolean insererCapteur(Capteur capt, int idRoute){
 
